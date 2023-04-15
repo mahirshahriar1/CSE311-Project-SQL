@@ -35,7 +35,7 @@ export default function Mysidenav() {
 
             <Sidenav style={{ background: '#2c3e50', position: 'fixed' }}
                 onSelect={(selected) => {
-                    console.log(selected);
+                    // console.log(selected);
                     if (selected !== '')
                         navigate('/' + selected);
                     else navigate('/');
@@ -49,12 +49,13 @@ export default function Mysidenav() {
                             Home
                         </NavText>
                     </NavItem>
-                    <NavItem eventKey='messages'>
-                        <NavIcon> <i className='fa fa-fw fa-message' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                    {sellerStatus && <NavItem eventKey='yourshop'>
+                        <NavIcon> <i className='fa fa-fw  fa-shop' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                         <NavText>
-                            Messages
+                            Check your Products
                         </NavText>
                     </NavItem>
+                    }
                     {sellerStatus && <NavItem eventKey='menus' >
                         <NavIcon><i className='fa fa-fw fa-bars' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                         <NavText style={{ background: 'black' }} >
@@ -71,7 +72,7 @@ export default function Mysidenav() {
                                 Electronics
                             </NavText>
                         </NavItem>
-                        <NavItem  eventKey='addCosmetics'>
+                        <NavItem eventKey='addCosmetics'>
                             <NavText>
                                 Cosmetics
                             </NavText>

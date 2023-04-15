@@ -67,12 +67,12 @@ export default function Navbar() {
               <li className="nav-item">
                 <a className="nav-link disabled" href='/'>Disabled</a>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href='/imgup'>imgup</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href='/imgdown'>imgdown</a>
-              </li>
+              </li> */}
 
               {!loginStatus &&  <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">

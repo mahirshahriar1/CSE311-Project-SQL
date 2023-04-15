@@ -45,10 +45,7 @@ export default function Registration(props) {
         formData.append("username", usernameReg);
         formData.append("password", passwordReg);
         formData.append("phone", phonereg);
-
-
-
-
+        
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'

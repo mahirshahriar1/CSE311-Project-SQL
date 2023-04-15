@@ -24,7 +24,7 @@ home.get('/importProducts', (req, res) => {
 });
 
 home.post('/specific1', (req, res) => {
-    const id = req.body.iid;
+    const id = req.body.id;
 
     db.query("SELECT * FROM products WHERE id=?", [id], (err, result) => {
         if (err) {
@@ -39,8 +39,7 @@ home.post('/specific1', (req, res) => {
 });
 
 home.post('/specific2', (req, res) => {
-    const id = req.body.iid;
-
+    const id = req.body.id;
 
     db.query("SELECT * FROM products WHERE id=?", [id], (err, result) => {
         if (err) {

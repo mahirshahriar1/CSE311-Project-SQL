@@ -9,7 +9,7 @@ export default function Main() {
 
  
 
-    const getEmployees = () => {
+    const getProducts = () => {
         Axios.get('http://localhost:3001/importProducts').then((response) => {
             //console.log(response.data);
             // console.log("Successlly got");
@@ -18,25 +18,13 @@ export default function Main() {
             // })
 
             setProductList(response.data);
-            console.log(response.data);
+            //console.log(response.data);
           
         });
     };
-    // eslint-disable-next-line
-    const putemployees = ()=>{
-        Axios.post('http://localhost:3001/add', {
-            name: "test",
-            description: "test",
-            imglink: "test",
-            price: 100,
-            quantity: 100
-        }).then(() => {
-            console.log("success");
-        });
-
-    }
+   
     useEffect(() => {
-        getEmployees();
+        getProducts();
         //putemployees();
 
     }, [])

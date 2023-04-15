@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 
 
 export default function Main() {
-  var iid = window.location.href.split('/').reverse()[0]
+  var id = window.location.href.split('/').reverse()[0]
   // console.log(id);
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -20,7 +20,7 @@ export default function Main() {
     // getEmployees();
 
     const getData = () => {
-      Axios.post('http://localhost:3001/specific1', { iid: iid }).then((response) => {
+      Axios.post('http://localhost:3001/specific1', { id: id }).then((response) => {
 
         console.log(response.data);
         setName(response.data[0].Name);
@@ -30,7 +30,7 @@ export default function Main() {
       }
       );
 
-      Axios.post('http://localhost:3001/specific2', { iid: iid }).then((response) => {
+      Axios.post('http://localhost:3001/specific2', { id: id }).then((response) => {
 
         console.log(response.data);
         
@@ -39,7 +39,7 @@ export default function Main() {
     };
     getData();
 
-  }, [iid])
+  }, [id])
 
 
 
