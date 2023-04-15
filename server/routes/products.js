@@ -35,36 +35,150 @@ var upload = multer({
 products.post('/addbook', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
-        const {filename}=req.file;
-        const {name}=req.body;
-        const {price}=req.body;
-        //console.log(filename);
-        const {sellerid}=req.body;
+    const { filename } = req.file;
+    const { name } = req.body;
+    const { price } = req.body;
+    //console.log(filename);
+    const { sellerid } = req.body;
     // console.log(sellerid);
-        const {genre}=req.body;
-        const {summary}=req.body;
-        const {author}=req.body;
+    const { genre } = req.body;
+    const { summary } = req.body;
+    const { author } = req.body;
 
-    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name) VALUES (?,?,?,?,?)", [filename, price,sellerid,1,name], (err, result) => {
-        if (err) {           
+    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name,Type) VALUES (?,?,?,?,?,?)", [filename, price, sellerid, 1, name,'Books'], (err, result) => {
+        if (err) {
             res.send({ err: err });
         }
-        else {           
+        else {
             //books (productid,genre,summary,author)
 
             db.query("Insert into books (productid,genre,summary,author) values (?,?,?,?)", [result.insertId, genre, summary, author], (err, result) => {
                 if (err) {
                     res.send({ err: err });
                 }
-                else {                    
+                else {
                     res.send({ message: "Book Added Successfully" });
                 }
             });
         }
-        
-    }   
+
+    }
     );
 
 });
+
+
+
+products.post('/addelectronics', upload.single("photo"), (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    const { filename } = req.file;
+    const { name } = req.body;
+    const { price } = req.body;
+    //console.log(filename);
+    const { sellerid } = req.body;
+    // console.log(sellerid);
+    const { spec } = req.body;
+    const { type } = req.body;
+    const { brand } = req.body;
+    console
+
+    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name,Type) VALUES (?,?,?,?,?,?)", [filename, price, sellerid, 1, name,'Electronics'], (err, result) => {
+        if (err) {
+            res.send({ err: err });
+        }
+        else {
+            //electronics (productid,specification,type,brand)
+
+            db.query("Insert into electronics (productid,specification,type,brand) values (?,?,?,?)", [result.insertId, spec, type, brand], (err, result) => {
+                if (err) {
+                    res.send({ err: err });
+                }
+                else {
+                    res.send({ message: "Electronics Added Successfully" });
+                }
+            });
+        }
+
+    }
+    );
+
+});
+
+
+products.post('/addcosmetics', upload.single("photo"), (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    const { filename } = req.file;
+    const { name } = req.body;
+    const { price } = req.body;
+    //console.log(filename);
+    const { sellerid } = req.body;
+    // console.log(sellerid);
+    const { description } = req.body;
+    const { type } = req.body;
+    const { brand } = req.body;
+
+    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name, Type) VALUES (?,?,?,?,?,?)", [filename, price, sellerid, 1, name, 'Cosmetics'], (err, result) => {
+        if (err) {
+            res.send({ err: err });
+        }
+        else {
+            //cosmetics (productid,type,brand,description)
+
+            db.query("Insert into cosmetics (productid,type,brand,description) values (?,?,?,?)", [result.insertId, type, brand, description], (err, result) => {
+                if (err) {
+                    res.send({ err: err });
+                }
+                else {
+                    res.send({ message: "Cosmetics Added Successfully" });
+                }
+            });
+        }
+
+    }
+    );
+
+});
+
+
+products.post('/addclothes', upload.single("photo"), (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    const { filename } = req.file;
+    const { name } = req.body;
+    const { price } = req.body;
+    //console.log(filename);
+    const { sellerid } = req.body;
+    // console.log(sellerid);
+    const { size } = req.body;
+    const { color } = req.body;
+    const { brand } = req.body;
+    const { material } = req.body;
+
+    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name,Type) VALUES (?,?,?,?,?,?)", [filename, price, sellerid, 1, name,'Clothes'], (err, result) => {
+
+        if (err) {
+            res.send({ err: err });
+        }
+        else {
+            //clothes (productid,color,brand,size,material)
+
+            db.query("Insert into clothes (productid,color,brand,size,material) values (?,?,?,?,?)", [result.insertId, color, brand, size, material], (err, result) => {
+                if (err) {
+                    res.send({ err: err });
+                }
+                else {
+                    res.send({ message: "Clothes Added Successfully" });
+                }
+            });
+            
+        }
+
+    }
+    );
+
+});
+
 
 module.exports = products;

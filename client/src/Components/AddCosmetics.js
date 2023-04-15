@@ -8,12 +8,13 @@ import { useEffect } from 'react';
 import Axios from 'axios';
 
 
-export default function AddBooks() {
+export default function AddCosmetics() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    const [genre, setGenre] = useState("");
-    const [summary, setSummary] = useState("");
-    const [author, setAuthor] = useState("");
+    const [description,setDescription]=useState("");
+    const [type, setType] = useState("");
+    const [brand, setBrand] = useState("");
+   
 
     const [imgfile, setImgfile] = useState("");
     const [sellerid, setSellerid] = useState(0);
@@ -27,15 +28,17 @@ export default function AddBooks() {
     const setprice = (e) => {
         setPrice(e.target.value);
     }
-    const setgenre = (e) => {
-        setGenre(e.target.value);
+    const setdescription = (e) => {
+        setDescription(e.target.value);
     }
-    const setsummary = (e) => {
-        setSummary(e.target.value);
+    const settype = (e) => {
+        setType(e.target.value);
     }
-    const setauthor = (e) => {
-        setAuthor(e.target.value);
+    const setbrand = (e) => {
+        setBrand(e.target.value);
     }
+
+   
 
     const setimgfile = (e) => {
         // console.log(e.target.files[0])
@@ -50,10 +53,9 @@ export default function AddBooks() {
         formData.append("name", name);
         formData.append("price", price);
         formData.append("sellerid", sellerid);
-        formData.append("genre", genre);
-        formData.append("summary", summary);
-        formData.append("author", author);
-
+        formData.append("description", description);
+        formData.append("type", type);
+        formData.append("brand", brand);
         // console.log(formData);
         const config = {
             headers: {
@@ -61,7 +63,7 @@ export default function AddBooks() {
             }
         }
 
-        const res = await axios.post('http://localhost:3001/addbook', formData, config);
+        const res = await axios.post('http://localhost:3001/addcosmetics', formData, config);
 
         if (res.data.message) {
             alert(res.data.message);
@@ -92,7 +94,7 @@ export default function AddBooks() {
         bool && <>
             <Navbar></Navbar>
             <div style={{ paddingLeft: '50px' }} className="container mt-3">
-                <h1 style={{ textAlign: 'center' }}>Add A Book</h1>
+                <h1 style={{ textAlign: 'center' }}>Add Cosmetics</h1>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Name</Form.Label>
@@ -103,16 +105,16 @@ export default function AddBooks() {
                         <Form.Control type="text" name='fname' onChange={setprice} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Genre</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setgenre} />
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control type="text" name='fname' onChange={setdescription} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Summary</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setsummary} />
+                        <Form.Label>Type</Form.Label>
+                        <Form.Control type="text" name='fname' onChange={settype} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Author</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setauthor} />
+                        <Form.Label>Brand</Form.Label>
+                        <Form.Control type="text" name='fname' onChange={setbrand} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">

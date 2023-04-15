@@ -7,10 +7,10 @@ export default function Main() {
   var iid = window.location.href.split('/').reverse()[0]
   // console.log(id);
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [imglink, setImglink] = useState('');
-  const [id, setId] = useState();
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
+  const [type, setType] = useState('');
+
 
 
 
@@ -18,15 +18,22 @@ export default function Main() {
 
   useEffect(() => {
     // getEmployees();
+
     const getData = () => {
-      Axios.post('http://localhost:3001/specific', { iid: iid }).then((response) => {
+      Axios.post('http://localhost:3001/specific1', { iid: iid }).then((response) => {
 
         console.log(response.data);
-        setDescription(response.data[0].description);
-        setImglink(response.data[0].imglink);
-        setId(response.data[0].id);
-        setName(response.data[0].name);
-        setPrice(response.data[0].price);
+        setName(response.data[0].Name);
+        setPrice(response.data[0].Price);
+        setType(response.data[0].Type);
+        setImage(response.data[0].Image);
+      }
+      );
+
+      Axios.post('http://localhost:3001/specific2', { iid: iid }).then((response) => {
+
+        console.log(response.data);
+        
 
       });
     };
@@ -39,26 +46,12 @@ export default function Main() {
   return (
     <div >
       <Navbar />
-      <div className='container' style={{paddingLeft:'100px'}}>
-        <div >
+      <div className='container' style={{ paddingLeft: '100px' }}>
+        <div className='row'>
+          <div className='col-md-6'>
+            <img src={`http://localhost:3001/uploads/${image}`} style={{ height: '240px', width: '50%' }} alt="..." />
 
-          id={id}
-        </div>
-        <div>
-
-          name={name}
-        </div>
-        <div>
-
-          description={description}
-        </div>
-        <div>
-
-          imglink={imglink}
-        </div>
-        <div>
-
-          price={price}
+          </div>
         </div>
 
       </div>

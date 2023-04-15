@@ -5,6 +5,7 @@ const app = express();
 
 const logreg=require("./routes/logreg")
 const products=require("./routes/products")
+const home=require("./routes/home")
 
 const db=require("./db/conn");
 
@@ -22,6 +23,7 @@ app.use("/uploads", express.static("./uploads"))
 
 app.use(logreg)
 app.use(products)
+app.use(home)
 
 // app.get('/', (req, res) => {
 //     res.send('Hello World!');

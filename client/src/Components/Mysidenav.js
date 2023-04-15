@@ -5,7 +5,7 @@ import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { useHistory } from 'react-router-dom';
+
 
 
 export default function Mysidenav() {
@@ -13,6 +13,7 @@ export default function Mysidenav() {
 
 
     const [sellerStatus, setsellerStatus] = useState(false);
+    //eslint-disable-next-line
     const [username, setUsername] = useState("");
     Axios.defaults.withCredentials = true;
 
@@ -65,17 +66,17 @@ export default function Mysidenav() {
                                 Books
                             </NavText>
                         </NavItem>
-                        <NavItem>
+                        <NavItem eventKey='addElectronics'>
                             <NavText>
                                 Electronics
                             </NavText>
                         </NavItem>
-                        <NavItem>
+                        <NavItem  eventKey='addCosmetics'>
                             <NavText>
                                 Cosmetics
                             </NavText>
                         </NavItem>
-                        <NavItem>
+                        <NavItem eventKey='addClothes'>
                             <NavText>
                                 Clothes
                             </NavText>

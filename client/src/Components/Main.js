@@ -10,7 +10,7 @@ export default function Main() {
  
 
     const getEmployees = () => {
-        Axios.get('http://localhost:3001/products').then((response) => {
+        Axios.get('http://localhost:3001/importProducts').then((response) => {
             //console.log(response.data);
             // console.log("Successlly got");
             // response.data.map((element) => {
@@ -18,6 +18,7 @@ export default function Main() {
             // })
 
             setProductList(response.data);
+            console.log(response.data);
           
         });
     };
@@ -49,9 +50,9 @@ export default function Main() {
                 <div className="row">
                     {productList.map((element) => {
 
-                        return <div className="col-md-4" key={element.id} style={{ display: 'flex', justifyContent: 'center' }} >
-                            <Item name={element.name} description={element.description}
-                                imglink={element.imglink} id={element.id}
+                        return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
+                            <Item name={element.Name} description={element.Price}
+                                imglink={element.Image} id={element.ID}
                             />
                         </div>
                     })}
