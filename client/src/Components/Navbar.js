@@ -16,7 +16,7 @@ export default function Navbar() {
      // console.log(response.data.loggedIn);
       if (response.data.loggedIn === true) {
         setLoginStatus(true);
-        setUsername(response.data.user[0].username);
+        setUsername(response.data.user[0].Name);
       }
     });
 
@@ -74,8 +74,16 @@ export default function Navbar() {
                 <a className="nav-link active" aria-current="page" href='/imgdown'>imgdown</a>
               </li>
 
-              {!loginStatus && <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href='/Login'>Login</a>
+              {!loginStatus &&  <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Login
+                </a>
+                <ul className="dropdown-menu">
+                  <li><a className="dropdown-item" href='/AdminLogin'>Admin</a></li>
+                  <li><a className="dropdown-item" href='/SellerLogin'>Seller</a></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><a className="dropdown-item" href='/CustomerLogin'>Customer</a></li>
+                </ul>
               </li>
               }
               

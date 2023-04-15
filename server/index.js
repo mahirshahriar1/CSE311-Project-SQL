@@ -2,10 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const product = require("./routes/product")
+
 const logreg=require("./routes/logreg")
-const photo = require("./routes/photo")
-// const db=require("./db/conn");
+const products=require("./routes/products")
+
+const db=require("./db/conn");
 
 
 app.use(express.json())
@@ -18,9 +19,9 @@ app.use(cors({
 
 app.use("/uploads", express.static("./uploads"))
 
-app.use(product)
+
 app.use(logreg)
-app.use(photo)
+app.use(products)
 
 // app.get('/', (req, res) => {
 //     res.send('Hello World!');

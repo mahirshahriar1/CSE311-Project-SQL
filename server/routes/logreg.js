@@ -11,6 +11,12 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 
+
+const multer = require('multer');
+const moment = require('moment');
+
+const fs = require('fs');
+
 log.use(cookieParser());
 log.use(bodyParser.urlencoded({ extended: true }));
 log.use(session({
@@ -19,33 +25,96 @@ log.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 2 * 60 * 60 * 1000,
+        expires: 200 * 600 * 60 * 10000,
     },
 }));
 
 
+// img storage config
+var imgconfig = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, './uploads');
+    },
+    filename: (req, file, callback) => {
+        callback(null, `image-${Date.now()}.${file.originalname}`);
+    }
+})
 
-log.post('/register', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+// img filter 
+const isImage = (req, file, callback) => {
+    if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+        callback(null, true);
+    } else {
+        callback(new Error('Only Image is Allowed'), false);
+    }
+}
 
-    db.query("SELECT Username FROM users WHERE Username = ?", [username], (err, result) => {
+var upload = multer({
+    storage: imgconfig,
+    fileFilter: isImage
+})
+
+
+log.post('/sellerregister', upload.single("photo"), (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    const { fname } = req.body;
+    const { username } = req.body;
+    const { password } = req.body;
+    const { filename } = req.file;
+    const { phone } = req.body;
+
+
+
+
+    db.query("SELECT Username FROM sellers WHERE Username = ?", [username], (err, result) => {
         if (err) {
             res.send({ err: err });
         }
 
         if (result.length > 0) {
             res.send({ message: "Username already exists" });
+
         } else {
 
             bcrypt.hash(password, saltRounds, (err, hash) => {
                 if (err) {
                     console.log(err);
                 }
-                db.query("INSERT INTO users (Username, Password) VALUES (?, ?)", [username, hash], (err, result) => {
-                    console.log(err);
-                });
-            });
+                //Username,   Password,   Name,   Phone,   Image, AdminID
+                db.query("INSERT INTO sellers (Username, Password, Name, Phone, Image,AdminID,Type) VALUES (?,?,?,?,?,?,?)",
+
+                    [username, hash, fname, phone, filename, 1, 'Seller'],
+                    (err, result) => {
+                        console.log(err);
+                    }                   
+                );
+                if(err){
+                    res.send({ok: false});
+                }
+                else{
+                    res.send({ok: true});
+                }
+
+        });
+}
+
+    });
+});
+
+
+log.post("/getUserData", (req, res) => {
+    const username = req.body.username;
+
+    db.query("SELECT * FROM sellers WHERE Username = ?", username, (err, result) => {
+        if (err) {
+            res.send({ err: err });
+        }
+
+        if (result.length > 0) {
+            res.send(result);
+        } else {
+            res.send({ message: "User doesn't exist" });
         }
 
     });
@@ -76,12 +145,26 @@ log.get('/isUserAuth', verifyJWT, (req, res) => {
 
 log.get('/login', (req, res) => {
     if (req.session.user) {
-       // console.log('logged in');
+        // console.log('logged in');
+        res.send({ type:req.session.user[0].Type, loggedIn: true, user: req.session.user });
+        //console.log(req.session.user);
+       // console.log(req.session.user[0].Type);
+    } else {
+        // console.log('not logged in');
+        res.send({ loggedIn: false });
+    }
+});
+
+log.get('/sellerlogin', (req, res) => {
+    
+    if (req.session.user) {
+        // console.log('logged in');        
         res.send({ loggedIn: true, user: req.session.user });
     } else {
         // console.log('not logged in');
         res.send({ loggedIn: false });
     }
+    
 });
 
 log.get('/logout', (req, res) => {
@@ -93,23 +176,63 @@ log.get('/logout', (req, res) => {
 
 
 
-log.post('/login', (req, res) => {
+log.post('/sellerlogin', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-  
-    db.query("SELECT * FROM users WHERE Username = ?;", username,
+
+    db.query("SELECT * FROM sellers WHERE Username = ?;", username,
         (err, result) => {
             if (err) {
                 res.send({ err: err });
             }
-           // console.log(result);        
-         
+            //console.log(result);        
+
             if (result.length > 0) {
-             
-                bcrypt.compare(password, result[0].password, (error, response) => {
+
+                bcrypt.compare(password, result[0].Password, (error, response) => {
+
                     if (response) {
-                       
+
+                        const id = result[0].ID;
+                        const token = jwt.sign({ id }, "jwtSecret", {
+                            expiresIn: 300,
+                        });
+                        // console.log(req.session.user);  
+
+                        req.session.user = result;
+                        res.json({ auth: true, token: token, result: result });
+                    } else {
+                        res.json({ auth: false, message: "Wrong Username/Password Combination" });
+                    }
+                });
+            } else {
+                res.json({ auth: false, message: "No user exists" });
+            }
+
+        });
+});
+
+
+
+log.post('/adminlogin', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+
+    db.query("SELECT * FROM admin WHERE Username = ?;", username,
+        (err, result) => {
+            if (err) {
+                res.send({ err: err });
+            }
+            //console.log(result);        
+
+            if (result.length > 0) {
+
+                bcrypt.compare(password, result[0].Password, (error, response) => {
+
+                    if (response) {
+
                         const id = result[0].ID;
                         const token = jwt.sign({ id }, "jwtSecret", {
                             expiresIn: 300,
