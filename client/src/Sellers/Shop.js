@@ -43,7 +43,7 @@ export default function Main() {
 
                         return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
                             <Item name={element.Name} description={element.Price}
-                                imglink={element.Image} id={element.ID} auth={true}
+                                imglink={element.Image} id={element.ID} seller={true} product={true} user={false}
                             />
                         </div>
                     })}

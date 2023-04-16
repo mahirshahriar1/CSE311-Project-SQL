@@ -20,6 +20,7 @@ export default function Main() {
     // getEmployees();
 
     const getData = () => {
+      //home router
       Axios.post('http://localhost:3001/specific1', { id: id }).then((response) => {
 
         console.log(response.data);

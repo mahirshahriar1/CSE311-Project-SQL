@@ -7,6 +7,7 @@ const logreg=require("./routes/logreg")
 const products=require("./routes/products")
 const home=require("./routes/home")
 const seller=require("./routes/seller")
+const admin=require("./routes/admin");
 
 const db=require("./db/conn");
 
@@ -26,6 +27,7 @@ app.use(logreg)
 app.use(products)
 app.use(home)
 app.use(seller)
+app.use(admin)
 
 // app.get('/', (req, res) => {
 //     res.send('Hello World!');

@@ -45,7 +45,7 @@ seller.post('/importshop', (req, res) => {
 
 });
 
-//delete user
+//delete product
 seller.delete("/dltProduct/:id/:imglink", (req, res) => {
 
     const id = req.params.id;
@@ -81,6 +81,8 @@ seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
     const { name } = req.body;
     const { price } = req.body;
     console.log(price);
+    const{photo}=req.body;
+  
 
     // console.log(sellerid);
     const { size } = req.body;
@@ -97,7 +99,7 @@ seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(oldimage)
+            // console.log(oldimage)
             res.status(201).json({ status: 201, data: result })
             fs.unlink(`./uploads/${oldimage}`, (err) => {
                 if (err) {

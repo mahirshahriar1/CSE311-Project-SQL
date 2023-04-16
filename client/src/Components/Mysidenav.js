@@ -13,18 +13,22 @@ export default function Mysidenav() {
 
 
     const [sellerStatus, setsellerStatus] = useState(false);
+    const [adminStatus, setadminStatus] = useState(false);
     //eslint-disable-next-line
     const [username, setUsername] = useState("");
     Axios.defaults.withCredentials = true;
 
     useEffect(() => {
 
-        Axios.get('http://localhost:3001/sellerlogin').then((response) => {
+        Axios.get('http://localhost:3001/login').then((response) => {
             // console.log(response.data.loggedIn);
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Seller') {
                 setsellerStatus(true);
                 setUsername(response.data.user[0].Username);
 
+            } else if (response.data.loggedIn === true && response.data.user[0].Type === 'Admin') {
+                setadminStatus(true);
+                setUsername(response.data.user[0].Username);
             }
         });
 
@@ -46,7 +50,7 @@ export default function Mysidenav() {
                     <NavItem eventKey=''   >
                         <NavIcon> <i className='fa fa-fw fa-home' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                         <NavText>
-                            Home
+                            Home  
                         </NavText>
                     </NavItem>
                     {sellerStatus && <NavItem eventKey='yourshop'>
@@ -85,6 +89,15 @@ export default function Mysidenav() {
 
                     </NavItem>
                     }
+                    {
+                        adminStatus && <NavItem eventKey='userList'>
+                            <NavIcon> <i className='fa fa-fw  fa-shop' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavText>
+                                Check Users
+                            </NavText>
+                        </NavItem>
+                    }
+                    
 
 
                 </Sidenav.Nav>

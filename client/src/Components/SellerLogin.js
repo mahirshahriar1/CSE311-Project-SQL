@@ -33,6 +33,7 @@ export default function Registration(props) {
     // eslint-disable-next-line
     const [redirect, setRedirect] = useState("false");
     axios.defaults.withCredentials = true;
+     // eslint-disable-next-line
     const history = useNavigate();
 
 
@@ -108,13 +109,14 @@ export default function Registration(props) {
 
     };
     const [bool, setBool] = useState(false);
+     // eslint-disable-next-line
     const [imagepath, setimagepath] = useState("");
     
-    const getUserData = () => {
+    const getSellerData = () => {
         
         if (bool === false) {
 
-            axios.post('http://localhost:3001/getUserData', 
+            axios.post('http://localhost:3001/getSellerData', 
                 {
                     username: usernamelogin
                 }
@@ -219,7 +221,7 @@ export default function Registration(props) {
                         <h1 style={{ color }}>{message}</h1>
                         {loginStatus && (
                             <div>
-                                {getUserData()}
+                                {getSellerData()}
                                 {/* <img src={`http://localhost:3001/uploads/${imagepath}`} alt="" /> */}
                                 <button id="sp" style={{ background: '#4c99af' }} onClick={userAuthenticated}> Check if Authenticated</button>
                                 <br />

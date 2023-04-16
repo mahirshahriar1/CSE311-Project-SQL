@@ -103,7 +103,72 @@ log.post('/sellerregister', upload.single("photo"), (req, res) => {
 });
 
 
-log.post("/getUserData", (req, res) => {
+log.post('/customerregister', upload.single("photo"), (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    const { fname } = req.body;
+    const { username } = req.body;
+    const { password } = req.body;
+    const { filename } = req.file;
+    const { phone } = req.body;
+
+
+
+
+    db.query("SELECT Username FROM customers WHERE Username = ?", [username], (err, result) => {
+        if (err) {
+            res.send({ err: err });
+        }
+
+        if (result.length > 0) {
+            res.send({ message: "Username already exists" });
+
+        } else {
+
+            bcrypt.hash(password, saltRounds, (err, hash) => {
+                if (err) {
+                    console.log(err);
+                }
+                //Username,   Password,   Name,   Phone,   Image, AdminID
+                db.query("INSERT INTO customers (Username, Password, Name, Phone, Image,AdminID,Type) VALUES (?,?,?,?,?,?,?)",
+
+                    [username, hash, fname, phone, filename, 1, 'Customer'],
+                    (err, result) => {
+                        console.log(err);
+                    }                   
+                );
+                if(err){
+                    res.send({ok: false});
+                }
+                else{
+                    res.send({ok: true});
+                }
+
+        });
+}
+
+    });
+});
+
+log.post("/getCustomerData", (req, res) => {
+    const username = req.body.username;
+
+    db.query("SELECT * FROM customers WHERE Username = ?", username, (err, result) => {
+        if (err) {
+            res.send({ err: err });
+        }
+
+        if (result.length > 0) {
+            res.send(result);
+        } else {
+            res.send({ message: "User doesn't exist" });
+        }
+
+    });
+});
+
+
+log.post("/getSellerData", (req, res) => {
     const username = req.body.username;
 
     db.query("SELECT * FROM sellers WHERE Username = ?", username, (err, result) => {
@@ -167,6 +232,9 @@ log.get('/sellerlogin', (req, res) => {
     
 });
 
+
+
+
 log.get('/logout', (req, res) => {
     req.session.destroy();
 
@@ -182,6 +250,44 @@ log.post('/sellerlogin', (req, res) => {
 
 
     db.query("SELECT * FROM sellers WHERE Username = ?;", username,
+        (err, result) => {
+            if (err) {
+                res.send({ err: err });
+            }
+            //console.log(result);        
+
+            if (result.length > 0) {
+
+                bcrypt.compare(password, result[0].Password, (error, response) => {
+
+                    if (response) {
+
+                        const id = result[0].ID;
+                        const token = jwt.sign({ id }, "jwtSecret", {
+                            expiresIn: 300,
+                        });
+                        // console.log(req.session.user);  
+
+                        req.session.user = result;
+                        res.json({ auth: true, token: token, result: result });
+                    } else {
+                        res.json({ auth: false, message: "Wrong Username/Password Combination" });
+                    }
+                });
+            } else {
+                res.json({ auth: false, message: "No user exists" });
+            }
+
+        });
+});
+
+
+log.post('/customerlogin', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+
+    db.query("SELECT * FROM customers WHERE Username = ?;", username,
         (err, result) => {
             if (err) {
                 res.send({ err: err });

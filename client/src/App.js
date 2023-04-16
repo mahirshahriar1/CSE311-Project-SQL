@@ -16,6 +16,7 @@ import AddCosmetics from './Sellers/AddCosmetics';
 import AddClothes from './Sellers/AddClothes';
 import Shop from './Sellers/Shop';
 import EditItem from './Sellers/EditItem';
+import UserList from './Admin/UserList'
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route exact path='/addClothes' element={<AddClothes/>} />
           <Route exact path='/yourshop' element={<Shop/>} />
           <Route exact path='/editItem/:param1' element={<EditItem />} />
+          <Route exact path='/userList' element={<UserList />} />
         </Routes>
       </Router>
        
