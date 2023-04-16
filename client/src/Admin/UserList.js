@@ -10,7 +10,7 @@ import Axios from 'axios';
 export default function UserList() {
    
     const [userList, setuserList] = useState([]);
-
+    // eslint-disable-next-line 
     const [userType, setuserType] = useState('');
 
     const [color1, setcolor1] = useState('');
@@ -34,6 +34,7 @@ export default function UserList() {
 
     const getSellers = (utype) => {
         // console.log(utype)
+        //admin route
         axios.get('http://localhost:3001/importSellers', { utype: utype }).then((response) => {
 
             setuserList(response.data);
@@ -44,7 +45,8 @@ export default function UserList() {
     };
 
     const getCustomers = (utype) => {
-        console.log(utype)
+        //console.log(utype)
+             //admin route
         axios.get('http://localhost:3001/importCustomers', { utype: utype }).then((response) => {
 
             setuserList(response.data);
@@ -55,6 +57,7 @@ export default function UserList() {
     };
 
     useEffect(() => {
+        //logreg route
         Axios.get('http://localhost:3001/login').then((response) => {
            //console.log(response.data);
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Admin') {

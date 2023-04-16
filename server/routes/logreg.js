@@ -55,7 +55,7 @@ var upload = multer({
 })
 
 
-log.post('/sellerregister', upload.single("photo"), (req, res) => {
+log.post('/sellerRegister', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
     const { fname } = req.body;
@@ -103,7 +103,7 @@ log.post('/sellerregister', upload.single("photo"), (req, res) => {
 });
 
 
-log.post('/customerregister', upload.single("photo"), (req, res) => {
+log.post('/customerRegister', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
     const { fname } = req.body;
@@ -220,7 +220,7 @@ log.get('/login', (req, res) => {
     }
 });
 
-log.get('/sellerlogin', (req, res) => {
+log.get('/sellerLogin', (req, res) => {
     
     if (req.session.user) {
         // console.log('logged in');        
@@ -244,7 +244,7 @@ log.get('/logout', (req, res) => {
 
 
 
-log.post('/sellerlogin', (req, res) => {
+log.post('/sellerLogin', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
@@ -282,7 +282,7 @@ log.post('/sellerlogin', (req, res) => {
 });
 
 
-log.post('/customerlogin', (req, res) => {
+log.post('/customerLogin', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 

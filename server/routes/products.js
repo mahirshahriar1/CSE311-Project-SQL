@@ -32,7 +32,7 @@ var upload = multer({
 })
 
 
-products.post('/addbook', upload.single("photo"), (req, res) => {
+products.post('/addBook', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
     const { filename } = req.file;
@@ -69,7 +69,7 @@ products.post('/addbook', upload.single("photo"), (req, res) => {
 
 
 
-products.post('/addelectronics', upload.single("photo"), (req, res) => {
+products.post('/addElectronics', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
     const { filename } = req.file;
@@ -106,7 +106,7 @@ products.post('/addelectronics', upload.single("photo"), (req, res) => {
 });
 
 
-products.post('/addcosmetics', upload.single("photo"), (req, res) => {
+products.post('/addCosmetics', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
     const { filename } = req.file;
@@ -142,7 +142,7 @@ products.post('/addcosmetics', upload.single("photo"), (req, res) => {
 });
 
 
-products.post('/addclothes', upload.single("photo"), (req, res) => {
+products.post('/addClothes', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
     const { filename } = req.file;

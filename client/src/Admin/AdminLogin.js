@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 // eslint-disable-next-line
 import { Navigate } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar from '../Components/Navbar';
 
 
 export default function Registration(props) {
-
+    // eslint-disable-next-line 
     const [usernameReg, setUsernameReg] = useState("");
+    // eslint-disable-next-line 
     const [passwordReg, setPasswordReg] = useState("");
 
     const [username, setUsername] = useState("");
@@ -22,15 +23,7 @@ export default function Registration(props) {
     const [redirect, setRedirect] = useState("false");
     Axios.defaults.withCredentials = true;
 
-    const register = () => {
-        Axios.post('http://localhost:3001/register', {
-            username: usernameReg,
-            password: passwordReg
-        }).then((response) => {
-            alert(response.data.message);
-        });
-    };
-
+   
     const login = () => {
 
         Axios.post('http://localhost:3001/adminlogin', {

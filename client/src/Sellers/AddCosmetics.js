@@ -63,7 +63,7 @@ export default function AddCosmetics() {
             }
         }
 
-        const res = await axios.post('http://localhost:3001/addcosmetics', formData, config);
+        const res = await axios.post('http://localhost:3001/addCosmetics', formData, config);
 
         if (res.data.message) {
             alert(res.data.message);
@@ -79,7 +79,7 @@ export default function AddCosmetics() {
     const [bool, setBool] = useState(false);
     useEffect(() => {
 
-        Axios.get('http://localhost:3001/sellerlogin').then((response) => {
+        Axios.get('http://localhost:3001/sellerLogin').then((response) => {
             // console.log(response.data.loggedIn);
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Seller') {
                 setBool(true);

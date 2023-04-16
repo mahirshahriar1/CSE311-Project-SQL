@@ -2,7 +2,7 @@ import '../App.css';
 import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line
 import { Navigate } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar from '../Components/Navbar';
 
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
@@ -54,7 +54,7 @@ export default function Registration(props) {
         }
 
         
-        const res = await axios.post('http://localhost:3001/customerregister',
+        const res = await axios.post('http://localhost:3001/customerRegister',
             formData, config);
             console.log(res);
         if (res.data.message) {           
@@ -70,7 +70,7 @@ export default function Registration(props) {
 
     const login = () => {
        
-        axios.post('http://localhost:3001/customerlogin', {
+        axios.post('http://localhost:3001/customerLogin', {
             username: username,
             password: password
         }).then((response) => {
@@ -113,6 +113,9 @@ export default function Registration(props) {
      // eslint-disable-next-line
     const [imagepath, setimagepath] = useState("");
     
+
+    ///////////////////////////get customer data///////////////////////////
+    ///////////////////////////not yet utilized this function///////////////////////////
     const getCustomerData = () => {
         
         if (bool === false) {

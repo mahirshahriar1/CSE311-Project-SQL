@@ -10,6 +10,7 @@ export default function Main() {
  
 
     const getProducts = () => {
+        //home route
         Axios.get('http://localhost:3001/importProducts').then((response) => {
             //console.log(response.data);
             // console.log("Successlly got");

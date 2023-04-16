@@ -30,7 +30,7 @@ var upload = multer({
     fileFilter: isImage
 })
 
-seller.post('/importshop', (req, res) => {
+seller.post('/importShop', (req, res) => {
     const id = req.body.ID;
 
     db.query("SELECT * FROM products WHERE SellerID=?", [id], (err, result) => {

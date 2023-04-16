@@ -60,8 +60,8 @@ export default function AddBooks() {
                 'Content-Type': 'multipart/form-data'
             }
         }
-
-        const res = await axios.post('http://localhost:3001/addbook', formData, config);
+        //products route
+        const res = await axios.post('http://localhost:3001/addBook', formData, config);
 
         if (res.data.message) {
             alert(res.data.message);
@@ -77,7 +77,7 @@ export default function AddBooks() {
     const [bool, setBool] = useState(false);
     useEffect(() => {
 
-        Axios.get('http://localhost:3001/sellerlogin').then((response) => {
+        Axios.get('http://localhost:3001/sellerLogin').then((response) => {
             // console.log(response.data.loggedIn);
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Seller') {
                 setBool(true);

@@ -63,7 +63,7 @@ export default function AddElectronics() {
             }
         }
 
-        const res = await axios.post('http://localhost:3001/addelectronics', formData, config);
+        const res = await axios.post('http://localhost:3001/addElectronics', formData, config);
 
         if (res.data.message) {
             alert(res.data.message);
@@ -79,7 +79,7 @@ export default function AddElectronics() {
 
     useEffect(() => {
 
-        Axios.get('http://localhost:3001/sellerlogin').then((response) => {
+        Axios.get('http://localhost:3001/sellerLogin').then((response) => {
             // console.log(response.data.loggedIn);
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Seller') {
                 setBool(true);

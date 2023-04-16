@@ -7,9 +7,9 @@ import ItemInfo from './Components/ItemInfo';
 import Imgup from './Components/Imgup';
 import Imgdown from './Components/Imgdown';
 import Mysidenav from './Components/Mysidenav.js';
-import AdminLogin from './Components/AdminLogin';
-import CustomerLogin from './Components/CustomerLogin';
-import SellerLogin from './Components/SellerLogin';
+import AdminLogin from './Admin/AdminLogin';
+import CustomerLogin from './Customers/CustomerLogin';
+import SellerLogin from './Sellers/SellerLogin';
 import AddBooks from './Sellers/AddBooks';
 import AddElectronics from './Sellers/AddElectronics';
 import AddCosmetics from './Sellers/AddCosmetics';
@@ -43,7 +43,7 @@ function App() {
           <Route exact path='/addClothes' element={<AddClothes/>} />
           <Route exact path='/yourshop' element={<Shop/>} />
           <Route exact path='/editItem/:param1' element={<EditItem />} />
-          <Route exact path='/userList' element={<UserList  auth={true}  />} />
+          <Route exact path='/userList' element={<UserList/>} />
 
 
         </Routes>

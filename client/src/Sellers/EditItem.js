@@ -111,6 +111,7 @@ export default function EditItem() {
         // getEmployees();
 
         const getData = () => {
+            //home route
             Axios.post('http://localhost:3001/specific1', { id: id }).then((response) => {
 
                 //  console.log(response.data);
@@ -138,6 +139,7 @@ export default function EditItem() {
             }
             );
 
+              //home route
             Axios.post('http://localhost:3001/specific2', { id: id }).then((response) => {
 
                 //console.log(response.data);
@@ -169,7 +171,7 @@ export default function EditItem() {
         getData();
 
 
-        Axios.get('http://localhost:3001/sellerlogin').then((response) => {
+        Axios.get('http://localhost:3001/sellerLogin').then((response) => {
             // console.log(response.data.loggedIn);
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Seller') {
                 setSellerid(response.data.user[0].ID);
