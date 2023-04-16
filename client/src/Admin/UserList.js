@@ -4,14 +4,18 @@ import Navbar from '../Components/Navbar'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import Axios from 'axios';
+
 
 export default function UserList() {
+   
     const [userList, setuserList] = useState([]);
 
     const [userType, setuserType] = useState('');
 
     const [color1, setcolor1] = useState('');
     const [color2, setcolor2] = useState('');
+    const [auth, setauth] = useState(false);
     axios.defaults.withCredentials = true;
     function setUser1() {
         setuserType('Sellers');
@@ -50,14 +54,21 @@ export default function UserList() {
         });
     };
 
-    // useEffect(() => {
-    //     getProducts();
-    //     //putemployees();
+    useEffect(() => {
+        Axios.get('http://localhost:3001/login').then((response) => {
+           //console.log(response.data);
+            if (response.data.loggedIn === true && response.data.user[0].Type === 'Admin') {
+                setauth(true);
+            }
+        }
+        );
 
-    // }, [])
+    }, [])
 
     return (
-        <div>
+        
+        auth && <div>
+           
             <Navbar />
             <div className="container" style={{marginLeft:'500px', marginTop:'25px'}}> 
 
