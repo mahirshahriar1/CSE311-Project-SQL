@@ -6,8 +6,10 @@ import { useState, useEffect } from 'react';
 
 export default function Main() {
     const [productList, setProductList] = useState([]);
-
- 
+    const [seller, setSeller] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    const [customer, setCustomer] = useState(false);
+    const [customerID, setCustomerID] = useState(0);
 
     const getProducts = () => {
         //home route
@@ -20,20 +22,36 @@ export default function Main() {
 
             setProductList(response.data);
             //console.log(response.data);
-          
+
         });
     };
-   
+
     useEffect(() => {
         getProducts();
-        //putemployees();
+
+        Axios.get('http://localhost:3001/login').then((response) => {
+            //console.log(response.data.user[0].ID)
+            if (response.data.type === 'Seller') {
+                //console.log("Seller");
+                setSeller(true);
+            } else if (response.data.type === 'Customer') {
+                setCustomerID(response.data.user[0].ID)
+                setCustomer(true);
+                // console.log("Customer");
+            } else if (response.data.type === 'Admin') {
+                setAdmin(true);
+                // console.log("Admin");
+            }
+
+        }
+        )
 
     }, [])
 
     return (
         <div>
             <Navbar />
-          
+
             <div className="container">
 
                 <div className="row">
@@ -41,14 +59,14 @@ export default function Main() {
 
                         return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
                             <Item name={element.Name} description={element.Price}
-                                imglink={element.Image} id={element.ID}
+                                imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
                             />
                         </div>
                     })}
 
                 </div>
             </div>
-
+            <button className='cart-button fa-solid fa-cart-shopping'   > </button>
 
         </div>
     )

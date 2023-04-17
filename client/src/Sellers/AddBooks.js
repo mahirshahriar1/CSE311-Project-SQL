@@ -14,6 +14,7 @@ export default function AddBooks() {
     const [genre, setGenre] = useState("");
     const [summary, setSummary] = useState("");
     const [author, setAuthor] = useState("");
+    const [quantity, setQuantity] = useState(0);
 
     const [imgfile, setImgfile] = useState("");
     const [sellerid, setSellerid] = useState(0);
@@ -21,26 +22,13 @@ export default function AddBooks() {
 
     axios.defaults.withCredentials = true;
 
-    const setname = (e) => {
-        setName(e.target.value);
-    }
-    const setprice = (e) => {
-        setPrice(e.target.value);
-    }
-    const setgenre = (e) => {
-        setGenre(e.target.value);
-    }
-    const setsummary = (e) => {
-        setSummary(e.target.value);
-    }
-    const setauthor = (e) => {
-        setAuthor(e.target.value);
-    }
-
-    const setimgfile = (e) => {
-        // console.log(e.target.files[0])
-        setImgfile(e.target.files[0]);
-    }
+    const setname = (e) => { setName(e.target.value); }
+    const setprice = (e) => { setPrice(e.target.value); }
+    const setgenre = (e) => { setGenre(e.target.value); }
+    const setsummary = (e) => { setSummary(e.target.value); }
+    const setauthor = (e) => { setAuthor(e.target.value); }
+    const setimgfile = (e) => { setImgfile(e.target.files[0]); }
+    const setquantity = (e) => { setQuantity(e.target.value); }
 
     const addUserDate = async (e) => {
         e.preventDefault();
@@ -53,6 +41,7 @@ export default function AddBooks() {
         formData.append("genre", genre);
         formData.append("summary", summary);
         formData.append("author", author);
+        formData.append("quantity", quantity);
 
         // console.log(formData);
         const config = {
@@ -65,7 +54,7 @@ export default function AddBooks() {
 
         if (res.data.message) {
             alert(res.data.message);
-            
+
             window.location.reload();
         }
         else {
@@ -114,11 +103,16 @@ export default function AddBooks() {
                         <Form.Label>Author</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setauthor} />
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Quantity</Form.Label>
+                        <Form.Control type="text" name='fname' onChange={setquantity} />
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Select your image</Form.Label>
                         <Form.Control type="file" name='photo' onChange={setimgfile} />
                     </Form.Group>
+
 
                     <Button variant="primary" type="submit" onClick={addUserDate}>
                         Submit

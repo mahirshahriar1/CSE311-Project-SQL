@@ -11,12 +11,12 @@ import Axios from 'axios';
 export default function AddClothes() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    
+
     const [color, setColor] = useState("");
     const [size, setSize] = useState("");
     const [brand, setBrand] = useState("");
     const [material, setMaterial] = useState("");
-   
+    const [quantity, setQuantity] = useState(0);
 
     const [imgfile, setImgfile] = useState("");
     const [sellerid, setSellerid] = useState(0);
@@ -24,27 +24,15 @@ export default function AddClothes() {
 
     axios.defaults.withCredentials = true;
 
-    const setname = (e) => {
-        setName(e.target.value);
-    }
-    const setprice = (e) => {
-        setPrice(e.target.value);
-    }
-    const setcolor = (e) => {
-        setColor(e.target.value);
-    }
-    const setsize = (e) => {
-        setSize(e.target.value);
-    }
-    const setbrand = (e) => {
-        setBrand(e.target.value);
-    }
-    const setmaterial = (e) => {
-        setMaterial(e.target.value);
-    }
+    const setname = (e) => { setName(e.target.value); }
+    const setprice = (e) => { setPrice(e.target.value); }
+    const setcolor = (e) => { setColor(e.target.value); }
+    const setsize = (e) => { setSize(e.target.value); }
+    const setbrand = (e) => { setBrand(e.target.value); }
+    const setmaterial = (e) => { setMaterial(e.target.value); }
+    const setquantity = (e) => { setQuantity(e.target.value); }
 
 
-   
 
     const setimgfile = (e) => {
         // console.log(e.target.files[0])
@@ -63,6 +51,8 @@ export default function AddClothes() {
         formData.append("size", size);
         formData.append("brand", brand);
         formData.append("material", material);
+        formData.append("quantity", quantity);
+
         // console.log(formData);
         const config = {
             headers: {
@@ -73,11 +63,13 @@ export default function AddClothes() {
         const res = await axios.post('http://localhost:3001/addClothes', formData, config);
 
         if (res.data.message) {
+            console.log(res.data.message);
             alert(res.data.message);
-            
+
             window.location.reload();
         }
         else {
+            console.log(res.data.message);
             alert(res.data.err);
         }
 
@@ -88,7 +80,7 @@ export default function AddClothes() {
         Axios.get('http://localhost:3001/sellerLogin').then((response) => {
             // console.log(response.data.loggedIn);
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Seller') {
-                setBool(true);               
+                setBool(true);
                 setSellerid(response.data.user[0].ID);
 
             }
@@ -97,7 +89,7 @@ export default function AddClothes() {
     }, []);
 
     return (
-       bool && <>
+        bool && <>
             <Navbar></Navbar>
             <div style={{ paddingLeft: '50px' }} className="container mt-3">
                 <h1 style={{ textAlign: 'center' }}>Add A Cloth</h1>
@@ -126,8 +118,10 @@ export default function AddClothes() {
                         <Form.Label>Material</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setmaterial} />
                     </Form.Group>
-
-
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Quantity</Form.Label>
+                        <Form.Control type="text" name='fname' onChange={setquantity} />
+                    </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Select your image</Form.Label>

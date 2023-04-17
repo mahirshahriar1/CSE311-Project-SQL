@@ -11,10 +11,10 @@ import Axios from 'axios';
 export default function AddCosmetics() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
-    const [description,setDescription]=useState("");
+    const [description, setDescription] = useState("");
     const [type, setType] = useState("");
     const [brand, setBrand] = useState("");
-   
+    const [quantity, setQuantity] = useState(0);
 
     const [imgfile, setImgfile] = useState("");
     const [sellerid, setSellerid] = useState(0);
@@ -22,23 +22,13 @@ export default function AddCosmetics() {
 
     axios.defaults.withCredentials = true;
 
-    const setname = (e) => {
-        setName(e.target.value);
-    }
-    const setprice = (e) => {
-        setPrice(e.target.value);
-    }
-    const setdescription = (e) => {
-        setDescription(e.target.value);
-    }
-    const settype = (e) => {
-        setType(e.target.value);
-    }
-    const setbrand = (e) => {
-        setBrand(e.target.value);
-    }
+    const setname = (e) => { setName(e.target.value); }
+    const setprice = (e) => { setPrice(e.target.value); }
+    const setdescription = (e) => { setDescription(e.target.value); }
+    const settype = (e) => { setType(e.target.value); }
+    const setbrand = (e) => { setBrand(e.target.value); }
+    const setquantity = (e) => { setQuantity(e.target.value); }
 
-   
 
     const setimgfile = (e) => {
         // console.log(e.target.files[0])
@@ -56,6 +46,8 @@ export default function AddCosmetics() {
         formData.append("description", description);
         formData.append("type", type);
         formData.append("brand", brand);
+        formData.append("quantity", quantity);
+
         // console.log(formData);
         const config = {
             headers: {
@@ -67,7 +59,7 @@ export default function AddCosmetics() {
 
         if (res.data.message) {
             alert(res.data.message);
-            
+
             window.location.reload();
         }
         else {
@@ -115,6 +107,10 @@ export default function AddCosmetics() {
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Brand</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setbrand} />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Quantity</Form.Label>
+                        <Form.Control type="text" name='fname' onChange={setquantity} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">

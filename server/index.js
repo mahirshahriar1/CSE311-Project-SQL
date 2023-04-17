@@ -8,6 +8,7 @@ const products=require("./routes/products")
 const home=require("./routes/home")
 const seller=require("./routes/seller")
 const admin=require("./routes/admin");
+const customer=require("./routes/customer")
 
 const db=require("./db/conn");
 
@@ -22,7 +23,7 @@ app.use(cors({
 
 app.use("/uploads", express.static("./uploads"))
 
-
+app.use(customer)
 app.use(logreg)
 app.use(products)
 app.use(home)

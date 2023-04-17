@@ -44,7 +44,7 @@ admin.delete("/dltUser/:id/:Type/:imglink", (req, res) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log('Data Deleted');
+                   // console.log('Data Deleted');
                     res.status(201).json({ status: 201, data: result })
                 }
             })
@@ -54,7 +54,7 @@ admin.delete("/dltUser/:id/:Type/:imglink", (req, res) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log('Data Deleted');
+                   // console.log('Data Deleted');
                     res.status(201).json({ status: 201, data: result })
                 }
             })
@@ -65,7 +65,7 @@ admin.delete("/dltUser/:id/:Type/:imglink", (req, res) => {
         res.status(422).json({ status: 422, error });
     }
 
-    console.log(userimg);
+   // console.log(userimg);
     fs.unlink(`./uploads/${userimg}`, (err) => {
         if (err) {
             console.log(err);

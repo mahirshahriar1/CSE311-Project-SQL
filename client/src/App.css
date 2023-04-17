@@ -49,3 +49,24 @@
   margin:5px;
 }
 
+
+
+.cart-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 70px;
+  height: 70px;
+  background-color: #5daf99;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.cart-button:hover {
+  background-color: #057222;
+}
