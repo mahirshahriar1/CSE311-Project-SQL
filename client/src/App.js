@@ -17,6 +17,7 @@ import AddClothes from './Sellers/AddClothes';
 import Shop from './Sellers/Shop';
 import EditItem from './Sellers/EditItem';
 import UserList from './Admin/UserList'
+import Cart from './Customers/Cart';
 
 
 
@@ -44,6 +45,8 @@ function App() {
           <Route exact path='/yourshop' element={<Shop/>} />
           <Route exact path='/editItem/:param1' element={<EditItem />} />
           <Route exact path='/userList' element={<UserList/>} />
+       
+          <Route exact path='/cart' element={<Cart/>} />
 
 
         </Routes>

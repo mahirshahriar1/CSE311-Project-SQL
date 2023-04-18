@@ -87,17 +87,17 @@ log.post('/sellerRegister', upload.single("photo"), (req, res) => {
                     [username, hash, fname, phone, filename, 1, 'Seller'],
                     (err, result) => {
                         console.log(err);
-                    }                   
+                    }
                 );
-                if(err){
-                    res.send({ok: false});
+                if (err) {
+                    res.send({ ok: false });
                 }
-                else{
-                    res.send({ok: true});
+                else {
+                    res.send({ ok: true });
                 }
 
-        });
-}
+            });
+        }
 
     });
 });
@@ -113,7 +113,7 @@ log.post('/customerRegister', upload.single("photo"), (req, res) => {
     const { phone } = req.body;
 
 
-
+   
 
     db.query("SELECT Username FROM customers WHERE Username = ?", [username], (err, result) => {
         if (err) {
@@ -134,20 +134,33 @@ log.post('/customerRegister', upload.single("photo"), (req, res) => {
 
                     [username, hash, fname, phone, filename, 1, 'Customer'],
                     (err, result) => {
-                        console.log(err);
-                    }                   
+                         
+                       if(err == null){
+                             //carts(ID	DateModified	NumOfProducts	TotalPrice	CartStatus	CustomerID	)
+                            db.query("INSERT INTO carts (DateModified,NumOfProducts,TotalPrice,CartStatus,CustomerID) VALUES (?,?,?,?,?)",
+                            [moment().format('YYYY-MM-DD HH:mm:ss'),0,0,'Pending',result.insertId],
+                            (err, result) => {
+                                console.log(err);
+                            }
+                        );
+                       }
+                    }
                 );
-                if(err){
-                    res.send({ok: false});
+                if (err) {
+                    res.send({ ok: false });
                 }
-                else{
-                    res.send({ok: true});
+                else {                   
+
+                    res.send({ ok: true });
                 }
 
-        });
-}
+            });
+        }
 
     });
+
+
+
 });
 
 log.post("/getCustomerData", (req, res) => {
@@ -211,9 +224,9 @@ log.get('/isUserAuth', verifyJWT, (req, res) => {
 log.get('/login', (req, res) => {
     if (req.session.user) {
         // console.log('logged in');
-        res.send({ type:req.session.user[0].Type, loggedIn: true, user: req.session.user });
+        res.send({ type: req.session.user[0].Type, loggedIn: true, user: req.session.user });
         //console.log(req.session.user);
-       // console.log(req.session.user[0].Type);
+        // console.log(req.session.user[0].Type);
     } else {
         // console.log('not logged in');
         res.send({ loggedIn: false });
@@ -221,7 +234,7 @@ log.get('/login', (req, res) => {
 });
 
 log.get('/sellerLogin', (req, res) => {
-    
+
     if (req.session.user) {
         // console.log('logged in');        
         res.send({ loggedIn: true, user: req.session.user });
@@ -229,7 +242,7 @@ log.get('/sellerLogin', (req, res) => {
         // console.log('not logged in');
         res.send({ loggedIn: false });
     }
-    
+
 });
 
 
@@ -317,6 +330,8 @@ log.post('/customerLogin', (req, res) => {
             }
 
         });
+
+
 });
 
 
