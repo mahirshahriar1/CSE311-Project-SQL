@@ -94,7 +94,11 @@ seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
     const { id } = req.body;
     const { oldimage }=req.body;
     const {quantity}=req.body;
-    console.log(quantity);
+    const {description}=req.body;
+    const {specification}=req.body;
+    const {genre}=req.body;
+    const {summary}=req.body;
+    const {author}=req.body;
 
     //products(Image,Price,SellerID, AdminID, Name,Type)  
 
@@ -115,6 +119,48 @@ seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
     }
     );
 
+    if(type==='Clothes'){
+        db.query("UPDATE clothes SET Size=?,Color=?,Brand=?,Material=? WHERE ProductID=?", [size, color, brand, material, id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Data Updated');
+            }
+        }
+        );
+    }else if(type==='Cosmetics'){
+        //Type Brand Description
+        db.query("Update cosmetics set Type=?,Brand=?,Description=? where ProductID=?",[type,brand,description,id],(err,result)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log('Data Updated');
+            }
+        }
+        )
+    }
+    else if(type==='Electronics'){
+        //Specification Type Brand
+        db.query("Update electronics set Specification=?,Type=?,Brand=? where ProductID=?",[specification,type,brand,id],(err,result)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log('Data Updated');
+            }
+        }
+        )
+    }
+    else if(type==='Books'){
+        //Genre Summary Author
+        db.query("Update books set Genre=?,Summary=?,Author=? where ProductID=?",[genre,summary,author,id],(err,result)=>{
+            if(err){
+                console.log(err);
+            }else{
+                console.log('Data Updated');
+            }
+        }
+        )
+    }
 
 })
 

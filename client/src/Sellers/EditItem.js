@@ -85,6 +85,11 @@ export default function EditItem() {
         formData.append("id", id);
         formData.append("oldimage", oldimage);
         formData.append("quantity", quantity2);
+        formData.append("description", description);
+        formData.append("specification", specification);
+        formData.append("genre", genre);
+        formData.append("summary", summary);
+        formData.append("author", author);
         //console.log(oldimage)
         
 
