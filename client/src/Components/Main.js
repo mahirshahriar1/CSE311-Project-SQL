@@ -68,7 +68,7 @@ export default function Main() {
                         return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
                             <Item name={element.Name} description={element.Price}
                                 imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
-                                cartID={cartID} prodQuantity={element.Quantity}
+                                cartID={cartID} prodQuantity={element.Quantity} home={true}
                             />
                         </div>
                     })}
@@ -77,7 +77,10 @@ export default function Main() {
             </div>
             <button className='cart-button fa-solid fa-cart-shopping'
                onClick={() => {
-                    window.location.href = '/cart';
+                //send cartid to /cart
+                    
+                    window.location.href = `http://localhost:3000/cart/${cartID}`
+
                }
                 }
             

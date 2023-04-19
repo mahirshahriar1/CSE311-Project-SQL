@@ -93,9 +93,12 @@ seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
     const { sellerid } = req.body;
     const { id } = req.body;
     const { oldimage }=req.body;
+    const {quantity}=req.body;
+    console.log(quantity);
 
-    //products(Image,Price,SellerID, AdminID, Name,Type)
-    db.query("UPDATE products SET Image=?,Price=?,Name=?,Type=? WHERE id=?", [filename, price, name, type, id], (err, result) => {
+    //products(Image,Price,SellerID, AdminID, Name,Type)  
+
+    db.query("UPDATE products SET Image=?,Price=?,Name=?,Type=?,Quantity=? WHERE id=?", [filename, price, name, type,quantity, id], (err, result) => {
         if (err) {
             console.log(err);
         } else {

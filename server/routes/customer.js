@@ -85,6 +85,69 @@ customer.post('/addToCart', (req, res) => {
 
 
 
+//Carts(ID DateModified NumOfProducts TotalPrice CartStatus CustomerID)
+//cart_product(CartID	ProductID	DateAdded	Quantity)
+//product( ID	Image	Price	SellerID	AdminID	Name	Type	Quantity	)
+
+
+customer.post('/getCartProducts', (req, res) => {
+    const CartID = req.body.CartID;
+
+    db.query("SELECT cp.ProductID, p.Name, SUM(cp.Quantity) AS TotalQuantity, p.Price, p.Image FROM cart_product cp INNER JOIN products p ON cp.ProductID = p.ID WHERE cp.CartID = ? GROUP BY cp.ProductID, p.Name, p.Price, p.Image", [CartID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    }
+    );
+
+});
+
+customer.post('/removeFromCart', (req, res) => {
+    const CartID = req.body.CartID;
+    const ProductID = req.body.ProductID;
+    const Quantity = req.body.TotalQuantity;
+    const Price = req.body.Price;
+    console.log('quantity' + ' ' + Quantity);
+    console.log('price' + ' ' + Price);
+    db.query("DELETE FROM cart_product WHERE CartID=? AND ProductID=?", [CartID, ProductID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            //update cart
+            const TotalPrice = Quantity * Price;
+
+            db.query("UPDATE carts SET TotalPrice = TotalPrice - ? , NumOfProducts=NumOfProducts-? WHERE ID=?", [TotalPrice, Quantity, CartID], (err, result2) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    // console.log(result2);
+
+
+                    //product( ID	Image	Price	SellerID	AdminID	Name	Type	Quantity	)
+                    db.query("UPDATE products SET Quantity = Quantity + ? WHERE ID=?", [Quantity, ProductID], (err, result3) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            const response = { result, result2, result3 };
+                            res.send(response);
+                        }
+                    }
+                    );
+
+                }
+            }
+            );
+        }
+    }
+    );
+
+});
+
+
+
+
 
 
 

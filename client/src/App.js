@@ -46,7 +46,7 @@ function App() {
           <Route exact path='/editItem/:param1' element={<EditItem />} />
           <Route exact path='/userList' element={<UserList/>} />
        
-          <Route exact path='/cart' element={<Cart/>} />
+          <Route exact path='/Cart/:param1' element={<Cart />} />
 
 
         </Routes>

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 
 const Item = (props) => {
-    let { name, description, imglink, id, seller, customer, admin, product, customerID, cartID, prodQuantity } = props;
+    let { name, description, imglink, id, seller, customer, admin, product, customerID, cartID, prodQuantity ,home} = props;
 
     let Type = props.Type;
    // console.log(props);
@@ -95,7 +95,7 @@ const Item = (props) => {
        
     }
 
-
+  
     return (
         <div>
             <div className="container my-3">
@@ -104,12 +104,12 @@ const Item = (props) => {
                     <div className="card-body">
                         <h5 className="card-title">{name}</h5>
                         <p className="card-text">{description}</p>
-                        <p className='card-text'>Quantity- {prodQuantity2}</p>
-                        
+                        {product  ? <p className='card-text'>Quantity- {prodQuantity2}</p> : null}
+                       
 
                         {product ? <Link to={`/ItemInfo/${id}`} className="btn btn-primary">Check</Link> : null}
-                        {seller ? <Link to={`/EditItem/${id}`} style={{ marginLeft: '24px' }} className="btn btn-warning">Edit</Link> : null}
-                        {seller && product ? <Button style={{ marginLeft: '24px' }} className="btn btn-danger" onClick={() => {
+                        {!home && seller ? <Link to={`/EditItem/${id}`} style={{ marginLeft: '24px' }} className="btn btn-warning">Edit</Link> : null}
+                        {!home && seller && product ? <Button style={{ marginLeft: '24px' }} className="btn btn-danger" onClick={() => {
                             dltProduct(id, imglink);
                         }}>Delete</Button> : null}
 

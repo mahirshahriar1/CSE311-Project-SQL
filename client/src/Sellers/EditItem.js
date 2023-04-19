@@ -18,6 +18,9 @@ export default function EditItem() {
     const [material, setMaterial] = useState('');
     const [imgfile, setImgfile] = useState('');
     const [sellerid, setSellerid] = useState(0);
+    const [quantity, setQuantity] = useState(0);
+
+    const [quantity2, setQuantity2] = useState(0);
 
     //books
     const [genre, setGenre] = useState('');
@@ -37,6 +40,8 @@ export default function EditItem() {
     const setname = (e) => { setName(e.target.value); }
     const setprice = (e) => { setPrice(e.target.value); }
     const setimgfile = (e) => { setImgfile(e.target.files[0]); }
+    const setquantity2 = (e) => { setQuantity2(e.target.value); }
+
 
 
 
@@ -79,8 +84,9 @@ export default function EditItem() {
         formData.append("sellerid", sellerid);
         formData.append("id", id);
         formData.append("oldimage", oldimage);
+        formData.append("quantity", quantity2);
         //console.log(oldimage)
-
+        
 
         const config = {
             headers: {
@@ -123,6 +129,8 @@ export default function EditItem() {
                 setName(response.data[0].Name);
                 setPrice(response.data[0].Price);
                 setImage(response.data[0].Image);
+                setQuantity(response.data[0].Quantity);
+                console.log(response.data[0])
                 if (response.data[0].Type === 'Clothes') {
                     setClothes(true);
                 }
@@ -179,7 +187,7 @@ export default function EditItem() {
             }
         });
 
-    }, [id, clothes, books, electronics, cosmetics])
+    }, [clothes, books, electronics, cosmetics])
 
 
 
@@ -203,6 +211,10 @@ export default function EditItem() {
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Price</Form.Label>
                             <Form.Control type="text" name='fname' onChange={setprice} defaultValue={price} />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Quantity</Form.Label>
+                            <Form.Control type="text" name='fname' onChange={setquantity2} defaultValue={quantity} />
                         </Form.Group>
 
                         {clothes && <>
