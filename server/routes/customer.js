@@ -109,8 +109,8 @@ customer.post('/removeFromCart', (req, res) => {
     const ProductID = req.body.ProductID;
     const Quantity = req.body.TotalQuantity;
     const Price = req.body.Price;
-    console.log('quantity' + ' ' + Quantity);
-    console.log('price' + ' ' + Price);
+    // console.log('quantity' + ' ' + Quantity);
+    // console.log('price' + ' ' + Price);
     db.query("DELETE FROM cart_product WHERE CartID=? AND ProductID=?", [CartID, ProductID], (err, result) => {
         if (err) {
             console.log(err);
@@ -146,7 +146,57 @@ customer.post('/removeFromCart', (req, res) => {
 });
 
 
+//Orders(ID	OrderStatus	DateOfOrder	Address	Phone	TotalAmount	CartID	AdminID	CustomerID	)
 
+customer.post('/placeOrder', (req, res) => {
+    const CartID = req.body.CartID;
+    const Address = req.body.Address;
+    const Phone = req.body.Phone;
+    const TotalAmount = 0;
+    const CustomerID = req.body.CustomerID;
+    const DateOfOrder = moment().format('YYYY-MM-DD HH:mm:ss');
+    const OrderStatus = 'Pending';
+
+    //get total amount
+    db.query("SELECT TotalPrice FROM carts WHERE ID=?", [CartID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            const TotalAmount = result[0].TotalPrice;
+            // console.log(TotalAmount);
+            db.query("INSERT INTO orders (OrderStatus,DateOfOrder,Address,Phone,TotalAmount,CartID,AdminID,CustomerID) VALUES (?,?,?,?,?,?,?,?)", [OrderStatus, DateOfOrder, Address, Phone, TotalAmount, CartID, 1, CustomerID], (err, result1) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    //update cart
+                    db.query("UPDATE carts SET CartStatus = 'Ordered' WHERE ID=?", [CartID], (err, result2) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+
+                            db.query("INSERT INTO carts (DateModified,NumOfProducts,TotalPrice,CartStatus,CustomerID) VALUES (?,?,?,?,?)",
+                                [moment().format('YYYY-MM-DD HH:mm:ss'), 0, 0, 'Pending', CustomerID],
+                                (err, result3) => {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        const response = { result, result1, result2, result3 };
+                                        res.send(response);
+                                    }
+                                }
+                            );
+
+                        }
+                    }
+                    );
+                }
+            }
+            );
+        }
+    }
+    );
+
+});
 
 
 

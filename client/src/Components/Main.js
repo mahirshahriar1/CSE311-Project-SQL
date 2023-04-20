@@ -38,10 +38,10 @@ export default function Main() {
             } else if (response.data.type === 'Customer') {
                 setCustomerID(response.data.user[0].ID)
                 setCustomer(true);
-               
+
                 Axios.get('http://localhost:3001/getCartID', { params: { id: response.data.user[0].ID } }).then((response) => {
-                   // console.log(response.data);
-                   setCartID(response.data[0].ID);
+                    // console.log(response.data);
+                    setCartID(response.data[0].ID);
                 })
 
 
@@ -76,14 +76,14 @@ export default function Main() {
                 </div>
             </div>
             <button className='cart-button fa-solid fa-cart-shopping'
-               onClick={() => {
-                //send cartid to /cart
-                    
-                    window.location.href = `http://localhost:3000/cart/${cartID}`
+                onClick={() => {
+                    //send cartid to /cart
 
-               }
+                    window.location.href = `http://localhost:3000/cart/`
+
                 }
-            
+                }
+
             > </button>
 
 

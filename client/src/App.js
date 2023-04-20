@@ -18,6 +18,8 @@ import Shop from './Sellers/Shop';
 import EditItem from './Sellers/EditItem';
 import UserList from './Admin/UserList'
 import Cart from './Customers/Cart';
+import Orders from './Customers/Orders';
+import Checkout from './Customers/Checkout';
 
 
 
@@ -46,7 +48,9 @@ function App() {
           <Route exact path='/editItem/:param1' element={<EditItem />} />
           <Route exact path='/userList' element={<UserList/>} />
        
-          <Route exact path='/Cart/:param1' element={<Cart />} />
+          <Route exact path='/Cart' element={<Cart />} />
+          <Route exact path='/Orders' element={<Orders />} />
+          <Route exact path='/Checkout/:param1' element={<Checkout />} />
 
 
         </Routes>

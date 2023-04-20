@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 
-export default function Cart() {
+export default function Orders() {
     //const CartID = window.location.href.split('/').reverse()[0]
     // console.log(CartID);
 
@@ -13,7 +13,14 @@ export default function Cart() {
 
     Axios.defaults.withCredentials = true;
 
-
+    const getCartProducts = () => {
+        Axios.post('http://localhost:3001/getCartProducts', { CartID: CartID }).then((response) => {
+            //console.log(response.data);
+            setCartProducts(response.data);
+            //console.log(response.data);
+        }
+        );
+    };
 
     const removeFromCart = (ProductID, TotalQuantity, Price) => {
         console.log(Price);
@@ -23,14 +30,11 @@ export default function Cart() {
 
         }).then((response) => {
             //console.log(response.data);
-            //filter
-            setCartProducts(cartProducts.filter((val) => {
-                return val.ProductID !== ProductID;
-            }))
+            getCartProducts();
         }
         );
     }
-    // eslint-disable-next-line
+ //eslint-disable-next-line
     const [customerID, setCustomerID] = useState(0);
     const [CartID, setCartID] = useState(0);
 
@@ -38,7 +42,8 @@ export default function Cart() {
 
 
     useEffect(() => {
-        const getCartProducts = () => {
+
+        const getCart = () => {
             Axios.post('http://localhost:3001/getCartProducts', { CartID: CartID }).then((response) => {
                 //console.log(response.data);
                 setCartProducts(response.data);
@@ -46,8 +51,7 @@ export default function Cart() {
             }
             );
         };
-
-        getCartProducts();
+        getCart();
 
         Axios.get('http://localhost:3001/login').then((response) => {
             //console.log(response.data.user[0].ID)
@@ -63,7 +67,7 @@ export default function Cart() {
         }
         )
 
-    }, [customer, CartID])
+    }, [customer, CartID ])
 
     function getTotalPrice(price, quantity) {
         return price * quantity;
@@ -73,7 +77,7 @@ export default function Cart() {
     return (
         customer && <div>
             <Navbar />
-            <div className="container" style={{ marginLeft: "270px" }}>
+            <div className="container">
                 <div className="row">
                     <div className="col-12">
                         <table className="table table-image">
@@ -106,20 +110,8 @@ export default function Cart() {
                         </table>
                     </div>
                 </div>
-                {cartProducts.length !== 0 &&
-                    <div style={{ paddingBottom: '100px', paddingTop: '30px' }}>
-                        <button style={{ marginLeft: '560px', height: '50px' }} className='btn btn-success'
-                            onClick={() => {
-                                //send cartid to checkout
-                                window.location.href = `/checkout/${CartID}`
-
-                            }
-                            }
-                        > Confirm Your Order</button>
-                    </div>
-                }
-
             </div>
+
         </div>
     )
 }

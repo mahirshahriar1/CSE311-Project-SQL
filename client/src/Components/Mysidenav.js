@@ -14,6 +14,7 @@ export default function Mysidenav() {
 
     const [sellerStatus, setsellerStatus] = useState(false);
     const [adminStatus, setadminStatus] = useState(false);
+    const [customerStatus, setcustomerStatus] = useState(false);
     //eslint-disable-next-line
     const [username, setUsername] = useState("");
     Axios.defaults.withCredentials = true;
@@ -29,6 +30,9 @@ export default function Mysidenav() {
 
             } else if (response.data.loggedIn === true && response.data.user[0].Type === 'Admin') {
                 setadminStatus(true);
+                setUsername(response.data.user[0].Username);
+            }else if (response.data.loggedIn === true && response.data.user[0].Type === 'Customer') {
+                setcustomerStatus(true);
                 setUsername(response.data.user[0].Username);
             }
         });
@@ -97,6 +101,24 @@ export default function Mysidenav() {
                                 Check Users
                             </NavText>
                         </NavItem>
+                    }
+                    {
+                        customerStatus   && <NavItem eventKey='cart'>
+                            <NavIcon> <i className='fa fa-fw  fa-cart-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavText>
+                                Cart
+                            </NavText>
+                        </NavItem>
+
+                    } 
+                    {
+                        customerStatus   && <NavItem eventKey='Orders'>
+                            <NavIcon> <i className='fa fa-fw  fa-bag-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavText>
+                                Orders
+                            </NavText>
+                        </NavItem>
+
                     }
                     
 
