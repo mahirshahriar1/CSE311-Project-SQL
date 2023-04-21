@@ -36,7 +36,7 @@ export default function Checkout() {
 
 
         Axios.post('http://localhost:3001/placeOrder', {
-            CartID: cartID, Address: address, Phone: phone, CustomerID: customerID
+            CartID: cartID, Address: address, Phone: phone, CustomerID: customerID , Region: selectedRegion, Name: name
         }).then((response) => {
             console.log(response.data);
             alert('Order Placed Successfully');
@@ -48,7 +48,7 @@ export default function Checkout() {
 
 
 
-
+    
 
     useEffect(() => {
         Axios.get('http://localhost:3001/login').then((response) => {
@@ -56,6 +56,9 @@ export default function Checkout() {
             if (response.data.type === 'Customer') {
                 //console.log("Seller");
                 setCustomerID(response.data.user[0].ID);
+                setName(response.data.user[0].Name);
+                setPhone(response.data.user[0].Phone);
+                console.log(response.data.user[0].Name);
             }
         })
 
@@ -68,7 +71,7 @@ export default function Checkout() {
         }
 
 
-    }, [customerID])
+    }, [customerID,name,phone])
     // console.log(checkCart);
     // console.log(cartID);
 
@@ -79,14 +82,14 @@ export default function Checkout() {
             <div style={{ paddingLeft: '50px' }} className="container mt-3">
                 <h1 style={{ textAlign: 'center' }}>Checkout Your Cart</h1>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail"  >
+                    <Form.Group className="mb-3" controlId="formBasicEmail"   >
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setname}
+                        <Form.Control type="text" name='fname' onChange={setname} disabled={true} defaultValue={name}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Phone</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setphone} />
+                        <Form.Control type="text" name='fname' onChange={setphone} defaultValue={phone} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Address</Form.Label>

@@ -18,7 +18,7 @@ export default function Orders() {
     const importOrders = (status) => {
         
         Axios.post('http://localhost:3001/importOrders', { status: status }).then((response) => {
-            console.log(response.data);
+           // console.log(response.data);
             setOrders(response.data);
             //console.log(response.data);
         }
@@ -47,18 +47,23 @@ export default function Orders() {
             <Navbar />
 
             <div className="container" style={{ marginLeft: "270px" }}>
-                <div className='row' style={{ marginLeft: "270px", marginTop: '20px', marginBottom: '20px' }} >
-                    <div className="col-6">
-                        <Button
+                <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
+                    <div className="col-4">
+                        <Button className='btn btn-primary'
                             onClick={() =>
                                 importOrders('Pending')
                             }
                         >Pending</Button>
                     </div>
-                    <div className="col-6">
-                        <Button onClick={() =>
+                    <div className="col-4">
+                        <Button className='btn btn-success'  onClick={() =>
                             importOrders('Confirmed')
                         } >Confirmed</Button>
+                    </div>
+                    <div className="col-4">
+                        <Button className='btn btn-danger' onClick={() =>
+                            importOrders('Cancelled')
+                        } >Cancelled</Button>
                     </div>
                 </div>
 
@@ -69,8 +74,13 @@ export default function Orders() {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Date of Order</th>
+                                    <th scope="col">Date of Process</th>
                                     <th scope="col">Total Price</th>
                                     <th scope="col">Order Status</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Customer Phone</th>
+                                    <th scope="col">Customer Region</th>
+                                    <th scope="col">Customer Address</th>
                                     <th scope="col">Check Order</th>
                                 </tr>
                             </thead>
@@ -81,14 +91,29 @@ export default function Orders() {
                                         <td>
                                             {item.DateOfOrder.trim().split('T')[0]}
                                         </td>
+                                        <td >
+                                            {item.DateOfProcess.trim().split('T')[0]? item.DateOfProcess.trim().split('T')[0] : 'Not Processed'}
+                                        </td>
                                         <td>
                                             {item.TotalAmount}
-                                        </td>
+                                        </td>                                       
                                         <td style={{
                                             color: item.OrderStatus === 'Pending' ? 'black' : item.OrderStatus === 'Confirmed' ?
                                                 'green' : 'red'
                                         }}>
                                             {item.OrderStatus}
+                                        </td>
+                                        <td>
+                                            {item.Name}
+                                        </td>
+                                        <td>
+                                            {item.Phone}
+                                        </td>
+                                        <td>
+                                            {item.Region}
+                                        </td>
+                                        <td>
+                                            {item.Address}
                                         </td>
                                         <td>
                                             <a href={`/checkOrder/${item.CartID}`} className="btn btn-primary">Check Order</a>

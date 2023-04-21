@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Navbar from '../Components/Navbar'
 import Axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -12,6 +12,8 @@ export default function CheckOrder() {
     const [cartProducts, setCartProducts] = useState([]);
 
     Axios.defaults.withCredentials = true;
+
+    const [status, setStatus] = useState('');
 
 
     const [admin, setAdmin] = useState(false);
@@ -46,18 +48,29 @@ export default function CheckOrder() {
         }
         )
 
-    }, [customer, CartID])
+
+        const getIsProcessed = () => {
+            Axios.post('http://localhost:3001/getIsProcessed', { CartID: CartID }).then((response) => {
+                setStatus(response.data[0].OrderStatus);
+            }
+            );
+        };
+         getIsProcessed();
+
+    }, [customer, CartID,status])
+
 
     function getTotalPrice(price, quantity) {
         return price * quantity;
     }
 
     const order = (status) => {
-
+        console.log(status);
         Axios.post('http://localhost:3001/orderAction', {
             CartID: CartID, Status: status
         }).then((response) => {
             if (response.data) {
+                //console.log(response.data);
                 alert('Order has been ' + status);
                 window.location.href = '/orderList';
             }
@@ -82,6 +95,7 @@ export default function CheckOrder() {
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Total Price</th>
+                              
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,13 +109,13 @@ export default function CheckOrder() {
                                         <td>{item.Price}</td>
                                         <td>{item.TotalQuantity}</td>
                                         <td>{getTotalPrice(item.Price, item.TotalQuantity)}</td>
-                                    </tr>
+                                        </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
+                  {status==='Pending' && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
                     <Button style={{ marginLeft: '560px', height: '50px', width: '200px' }} className='btn btn-success'
                         onClick={() => {
 
@@ -117,7 +131,15 @@ export default function CheckOrder() {
                         }
                         }
                     > Cancel this Order  </Button>
-                </div>
+                </div>}
+               {status!=='Pending'
+                && <div  style={{ marginLeft:'450px'  }}>
+                       <Fragment>
+                            <h2 >Order Status: <span  style={{color: status==='Confirmed'?'green':'red' }}>{status}</span> </h2>
+                       </Fragment>
+                    </div>
+               }
+
             </div>
         </div>
     )

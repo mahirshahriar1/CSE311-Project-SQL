@@ -64,16 +64,7 @@ export default function Navbar() {
                   <li style={{color:'#e3dede'}}  ><a className="dropdown-item" href='/'>Something else here</a></li>
                 </ul>
               </li>
-              {/* <li className="nav-item">
-                <a className="nav-link disabled" href='/'>Disabled</a>
-              </li> */}
-              {/* <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href='/imgup'>imgup</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href='/imgdown'>imgdown</a>
-              </li> */}
-
+        
               {!loginStatus &&  <li className="nav-item dropdown">
                 <a style={{color:'#e3dede'}}  className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Login

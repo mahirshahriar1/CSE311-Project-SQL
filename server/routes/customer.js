@@ -156,6 +156,8 @@ customer.post('/placeOrder', (req, res) => {
     const CustomerID = req.body.CustomerID;
     const DateOfOrder = moment().format('YYYY-MM-DD HH:mm:ss');
     const OrderStatus = 'Pending';
+    const Region=req.body.Region;
+    const Name=req.body.Name;
 
     //get total amount
     db.query("SELECT TotalPrice FROM carts WHERE ID=?", [CartID], (err, result) => {
@@ -164,7 +166,7 @@ customer.post('/placeOrder', (req, res) => {
         } else {
             const TotalAmount = result[0].TotalPrice;
             // console.log(TotalAmount);
-            db.query("INSERT INTO orders (OrderStatus,DateOfOrder,Address,Phone,TotalAmount,CartID,AdminID,CustomerID) VALUES (?,?,?,?,?,?,?,?)", [OrderStatus, DateOfOrder, Address, Phone, TotalAmount, CartID, 1, CustomerID], (err, result1) => {
+            db.query("INSERT INTO orders (OrderStatus,DateOfOrder,Name,Region,Address,Phone,TotalAmount,CartID,AdminID,CustomerID) VALUES (?,?,?,?,?,?,?,?,?,?)", [OrderStatus, DateOfOrder, Name, Region, Address, Phone, TotalAmount, CartID, 1, CustomerID], (err, result1) => {
                 if (err) {
                     console.log(err);
                 } else {

@@ -4,8 +4,6 @@ import Main from './Components/Main';
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ItemInfo from './Components/ItemInfo';
-import Imgup from './Components/Imgup';
-import Imgdown from './Components/Imgdown';
 import Mysidenav from './Components/Mysidenav.js';
 import AdminLogin from './Admin/AdminLogin';
 import CustomerLogin from './Customers/CustomerLogin';
@@ -40,8 +38,7 @@ function App() {
           <Route exact path='/CustomerLogin' element={<CustomerLogin />} />
           <Route exact path='/SellerLogin' element={<SellerLogin />} />
           
-          <Route exact path='/Imgup' element={<Imgup />} />
-          <Route exact path='/Imgdown' element={<Imgdown />} />
+    
           <Route exact path='/addBooks' element={<AddBooks/>} />
           <Route exact path='/addElectronics' element={<AddElectronics/>} />
           <Route exact path='/addCosmetics' element={<AddCosmetics/>} />

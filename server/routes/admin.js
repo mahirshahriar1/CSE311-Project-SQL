@@ -78,7 +78,7 @@ admin.delete("/dltUser/:id/:Type/:imglink", (req, res) => {
 
 admin.post('/importOrders', (req, res) => {
     const status=req.body.status;
-    db.query('SELECT * FROM orders WHERE OrderStatus=?',[status], (err, result) => {
+    db.query('SELECT * FROM orders WHERE OrderStatus=? order by DateOfOrder desc',[status], (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -91,18 +91,34 @@ admin.post('/importOrders', (req, res) => {
 
 //orderAction
 admin.post('/orderAction', (req, res) => {
-    const id = req.body.id;
-    const status = req.body.status;
-    db.query('UPDATE orders SET OrderStatus=? WHERE ID=?', [status, id], (err, result) => {
+    const id = req.body.CartID;
+    const status = req.body.Status;
+    //console.log(status);
+    db.query('UPDATE orders SET OrderStatus=? , DateOfProcess=? WHERE CartID=?', [status,Date.now(),id], (err, result) => {
         if (err) {
             console.log(err);
         }
         else {
             res.send(result);
         }
-    });
+    }
+    );
+    
 });
 
+
+admin.post('/getIsProcessed', (req, res) => {
+    const id = req.body.CartID;
+    db.query('SELECT * FROM orders WHERE CartID=?', [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }
+    );
+});
 
 
 
