@@ -199,6 +199,46 @@ customer.post('/placeOrder', (req, res) => {
 });
 
 
+// Orders(ID OrderStatus DateOfOrder Address Phone TotalAmount CartID AdminID CustomerID)
+
+customer.post('/getOrders', (req, res) => {
+    const CustomerID = req.body.CustomerID;
+
+    db.query("SELECT * FROM orders WHERE CustomerID=?", [CustomerID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+    }
+    );
+
+});
+
+
+//is this customers cart
+customer.post('/isThisCustomersCart', (req, res) => {
+    const CartID = req.body.CartID;
+    const CustomerID = req.body.CustomerID;
+    // console.log(CartID);
+    // console.log(CustomerID);
+
+    db.query("SELECT * FROM carts WHERE ID=? AND CustomerID=?", [CartID, CustomerID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if (result.length > 0) {
+                res.send(true);
+            } else {
+                res.send(false);
+            }
+        }
+    }
+    );
+});
+
+
+
 
 
 module.exports = customer;

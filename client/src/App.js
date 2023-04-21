@@ -20,6 +20,8 @@ import UserList from './Admin/UserList'
 import Cart from './Customers/Cart';
 import Orders from './Customers/Orders';
 import Checkout from './Customers/Checkout';
+import CheckOrder from './Customers/CheckOrder';
+import OrderList from './Admin/OrderList';
 
 
 
@@ -51,6 +53,8 @@ function App() {
           <Route exact path='/Cart' element={<Cart />} />
           <Route exact path='/Orders' element={<Orders />} />
           <Route exact path='/Checkout/:param1' element={<Checkout />} />
+          <Route exact path='/checkOrder/:param1' element={<CheckOrder />} />
+          <Route exact path='/orderList' element={<OrderList />} />
 
 
         </Routes>

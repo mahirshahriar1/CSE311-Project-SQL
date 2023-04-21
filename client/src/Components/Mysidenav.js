@@ -103,6 +103,16 @@ export default function Mysidenav() {
                         </NavItem>
                     }
                     {
+                        adminStatus && <NavItem eventKey='orderList'>
+                            <NavIcon> <i className='fa fa-fw  fa-bag-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavText>
+                                Check Orders
+                            </NavText>
+                        </NavItem>
+                    }
+
+
+                    {
                         customerStatus   && <NavItem eventKey='cart'>
                             <NavIcon> <i className='fa fa-fw  fa-cart-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                             <NavText>

@@ -76,6 +76,32 @@ admin.delete("/dltUser/:id/:Type/:imglink", (req, res) => {
 
 })
 
+admin.post('/importOrders', (req, res) => {
+    const status=req.body.status;
+    db.query('SELECT * FROM orders WHERE OrderStatus=?',[status], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
+
+});
+
+//orderAction
+admin.post('/orderAction', (req, res) => {
+    const id = req.body.id;
+    const status = req.body.status;
+    db.query('UPDATE orders SET OrderStatus=? WHERE ID=?', [status, id], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
+});
 
 
 
