@@ -18,9 +18,9 @@ export default function EditItem() {
     const [material, setMaterial] = useState('');
     const [imgfile, setImgfile] = useState('');
     const [sellerid, setSellerid] = useState(0);
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState();
 
-    const [quantity2, setQuantity2] = useState(0);
+    const [quantity2, setQuantity2] = useState();
 
     //books
     const [genre, setGenre] = useState('');
@@ -72,54 +72,74 @@ export default function EditItem() {
 
     const editproduct = (e) => {
         e.preventDefault();
-        var formData = new FormData();
-        formData.append("photo", imgfile);
-        formData.append("name", name);
-        formData.append("price", price);
-        formData.append("type", type);
-        formData.append("color", color);
-        formData.append("brand", brand);
-        formData.append("size", size);
-        formData.append("material", material);
-        formData.append("sellerid", sellerid);
-        formData.append("id", id);
-        formData.append("oldimage", oldimage);
-        formData.append("quantity", quantity2);
-        formData.append("description", description);
-        formData.append("specification", specification);
-        formData.append("genre", genre);
-        formData.append("summary", summary);
-        formData.append("author", author);
-        //console.log(oldimage)
-        
+        if (imgfile !== '') {
 
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
+            var formData = new FormData();
+
+            formData.append("photo", imgfile);
+            formData.append("name", name);
+            formData.append("price", price);
+            formData.append("type", type);
+            formData.append("color", color);
+            formData.append("brand", brand);
+            formData.append("size", size);
+            formData.append("material", material);
+            formData.append("sellerid", sellerid);
+            formData.append("id", id);
+            formData.append("oldimage", oldimage);
+            formData.append("quantity", quantity2);
+            formData.append("description", description);
+            formData.append("specification", specification);
+            formData.append("genre", genre);
+            formData.append("summary", summary);
+            formData.append("author", author);
+
+
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             }
+
+            Axios.put('http://localhost:3001/editproduct/:id',
+                formData, config
+            ).then((response) => {
+                if (response.data.message) {
+                    alert(response.data.message);
+                }
+                else {
+                    alert('Product edited successfully');
+                    window.location.href = '/yourshop';
+                }
+            });
+
         }
 
-        Axios.put('http://localhost:3001/editproduct/:id',
-            formData,
 
-            config
-        ).then((response) => {
-            if (response.data.message) {
-                alert(response.data.message);
-            }
-            else {
-                alert('Product edited successfully');
-                window.location.href = '/yourshop';
-            }
-        });
+        else {
+            Axios.post('http://localhost:3001/editproduct/:id',
+                {
+                    name: name, price: price, type: type, color: color, brand: brand, size: size, material: material, sellerid: sellerid, id: id, oldimage: oldimage, quantity: quantity2, description: description, specification: specification, genre: genre, summary: summary, author: author
+                }
+            ).then((response) => {
+                if (response.data.message) {
+                    alert(response.data.message);
+                }
+                else {
+                    alert('Product edited successfully');
+                    window.location.href = '/yourshop';
+                }
+            });
+
+        }
+
 
 
     }
     const [checkid, setCheckid] = useState(0);
     const [oldimage, setOldimage] = useState('');
-    
+
     useEffect(() => {
-        // getEmployees();
 
         const getData = () => {
             //home route
@@ -135,7 +155,8 @@ export default function EditItem() {
                 setPrice(response.data[0].Price);
                 setImage(response.data[0].Image);
                 setQuantity(response.data[0].Quantity);
-                console.log(response.data[0])
+                setQuantity2(response.data[0].Quantity);
+                // console.log(response.data[0])
                 if (response.data[0].Type === 'Clothes') {
                     setClothes(true);
                 }
@@ -152,7 +173,7 @@ export default function EditItem() {
             }
             );
 
-              //home route
+            //home route
             Axios.post('http://localhost:3001/specific2', { id: id }).then((response) => {
 
                 //console.log(response.data);
@@ -171,7 +192,7 @@ export default function EditItem() {
                     setDescription(response.data[0].Description);
                     setBrand(response.data[0].Brand);
                     setType1(response.data[0].Type);
-                }else if(electronics){
+                } else if (electronics) {
                     setSpecification(response.data[0].Specification);
                     setBrand(response.data[0].Brand);
                     setType1(response.data[0].Type);

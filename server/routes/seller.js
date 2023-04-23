@@ -75,12 +75,12 @@ seller.delete("/dltProduct/:id/:imglink", (req, res) => {
 
 })
 
-//edit product
+
 seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
     const { filename } = req.file;
     const { name } = req.body;
     const { price } = req.body;
-    console.log(price);
+    // console.log(price);
     const{photo}=req.body;
   
 
@@ -134,7 +134,7 @@ seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
             if(err){
                 console.log(err);
             }else{
-                console.log('Data Updated');
+                // console.log('Data Updated');
             }
         }
         )
@@ -156,6 +156,84 @@ seller.put("/editProduct/:id", upload.single("photo"), (req, res) => {
             if(err){
                 console.log(err);
             }else{
+                console.log('Data Updated');
+            }
+        }
+        )
+    }
+
+})
+
+
+//edit product
+seller.post("/editProduct/:id", (req, res) => {
+
+    const name = req.body.name;
+    const price = req.body.price;
+    const size = req.body.size;
+    const color = req.body.color;
+    const brand = req.body.brand;
+    const material = req.body.material;
+    const type = req.body.type;
+    const id = req.body.id;
+    const oldimage = req.body.oldimage;
+    const quantity = req.body.quantity;
+    const description = req.body.description;
+    const specification = req.body.specification;
+    const genre = req.body.genre;
+    const summary = req.body.summary;
+    const author = req.body.author;
+
+    //products(Image,Price,SellerID, AdminID, Name,Type)  
+
+    db.query("UPDATE products SET Price=?,Name=?,Type=?,Quantity=? WHERE id=?", [price, name, type, quantity, id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            // console.log(oldimage)
+            res.status(201).json({ status: 201, data: result })
+            console.log('Data Updated');
+        }
+    }
+    );
+
+    if (type === 'Clothes') {
+        db.query("UPDATE clothes SET Size=?,Color=?,Brand=?,Material=? WHERE ProductID=?", [size, color, brand, material, id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Data Updated');
+            }
+        }
+        );
+    } else if (type === 'Cosmetics') {
+        //Type Brand Description
+        db.query("Update cosmetics set Type=?,Brand=?,Description=? where ProductID=?", [type, brand, description, id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Data Updated');
+            }
+        }
+        )
+    }
+    else if (type === 'Electronics') {
+        //Specification Type Brand
+        db.query("Update electronics set Specification=?,Type=?,Brand=? where ProductID=?", [specification, type, brand, id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Data Updated');
+            }
+        }
+        )
+    }
+    else if (type === 'Books') {
+        //Genre Summary Author
+        db.query("Update books set Genre=?,Summary=?,Author=? where ProductID=?", [genre, summary, author, id], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
                 console.log('Data Updated');
             }
         }
