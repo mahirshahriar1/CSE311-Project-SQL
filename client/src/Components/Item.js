@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
@@ -71,7 +71,7 @@ const Item = (props) => {
     const [quantity, setQuantity] = useState(0);
 
 
-    const [Percentage, setPercentage] = useState(0);
+    const [Percentage, setPercentage] = useState();
     const [EndDate, setEndDate] = useState("");
 
 
@@ -109,6 +109,8 @@ const Item = (props) => {
 
     }
 
+
+
     const addToCart = async (id, CartID, quantity) => {
         if (quantity <= 0) {
             alert("Quantity cannot be zero!");
@@ -140,7 +142,24 @@ const Item = (props) => {
 
 
     }
+    const [discountPercentage, setDiscountPercentage] = useState();
+    const [discountEndDate, setDiscountEndDate] = useState("");
 
+    useEffect(() => {
+        const getProductDiscount = async () => {
+            const res = await axios.get(`http://localhost:3001/getProductDiscount/${id}`);
+             //console.log(res.data[0]);
+
+            if (res.status === 200 ) {
+                setDiscountPercentage(res.data[0].Percentage);
+                setDiscountEndDate(res.data[0].EndDate);
+            }
+        }
+        getProductDiscount();
+    }, [id,discountPercentage,discountEndDate])    
+    // console.log(id);
+    // console.log(discountPercentage);
+    // console.log(discountEndDate);
 
 
     return (
@@ -151,6 +170,7 @@ const Item = (props) => {
                     <div className="card-body">
                         <h5 className="card-title">{name}</h5>
                         <p className="card-text">{description}</p>
+                        <p className="card-text">Discount - {discountPercentage}</p>
                         {product ? <p className='card-text'>Quantity- {prodQuantity2}</p> : null}
 
 

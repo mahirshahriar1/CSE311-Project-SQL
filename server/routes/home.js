@@ -22,7 +22,7 @@ home.get('/importProducts', (req, res) => {
     });
 
 });
-
+    
 home.post('/specific1', (req, res) => {
     const id = req.body.id;
 
@@ -99,5 +99,24 @@ home.post('/specific2', (req, res) => {
     });
 });
 
+// const res = await axios.get(`http://localhost:3001/getProductDiscount/${id}`);
+
+home.get('/getProductDiscount/:id', async (req, res) => {
+    const id = req.params.id;
+    db.query("SELECT * from discounts where ProductID=?", [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            if(result.length>0)
+            {
+                res.status(200).send(result);
+            }else{
+                res.status(201).send("No Discount");
+            }
+        }
+    }
+    );
+
+});
 
 module.exports = home;
