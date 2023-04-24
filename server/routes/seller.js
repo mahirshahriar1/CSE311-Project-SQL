@@ -266,11 +266,16 @@ seller.post("/addDiscount", (req, res) => {
 seller.post("/checkDiscount", (req, res) => {
     const { ProductID } = req.body;
 
-    db.query("SELECT * FROM discounts WHERE ProductID=?", [ProductID], (err, result) => {
+    db.query("SELECT * FROM discounts WHERE ProductID=?  and ExpirationDate >= NOW()", [ProductID], (err, result) => {
         if (err) {
             res.status(500).json({ status: 500, data: err })
-        } else if(result.length>0) {
-            res.status(201).json({ status: 201, data: result })
+        } else {
+            if (result.length > 0) {
+                res.status(201).json({ status: 201, data: result })
+            }
+            else {
+                res.status(404).json({ status: 404, data: result })
+            }
         }
     }
     );

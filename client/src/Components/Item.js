@@ -81,20 +81,19 @@ const Item = (props) => {
 
 
         // console.log(format(new Date(EndDate), 'yyyy-MM-dd'));
-       // console.log(id);
+        // console.log(id);
 
-       axios.post(`http://localhost:3001/checkDiscount`, {
-            ProductID: id
-        }).then((res) => {
-            if (res.data.status === 201) {
-                alert("Discount already exists");
-                handleCloseDis();
-            }
-        }).catch((err) => {
-            console.log(err);
-        })
-
-
+        const res1 = await axios.post(`http://localhost:3001/checkDiscount`, {
+            ProductID: id,
+        });
+        if (res1.status === 201) {
+            alert("Discount already exists");
+            handleCloseDis();
+            return;
+        }else {
+            console.log(res1.status);
+        }
+       
 
 
         const res = await axios.post(`http://localhost:3001/addDiscount`, {
@@ -151,15 +150,15 @@ const Item = (props) => {
     useEffect(() => {
         const getProductDiscount = async () => {
             const res = await axios.get(`http://localhost:3001/getProductDiscount/${id}`);
-             //console.log(res.data[0]);
+            //console.log(res.data[0]);
 
-            if (res.status === 200 ) {
+            if (res.status === 200) {
                 setDiscountPercentage(res.data[0].Percentage);
                 setDiscountEndDate(res.data[0].EndDate);
             }
         }
         getProductDiscount();
-    }, [id,discountPercentage,discountEndDate])    
+    }, [id, discountPercentage, discountEndDate])
     // console.log(id);
     // console.log(discountPercentage);
     // console.log(discountEndDate);
