@@ -212,7 +212,7 @@ export default function EditItem() {
 
             }
         });
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clothes, books, electronics, cosmetics])
 
 

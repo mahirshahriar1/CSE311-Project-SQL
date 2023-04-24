@@ -65,6 +65,13 @@ export default function Mysidenav() {
                         </NavText>
                     </NavItem>
                     }
+                    {sellerStatus && <NavItem eventKey='yourDiscounts'>
+                        <NavIcon> <i className='fa fa-fw  fa-shop' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                        <NavText>
+                            Check Discounts
+                        </NavText>
+                    </NavItem>
+                    }
                     {sellerStatus && <NavItem eventKey='menus' >
                         <NavIcon><i className='fa fa-fw fa-bars' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                         <NavText style={{ background: 'black' }} >
