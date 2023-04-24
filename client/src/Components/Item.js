@@ -71,26 +71,29 @@ const Item = (props) => {
     const [quantity, setQuantity] = useState(0);
 
 
-    const [Percentage, setPercentage] = useState();
+    const [Percentage, setPercentage] = useState(5);
     const [EndDate, setEndDate] = useState("");
 
 
     const addDiscount = async (id, Percentage, EndDate) => {
         //item.DateOfProcess.trim().split('T')[0]
-        //console.log(EndDatetrim().split('T')[0])
+        //console.log(EndDatetrim().split('T')[0])s
 
 
         // console.log(format(new Date(EndDate), 'yyyy-MM-dd'));
+       // console.log(id);
 
-        const res1 = await axios.post(`http://localhost:3001/checkDiscount/`,
-            {
-                ProductID: id,
+       axios.post(`http://localhost:3001/checkDiscount`, {
+            ProductID: id
+        }).then((res) => {
+            if (res.data.status === 201) {
+                alert("Discount already exists");
+                handleCloseDis();
             }
-        );
-        if (res1.data.status === 200) {
-            alert("Discount already exists");
-            return;
-        }
+        }).catch((err) => {
+            console.log(err);
+        })
+
 
 
 
