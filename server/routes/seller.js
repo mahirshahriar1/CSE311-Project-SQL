@@ -274,7 +274,7 @@ seller.post("/checkDiscount", (req, res) => {
                 res.status(201).json({ status: 201, data: result })
             }
             else {
-                res.status(404).json({ status: 404, data: result })
+                res.send(result)
             }
         }
     }
@@ -286,8 +286,11 @@ seller.post("/checkDiscount", (req, res) => {
 
 seller.post("/getDiscounts", (req, res) => {
     const { SellerID } = req.body;
-
-    db.query("SELECT * FROM discounts INNER JOIN products ON discounts.ProductID=products.ID WHERE products.SellerID=?", [SellerID], (err, result) => {
+    //SELECT discounts.ID,discounts.Percentage, discounts.ExpirationDate,discounts.ProductID FROM discounts INNER JOIN products ON discounts.ProductID=products.ID WHERE products.SellerID=33 and discounts.ExpirationDate >= NOW()
+  
+  
+  
+    db.query("SELECT discounts.ID,discounts.Percentage, discounts.ExpirationDate,discounts.ProductID FROM discounts INNER JOIN products ON discounts.ProductID=products.ID WHERE products.SellerID=? and discounts.ExpirationDate >= NOW() ", [SellerID], (err, result) => {
         if (err) {
             res.status(500).json({ status: 500, data: err })
         } else {
@@ -299,7 +302,27 @@ seller.post("/getDiscounts", (req, res) => {
             }
         }
     }
+
     );
+  
+  
+  
+
+})
+
+
+seller.post("/deleteDiscount", (req, res) => {
+    const { DiscountID } = req.body;
+    // console.log(DiscountID)
+    db.query("DELETE FROM discounts WHERE ID=?", [DiscountID], (err, result) => {
+        if (err) {
+            res.status(500).json({ status: 500, data: err })
+        } else {
+            res.status(201).json({ status: 201, data: result })
+        }
+    }
+    );
+
 })
 
 

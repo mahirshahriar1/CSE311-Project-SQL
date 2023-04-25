@@ -39,33 +39,33 @@ admin.delete("/dltUser/:id/:Type/:imglink", (req, res) => {
     const Type = req.params.Type;
     const userimg = req.params.imglink;
     try {
-        if(Type=="Seller"){
+        if (Type == "Seller") {
             db.query("DELETE FROM sellers WHERE id=?", [id], (err, result) => {
                 if (err) {
                     console.log(err);
                 } else {
-                   // console.log('Data Deleted');
+                    // console.log('Data Deleted');
                     res.status(201).json({ status: 201, data: result })
                 }
             })
         }
-        else if(Type=="Customer"){
+        else if (Type == "Customer") {
             db.query("DELETE FROM customers WHERE id=?", [id], (err, result) => {
                 if (err) {
                     console.log(err);
                 } else {
-                   // console.log('Data Deleted');
+                    // console.log('Data Deleted');
                     res.status(201).json({ status: 201, data: result })
                 }
             })
         }
-               
+
     }
     catch (error) {
         res.status(422).json({ status: 422, error });
     }
 
-   // console.log(userimg);
+    // console.log(userimg);
     fs.unlink(`./uploads/${userimg}`, (err) => {
         if (err) {
             console.log(err);
@@ -77,8 +77,8 @@ admin.delete("/dltUser/:id/:Type/:imglink", (req, res) => {
 })
 
 admin.post('/importOrders', (req, res) => {
-    const status=req.body.status;
-    db.query('SELECT * FROM orders WHERE OrderStatus=? order by DateOfOrder desc',[status], (err, result) => {
+    const status = req.body.status;
+    db.query('SELECT * FROM orders WHERE OrderStatus=? order by DateOfOrder desc', [status], (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -94,7 +94,7 @@ admin.post('/orderAction', (req, res) => {
     const id = req.body.CartID;
     const status = req.body.Status;
     //console.log(status);
-    db.query('UPDATE orders SET OrderStatus=? , DateOfProcess=? WHERE CartID=?', [status,Date.now(),id], (err, result) => {
+    db.query('UPDATE orders SET OrderStatus=? , DateOfProcess=? WHERE CartID=?', [status, Date.now(), id], (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -103,11 +103,24 @@ admin.post('/orderAction', (req, res) => {
         }
     }
     );
-    
+
 });
 
 
 admin.post('/getIsProcessed', (req, res) => {
+    const id = req.body.CartID;
+    db.query('SELECT * FROM orders WHERE CartID=?', [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }
+    );
+});
+
+admin.post('/getOrderInfo', (req, res) => {
     const id = req.body.CartID;
     db.query('SELECT * FROM orders WHERE CartID=?', [id], (err, result) => {
         if (err) {

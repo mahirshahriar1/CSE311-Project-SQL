@@ -103,7 +103,7 @@ home.post('/specific2', (req, res) => {
 
 home.get('/getProductDiscount/:id', async (req, res) => {
     const id = req.params.id;
-    db.query("SELECT * from discounts where ProductID=?", [id], (err, result) => {
+    db.query("SELECT * from discounts where ProductID=?  and ExpirationDate >= NOW()  ", [id], (err, result) => {
         if (err) {
             console.log(err);
         } else {

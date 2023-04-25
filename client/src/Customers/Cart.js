@@ -42,7 +42,7 @@ export default function Cart() {
             Axios.post('http://localhost:3001/getCartProducts', { CartID: CartID }).then((response) => {
                 //console.log(response.data);
                 setCartProducts(response.data);
-                //console.log(response.data);
+                // console.log(response.data);
             }
             );
         };
@@ -65,9 +65,6 @@ export default function Cart() {
 
     }, [customer, CartID])
 
-    function getTotalPrice(price, quantity) {
-        return price * quantity;
-    }
 
 
     return (
@@ -98,7 +95,7 @@ export default function Cart() {
                                         <td>{item.Name}</td>
                                         <td>{item.Price}</td>
                                         <td>{item.TotalQuantity}</td>
-                                        <td>{getTotalPrice(item.Price, item.TotalQuantity)}</td>
+                                        <td>{item.TotalPrice}</td>
                                         <td><Button className='btn btn-danger' onClick={() => removeFromCart(item.ProductID, item.TotalQuantity, item.Price)} >Remove</Button></td>
                                     </tr>
                                 ))}

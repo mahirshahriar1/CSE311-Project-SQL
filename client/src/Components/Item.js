@@ -7,7 +7,6 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
 import format from 'date-fns/format';
 
 
@@ -91,9 +90,9 @@ const Item = (props) => {
             handleCloseDis();
             return;
         }else {
-            console.log(res1.status);
+            // console.log(res1.status);
         }
-       
+        
 
 
         const res = await axios.post(`http://localhost:3001/addDiscount`, {
@@ -104,6 +103,7 @@ const Item = (props) => {
         if (res.status === 201) {
             alert("Discount added");
             handleCloseDis();
+            window.location.reload();
         }
         else {
             alert("Something went wrong");

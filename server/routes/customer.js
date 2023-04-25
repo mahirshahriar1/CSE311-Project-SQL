@@ -26,29 +26,49 @@ customer.get('/getCartID', (req, res) => {
 //cart_product(CartID	ProductID	DateAdded	Quantity)
 //product( ID	Image	Price	SellerID	AdminID	Name	Type	Quantity	)
 
+
 customer.post('/addToCart', (req, res) => {
     const CartID = req.body.CartID;
     const ProductID = req.body.ProductID;
     const Quantity = req.body.quantity;
     const DateAdded = moment().format('YYYY-MM-DD HH:mm:ss');
+
     // console.log('quantity' + ' ' + Quantity);
     // console.log('CartID' + ' ' + CartID);
     // console.log('ProductID' + ' ' + ProductID);
 
-    db.query("INSERT INTO cart_product (CartID,ProductID,DateAdded,Quantity) VALUES (?,?,?,?)", [CartID, ProductID, DateAdded, Quantity], (err, result) => {
+    //discounts( ID Percentage ExpirationDate ProductID	)
+    var Percentage = 0;
+    db.query("SELECT * FROM discounts WHERE ProductID=? and ExpirationDate >= NOW()", [ProductID], (err, result) => {
         if (err) {
             console.log(err);
-
         } else {
+            if (result.length > 0) {
+                Percentage = result[0].Percentage;
+            }
+        }
+    }
+    );
 
-            //get price
-            db.query("SELECT * FROM products WHERE ID=?", [ProductID], (err, result1) => {
+
+
+
+
+    //get price
+    db.query("SELECT * FROM products WHERE ID=?", [ProductID], (err, result1) => {
+        if (err) {
+            console.log(err);
+        } else {
+            const Price = result1[0].Price;
+            const DiscountedPrice = Price - (Price * Percentage / 100);
+            const TotalPrice = Quantity * DiscountedPrice;
+            console.log('TotalPrice' + ' ' + TotalPrice);
+            db.query("INSERT INTO cart_product (CartID,ProductID,DateAdded,Quantity,Price) VALUES (?,?,?,?,?)", [CartID, ProductID, DateAdded, Quantity, TotalPrice], (err, result) => {
                 if (err) {
                     console.log(err);
+
                 } else {
                     //update cart
-                    const Price = result1[0].Price;
-                    const TotalPrice = Quantity * Price;
 
                     db.query("UPDATE carts SET TotalPrice = TotalPrice + ? , NumOfProducts=NumOfProducts+? WHERE ID=?", [TotalPrice, Quantity, CartID], (err, result2) => {
                         if (err) {
@@ -93,7 +113,7 @@ customer.post('/addToCart', (req, res) => {
 customer.post('/getCartProducts', (req, res) => {
     const CartID = req.body.CartID;
 
-    db.query("SELECT cp.ProductID, p.Name, SUM(cp.Quantity) AS TotalQuantity, p.Price, p.Image FROM cart_product cp INNER JOIN products p ON cp.ProductID = p.ID WHERE cp.CartID = ? GROUP BY cp.ProductID, p.Name, p.Price, p.Image", [CartID], (err, result) => {
+    db.query("SELECT cp.ProductID, p.Name, SUM(cp.Quantity) AS TotalQuantity, SUM(cp.Price) AS TotalPrice, p.Price, p.Image FROM cart_product cp INNER JOIN products p ON cp.ProductID = p.ID WHERE cp.CartID = ? GROUP BY cp.ProductID, p.Name, p.Price, p.Image", [CartID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -108,15 +128,31 @@ customer.post('/removeFromCart', (req, res) => {
     const CartID = req.body.CartID;
     const ProductID = req.body.ProductID;
     const Quantity = req.body.TotalQuantity;
-    const Price = req.body.Price;
+    var Price = 0;
     // console.log('quantity' + ' ' + Quantity);
     // console.log('price' + ' ' + Price);
+
+    db.query("Select * FROM cart_product WHERE CartID=? AND ProductID=?", [CartID, ProductID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(result);
+            for(var i=0; i<result.length; i++){
+                Price = parseFloat(Price) + parseFloat(result[i].Price);
+                // console.log('price' + ' ' + Price);
+            }
+            
+        }
+    }
+    );
+
+
     db.query("DELETE FROM cart_product WHERE CartID=? AND ProductID=?", [CartID, ProductID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
             //update cart
-            const TotalPrice = Quantity * Price;
+            const TotalPrice = Price;
 
             db.query("UPDATE carts SET TotalPrice = TotalPrice - ? , NumOfProducts=NumOfProducts-? WHERE ID=?", [TotalPrice, Quantity, CartID], (err, result2) => {
                 if (err) {
@@ -156,8 +192,8 @@ customer.post('/placeOrder', (req, res) => {
     const CustomerID = req.body.CustomerID;
     const DateOfOrder = moment().format('YYYY-MM-DD HH:mm:ss');
     const OrderStatus = 'Pending';
-    const Region=req.body.Region;
-    const Name=req.body.Name;
+    const Region = req.body.Region;
+    const Name = req.body.Name;
 
     //get total amount
     db.query("SELECT TotalPrice FROM carts WHERE ID=?", [CartID], (err, result) => {

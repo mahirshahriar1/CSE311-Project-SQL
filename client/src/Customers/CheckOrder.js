@@ -17,6 +17,17 @@ export default function CheckOrder() {
 
 
     const [admin, setAdmin] = useState(false);
+
+
+
+    const [name, setName] = useState('');
+    const [region, setRegion] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const [TotalAmount, setTotalAmount] = useState();
+
+
+
     useEffect(() => {
         const getCartProducts = () => {
             Axios.post('http://localhost:3001/getCartProducts', { CartID: CartID }).then((response) => {
@@ -55,14 +66,27 @@ export default function CheckOrder() {
             }
             );
         };
-         getIsProcessed();
-
-    }, [customer, CartID,status])
+        getIsProcessed();
 
 
-    function getTotalPrice(price, quantity) {
-        return price * quantity;
-    }
+        const getOrderInfo = () => {
+            Axios.post('http://localhost:3001/getOrderInfo', { CartID: CartID }).then((response) => {
+
+                setName(response.data[0].Name);
+                setRegion(response.data[0].Region);
+                setAddress(response.data[0].Address);
+                setPhone(response.data[0].Phone);
+                setTotalAmount(response.data[0].TotalAmount);
+            }
+            );
+        };
+
+        getOrderInfo();
+
+    }, [customer, CartID, status, name])
+
+
+
 
     const order = (status) => {
         console.log(status);
@@ -95,7 +119,7 @@ export default function CheckOrder() {
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Total Price</th>
-                              
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -103,19 +127,34 @@ export default function CheckOrder() {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td className="w-25">
-                                            <img src={`http://localhost:3001/uploads/${item.Image}`} className="img-fluid img-thumbnail" alt={item.Name} />
+                                            <img style={{ height: '250px' }} src={`http://localhost:3001/uploads/${item.Image}`} className="img-fluid img-thumbnail" alt={item.Name} />
                                         </td>
                                         <td>{item.Name}</td>
                                         <td>{item.Price}</td>
                                         <td>{item.TotalQuantity}</td>
-                                        <td>{getTotalPrice(item.Price, item.TotalQuantity)}</td>
-                                        </tr>
+                                        <td>{item.TotalPrice}</td>
+                                    </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
-                  {status==='Pending' && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
+
+                <div>
+                    <h2 style={{ marginLeft: '450px' }}>Customer Information</h2>
+                    <div className="row">
+                        <div className="col-6">
+                            <h4 style={{ marginLeft: '450px' }}>Name: {name}</h4>
+                            <h4 style={{ marginLeft: '450px' }}>Region: {region}</h4>
+                            <h4 style={{ marginLeft: '450px' }}>Address: {address}</h4>
+                            <h4 style={{ marginLeft: '450px' }}>Phone: {phone}</h4>
+                            <h4 style={{ marginLeft: '450px' }}>Total Amount: {TotalAmount}</h4>
+                        </div>
+                    </div>
+                </div>
+
+
+                {status === 'Pending' && admin && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
                     <Button style={{ marginLeft: '560px', height: '50px', width: '200px' }} className='btn btn-success'
                         onClick={() => {
 
@@ -125,20 +164,20 @@ export default function CheckOrder() {
                     > Confirm this Order</Button>
                     <Button style={{ marginLeft: '560px', height: '50px', marginTop: '25px', width: '200px' }} className='btn btn-danger'
                         onClick={() => {
-                                
-                                order('Cancelled');
+
+                            order('Cancelled');
 
                         }
                         }
                     > Cancel this Order  </Button>
                 </div>}
-               {status!=='Pending'
-                && <div  style={{ marginLeft:'450px'  }}>
-                       <Fragment>
-                            <h2 >Order Status: <span  style={{color: status==='Confirmed'?'green':'red' }}>{status}</span> </h2>
-                       </Fragment>
+                {status !== 'Pending'
+                    && <div style={{ marginLeft: '450px' }}>
+                        <Fragment>
+                            <h2 >Order Status: <span style={{ color: status === 'Confirmed' ? 'green' : 'red' }}>{status}</span> </h2>
+                        </Fragment>
                     </div>
-               }
+                }
 
             </div>
         </div>
