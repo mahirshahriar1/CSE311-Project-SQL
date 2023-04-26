@@ -5,56 +5,103 @@ import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
 export default function Main() {
-    const [productList, setProductList] = useState([]);
     const [seller, setSeller] = useState(false);
     const [admin, setAdmin] = useState(false);
     const [customer, setCustomer] = useState(false);
     const [customerID, setCustomerID] = useState(0);
     const [cartID, setCartID] = useState(0);
 
+    const [bool, setBool] = useState(false);
+    const [productList, setProductList] = useState([]);
+    const [allProducts, setAllProducts] = useState([]);
+
+
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [isComplete, setIsComplete] = useState(false);
+
     const getProducts = () => {
-        //home route
         Axios.get('http://localhost:3001/importProducts').then((response) => {
-            //console.log(response.data);
-            // console.log("Successlly got");
-            // response.data.map((element) => {
-            //     console.log(element.name);
-            // })
-
-            setProductList(response.data);
-            //console.log(response.data);
-
+            setAllProducts(response.data);
+            setProductList(response.data.slice(0, 6));
         });
     };
 
-    useEffect(() => {
-        getProducts();
-
-        Axios.get('http://localhost:3001/login').then((response) => {
-            //console.log(response.data.user[0].ID)
-            if (response.data.type === 'Seller') {
-                //console.log("Seller");
-                setSeller(true);
-            } else if (response.data.type === 'Customer') {
-                setCustomerID(response.data.user[0].ID)
-                setCustomer(true);
-
-                Axios.get('http://localhost:3001/getCartID', { params: { id: response.data.user[0].ID } }).then((response) => {
-                    // console.log(response.data);
-                    setCartID(response.data[0].ID);
-                })
-
-
-                // console.log("Customer");
-            } else if (response.data.type === 'Admin') {
-                setAdmin(true);
-                // console.log("Admin");
-            }
-
+    const getMoreProducts = () => {
+        const numFetchedProducts = productList.length;
+        const remainingProducts = allProducts.length - numFetchedProducts;
+        console.log(remainingProducts);
+        if (remainingProducts === 0) {
+            setIsComplete(true);
+            setIsLoading(false);
+            return;
         }
-        )
 
-    }, [])
+        setTimeout
+            (() => {
+
+                setProductList((prevProductList) =>
+
+                    prevProductList.concat(allProducts.slice(prevProductList.length, prevProductList.length + 6))
+                );
+                setIsLoading(false);
+
+            }
+                , 500);
+
+    };
+
+
+
+
+    useEffect(() => {
+        if (bool === false) {
+            getProducts();
+            setBool(true);
+
+            Axios.get('http://localhost:3001/login').then((response) => {
+                //console.log(response.data.user[0].ID)
+                if (response.data.type === 'Seller') {
+                    //console.log("Seller");
+                    setSeller(true);
+                } else if (response.data.type === 'Customer') {
+                    setCustomerID(response.data.user[0].ID)
+                    setCustomer(true);
+
+                    Axios.get('http://localhost:3001/getCartID', { params: { id: response.data.user[0].ID } }).then((response) => {
+                        // console.log(response.data);
+                        setCartID(response.data[0].ID);
+                    })
+
+
+                    // console.log("Customer");
+                } else if (response.data.type === 'Admin') {
+                    setAdmin(true);
+                    // console.log("Admin");
+                }
+
+            }
+            )
+        }
+
+        const handleScroll = () => {
+            if (
+                window.innerHeight + window.scrollY >=
+                document.documentElement.offsetHeight &&
+                !isLoading && !isComplete
+            ) {
+                setIsLoading(true);
+                getMoreProducts();
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading, productList])
 
     return (
         <div>
@@ -74,7 +121,15 @@ export default function Main() {
                     })}
 
                 </div>
+
             </div>
+            {isLoading && (
+                <div style={{ height: '200px', display: "flex", justifyContent: "center" }}>
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            )}
             <button className='cart-button fa-solid fa-cart-shopping'
                 onClick={() => {
                     //send cartid to /cart

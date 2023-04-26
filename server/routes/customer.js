@@ -63,14 +63,16 @@ customer.post('/addToCart', (req, res) => {
             const DiscountedPrice = Price - (Price * Percentage / 100);
             const TotalPrice = Quantity * DiscountedPrice;
             console.log('TotalPrice' + ' ' + TotalPrice);
-            db.query("INSERT INTO cart_product (CartID,ProductID,DateAdded,Quantity,Price) VALUES (?,?,?,?,?)", [CartID, ProductID, DateAdded, Quantity, TotalPrice], (err, result) => {
+            db.query("INSERT INTO cart_product (CartID,ProductID,DateAdded,Quantity,Price) VALUES (?,?,?,?,?)", 
+            [CartID, ProductID, DateAdded, Quantity, TotalPrice], (err, result) => {
                 if (err) {
                     console.log(err);
 
                 } else {
                     //update cart
 
-                    db.query("UPDATE carts SET TotalPrice = TotalPrice + ? , NumOfProducts=NumOfProducts+? WHERE ID=?", [TotalPrice, Quantity, CartID], (err, result2) => {
+                    db.query("UPDATE carts SET TotalPrice = TotalPrice + ? , NumOfProducts=NumOfProducts+? WHERE ID=?", 
+                    [TotalPrice, Quantity, CartID], (err, result2) => {
                         if (err) {
                             console.log(err);
                         } else {
@@ -113,7 +115,8 @@ customer.post('/addToCart', (req, res) => {
 customer.post('/getCartProducts', (req, res) => {
     const CartID = req.body.CartID;
 
-    db.query("SELECT cp.ProductID, p.Name, SUM(cp.Quantity) AS TotalQuantity, SUM(cp.Price) AS TotalPrice, p.Price, p.Image FROM cart_product cp INNER JOIN products p ON cp.ProductID = p.ID WHERE cp.CartID = ? GROUP BY cp.ProductID, p.Name, p.Price, p.Image", [CartID], (err, result) => {
+    db.query(`SELECT cp.ProductID, p.Name, SUM(cp.Quantity) AS TotalQuantity, SUM(cp.Price) AS TotalPrice, p.Price, p.Image FROM cart_product 
+    cp INNER JOIN products p ON cp.ProductID = p.ID WHERE cp.CartID = ? GROUP BY cp.ProductID, p.Name, p.Price, p.Image`, [CartID], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -202,7 +205,8 @@ customer.post('/placeOrder', (req, res) => {
         } else {
             const TotalAmount = result[0].TotalPrice;
             // console.log(TotalAmount);
-            db.query("INSERT INTO orders (OrderStatus,DateOfOrder,Name,Region,Address,Phone,TotalAmount,CartID,AdminID,CustomerID) VALUES (?,?,?,?,?,?,?,?,?,?)", [OrderStatus, DateOfOrder, Name, Region, Address, Phone, TotalAmount, CartID, 1, CustomerID], (err, result1) => {
+            db.query("INSERT INTO orders (OrderStatus,DateOfOrder,Name,Region,Address,Phone,TotalAmount,CartID,AdminID,CustomerID) VALUES (?,?,?,?,?,?,?,?,?,?)", 
+            [OrderStatus, DateOfOrder, Name, Region, Address, Phone, TotalAmount, CartID, 1, CustomerID], (err, result1) => {
                 if (err) {
                     console.log(err);
                 } else {
@@ -284,7 +288,8 @@ customer.post('/postReport', (req, res) => {
     const comment = req.body.comment;
     const DateOfReport = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    db.query("INSERT INTO reports (DateOfReport,TextOfReport,CustomerID,ProductID) VALUES (?,?,?,?)", [DateOfReport, comment, CustomerID, ProductID], (err, result) => {
+    db.query("INSERT INTO reports (DateOfReport,TextOfReport,CustomerID,ProductID) VALUES (?,?,?,?)", 
+    [DateOfReport, comment, CustomerID, ProductID], (err, result) => {
         if (err) {
             console.log(err);
         } else {       
