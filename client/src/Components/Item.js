@@ -46,6 +46,15 @@ const Item = (props) => {
     const dltUser = async (id, Type, imglink) => {
         // console.log(id);
         // console.log(Type);
+        if (Type === "Seller") {
+            const res1 = await axios.post(`http://localhost:3001/checkOrderList`);
+            //console.log(res1);
+            if (res1.data.length > 0) {
+                alert("Cannot delete seller as their product might be in orders. Check Orders First");
+                return;
+            }
+        }
+
         const res = await axios.delete(`http://localhost:3001/dltUser/${id}/${Type}/${imglink}`, {
             headers: {
                 'Content-Type': 'application/json'
@@ -89,10 +98,10 @@ const Item = (props) => {
             alert("Discount already exists");
             handleCloseDis();
             return;
-        }else {
+        } else {
             // console.log(res1.status);
         }
-        
+
 
 
         const res = await axios.post(`http://localhost:3001/addDiscount`, {
@@ -146,7 +155,7 @@ const Item = (props) => {
     }
     const [discountPercentage, setDiscountPercentage] = useState();
     const [discountEndDate, setDiscountEndDate] = useState("");
-
+    const [hasdiscount, setHasDiscount] = useState(false);
     useEffect(() => {
         const getProductDiscount = async () => {
             const res = await axios.get(`http://localhost:3001/getProductDiscount/${id}`);
@@ -155,6 +164,7 @@ const Item = (props) => {
             if (res.status === 200) {
                 setDiscountPercentage(res.data[0].Percentage);
                 setDiscountEndDate(res.data[0].EndDate);
+                setHasDiscount(true);
             }
         }
         getProductDiscount();
@@ -162,17 +172,25 @@ const Item = (props) => {
     // console.log(id);
     // console.log(discountPercentage);
     // console.log(discountEndDate);
+    //console.log(hasdiscount);
 
 
     return (
         <div>
             <div className="container my-3">
                 <div className="card" style={{ width: '18rem' }}>
+                    {hasdiscount && <div style={{position: 'absolute', right: '0', top: '0', start:'100', }}>
+                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {discountPercentage + '%'}
+                        </span >
+                    </div>}
                     <img src={`http://localhost:3001/uploads/${imglink}`} className="card-img-top " style={{ height: '240px', width: '100%' }} alt="..." />
                     <div className="card-body">
                         <h5 className="card-title">{name}</h5>
+
                         <p className="card-text">{description}</p>
-                        <p className="card-text">Discount - {discountPercentage}</p>
+                        {/* {product ? <p className="card-text">Discount - {discountPercentage}</p> : null} */}
+
                         {product ? <p className='card-text'>Quantity- {prodQuantity2}</p> : null}
 
 

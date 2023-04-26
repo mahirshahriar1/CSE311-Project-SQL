@@ -21,6 +21,8 @@ import Checkout from './Customers/Checkout';
 import CheckOrder from './Customers/CheckOrder';
 import OrderList from './Admin/OrderList';
 import SellerDiscounts from './Sellers/SellerDiscounts';
+import Category from './Components/Category';
+import ReportList from './Admin/ReportList';
 
 
 
@@ -52,9 +54,11 @@ function App() {
           <Route exact path='/Orders' element={<Orders />} />
           <Route exact path='/Checkout/:param1' element={<Checkout />} />
           <Route exact path='/checkOrder/:param1' element={<CheckOrder />} />
+          <Route exact path='/category/:param1' element={<Category />} />
           <Route exact path='/orderList' element={<OrderList />} />
 
           <Route exact path='/yourDiscounts' element={<SellerDiscounts/>} />
+          <Route exact path='/reportList' element={<ReportList/>} />
 
 
         </Routes>

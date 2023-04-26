@@ -37,6 +37,7 @@ export default function Orders() {
         }
         )
 
+        importOrders('Pending');
 
     }, [admin])
 
@@ -46,7 +47,7 @@ export default function Orders() {
         admin && <div>
             <Navbar />
 
-            <div className="container" style={{ marginLeft: "270px" }}>
+            <div className="container" >
                 <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
                     <div className="col-4">
                         <Button className='btn btn-primary'

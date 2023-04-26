@@ -31,7 +31,7 @@ export default function Mysidenav() {
             } else if (response.data.loggedIn === true && response.data.user[0].Type === 'Admin') {
                 setadminStatus(true);
                 setUsername(response.data.user[0].Username);
-            }else if (response.data.loggedIn === true && response.data.user[0].Type === 'Customer') {
+            } else if (response.data.loggedIn === true && response.data.user[0].Type === 'Customer') {
                 setcustomerStatus(true);
                 setUsername(response.data.user[0].Username);
             }
@@ -55,7 +55,7 @@ export default function Mysidenav() {
                     <NavItem eventKey=''   >
                         <NavIcon> <i className='fa fa-fw fa-home' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                         <NavText>
-                            Home  
+                            Home
                         </NavText>
                     </NavItem>
                     {sellerStatus && <NavItem eventKey='yourshop'>
@@ -117,19 +117,28 @@ export default function Mysidenav() {
                             </NavText>
                         </NavItem>
                     }
+                    {
+                        adminStatus && <NavItem eventKey='reportList'>
+                            <NavIcon> <i className='fa fa-fw  fa-bag-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavText>
+                                Check Reports
+                            </NavText>
+                        </NavItem>
+                    }
+
 
 
                     {
-                        customerStatus   && <NavItem eventKey='cart'>
+                        customerStatus && <NavItem eventKey='cart'>
                             <NavIcon> <i className='fa fa-fw  fa-cart-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                             <NavText>
                                 Cart
                             </NavText>
                         </NavItem>
 
-                    } 
+                    }
                     {
-                        customerStatus   && <NavItem eventKey='Orders'>
+                        customerStatus && <NavItem eventKey='Orders'>
                             <NavIcon> <i className='fa fa-fw  fa-bag-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                             <NavText>
                                 Orders
@@ -137,7 +146,7 @@ export default function Mysidenav() {
                         </NavItem>
 
                     }
-                    
+
 
 
                 </Sidenav.Nav>

@@ -73,12 +73,12 @@ export default function UserList() {
         auth && <div>
            
             <Navbar />
-            <div className="container" style={{marginLeft:'500px', marginTop:'25px'}}> 
+            <div className="container" > 
 
 
-                <div className="row" >
-                    <div className="col md-4">
-                        <Button className={`btn btn-${color1}`} onClick={setUser1}>Sellers</Button>
+                <div className="row" style={{marginLeft:'300px', marginTop:'25px'}}>
+                    <div className="col md-4" > 
+                        <Button  className={`btn btn-${color1}`} onClick={setUser1}>Sellers</Button>
                     </div>
                     <div className="col md-4">
                         <Button className={`btn btn-${color2}`} onClick={setUser2}>Customers</Button>

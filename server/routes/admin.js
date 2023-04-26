@@ -106,6 +106,18 @@ admin.post('/orderAction', (req, res) => {
 
 });
 
+admin.post('/checkOrderList', (req, res) => {
+    db.query('SELECT * FROM orders WHERE OrderStatus=?', ["Pending"], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }
+    );
+});
+
 
 admin.post('/getIsProcessed', (req, res) => {
     const id = req.body.CartID;
@@ -133,6 +145,17 @@ admin.post('/getOrderInfo', (req, res) => {
     );
 });
 
+
+admin.get('/importReports', (req, res) => {
+     db.query('SELECT * FROM reports order by DateOfReport desc', (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
+});
 
 
 module.exports = admin;

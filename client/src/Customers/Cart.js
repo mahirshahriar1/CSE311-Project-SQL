@@ -65,12 +65,21 @@ export default function Cart() {
 
     }, [customer, CartID])
 
+    function check(TotalPrice,Price,TotalQuantity){
+       if(TotalPrice!==Price*TotalQuantity){
+        
+            return (Price-TotalPrice/TotalQuantity).toFixed(0);
+        }
+        else{
+            return 0;
+        }
+    }
 
 
     return (
         customer && <div>
             <Navbar />
-            <div className="container" style={{ marginLeft: "270px" }}>
+            <div className="container" style={{ marginLeft: "340px" }}>
                 <div className="row">
                     <div className="col-12">
                         <table className="table table-image">
@@ -81,6 +90,7 @@ export default function Cart() {
                                     <th scope="col">Product Name</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
+                                    <th scope="col">Discount</th>
                                     <th scope="col">Total Price</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -95,6 +105,8 @@ export default function Cart() {
                                         <td>{item.Name}</td>
                                         <td>{item.Price}</td>
                                         <td>{item.TotalQuantity}</td>
+                                        <td>{check(item.TotalPrice,item.Price,item.TotalQuantity)===0?'No Discount':
+                                        check(item.TotalPrice,item.Price,item.TotalQuantity)+'%'}</td>
                                         <td>{item.TotalPrice}</td>
                                         <td><Button className='btn btn-danger' onClick={() => removeFromCart(item.ProductID, item.TotalQuantity, item.Price)} >Remove</Button></td>
                                     </tr>

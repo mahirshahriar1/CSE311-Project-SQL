@@ -136,12 +136,12 @@ customer.post('/removeFromCart', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(result);
-            for(var i=0; i<result.length; i++){
+            //console.log(result);
+            for (var i = 0; i < result.length; i++) {
                 Price = parseFloat(Price) + parseFloat(result[i].Price);
                 // console.log('price' + ' ' + Price);
             }
-            
+
         }
     }
     );
@@ -270,6 +270,25 @@ customer.post('/isThisCustomersCart', (req, res) => {
             } else {
                 res.send(false);
             }
+        }
+    }
+    );
+});
+
+
+//reports(ID	DateOfReport	TextOfReport	CustomerID	ProductID	)
+
+customer.post('/postReport', (req, res) => {
+    const CustomerID = req.body.CustomerID;
+    const ProductID = req.body.ProductID;
+    const comment = req.body.comment;
+    const DateOfReport = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    db.query("INSERT INTO reports (DateOfReport,TextOfReport,CustomerID,ProductID) VALUES (?,?,?,?)", [DateOfReport, comment, CustomerID, ProductID], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {       
+            res.status(200).send({ message: 'Reported Successfully' });
         }
     }
     );

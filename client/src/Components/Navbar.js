@@ -16,7 +16,10 @@ export default function Navbar() {
      // console.log(response.data.loggedIn);
       if (response.data.loggedIn === true) {
         setLoginStatus(true);
-        setUsername(response.data.user[0].Name);
+        if(response.data.user[0].Name)
+          setUsername(response.data.user[0].Name);
+        else
+          setUsername('Admin');
       }
     });
 
@@ -50,10 +53,19 @@ export default function Navbar() {
                 <a style={{color:'#e3dede'}}  className="nav-link active" aria-current="page" href='/'>Home</a>
               </li>
               <li className="nav-item">
-                <a style={{color:'#e3dede'}}  className="nav-link" href='/'>Link</a>
+                <a style={{color:'#e3dede'}}  className="nav-link" href='/category/clothes'>Clothes</a>
+              </li>
+              <li className="nav-item">
+                <a style={{color:'#e3dede'}}  className="nav-link" href='/category/cosmetics'>Cosmetics</a>
+              </li>
+              <li className="nav-item">
+                <a style={{color:'#e3dede'}}  className="nav-link" href='/category/electronics'>Electronics</a>
+              </li>
+              <li className="nav-item">
+                <a style={{color:'#e3dede'}}  className="nav-link" href='/category/books'>Books</a>
               </li>
 
-              <li className="nav-item dropdown">
+              {/* <li className="nav-item dropdown">
                 <a style={{color:'#e3dede'}}  className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Dropdown
                 </a>
@@ -63,7 +75,7 @@ export default function Navbar() {
                   <li><hr className="dropdown-divider" /></li>
                   <li style={{color:'#e3dede'}}  ><a className="dropdown-item" href='/'>Something else here</a></li>
                 </ul>
-              </li>
+              </li> */}
         
               {!loginStatus &&  <li className="nav-item dropdown">
                 <a style={{color:'#e3dede'}}  className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">

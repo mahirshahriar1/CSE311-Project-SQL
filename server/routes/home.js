@@ -22,80 +22,37 @@ home.get('/importProducts', (req, res) => {
     });
 
 });
-    
-home.post('/specific1', (req, res) => {
-    const id = req.body.id;
 
-    db.query("SELECT * FROM products WHERE id=?", [id], (err, result) => {
+home.get('/importCategoricalProducts', (req, res) => {
+    const category = req.query.category;
+    //console.log(category);
+    db.query('SELECT * FROM products WHERE Type=?', [category], (err, result) => {
         if (err) {
             console.log(err);
-        } else {
-
+        }
+        else {
             res.send(result);
         }
-    }
-    );
-
+    });
 });
 
-home.post('/specific2', (req, res) => {
+home.post('/specific', (req, res) => {
     const id = req.body.id;
-
-    db.query("SELECT * FROM products WHERE id=?", [id], (err, result) => {
+    //console.log(id);
+    db.query(`SELECT p.*, c.*, cl.*, e.*, b.* ,
+              p.Type AS product_type
+              FROM products p
+              LEFT JOIN cosmetics c ON p.id = c.productid
+              LEFT JOIN clothes cl ON p.id = cl.productid
+              LEFT JOIN electronics e ON p.id = e.productid
+              LEFT JOIN books b ON p.id = b.productid
+              WHERE p.id = ?`, [id], (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            //cosmetics  (productid,type,brand,description)
-            //clothes (productid,color,brand,size,material)
-            //electronics (productid,specification,type,brand)
-            //books (productid,genre,summary,author)
-
-          
-            if (result[0].Type == 'Cosmetics') {
-                db.query("SELECT * FROM cosmetics WHERE productid=?", [id], (err, result1) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.send(result1);
-                    }
-                }
-                );
-            }
-            else if (result[0].Type == 'Clothes') {
-                db.query("SELECT * FROM clothes WHERE productid=?", [id], (err, result1) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.send(result1);
-                    }
-                }
-                );
-            }
-            else if (result[0].Type == 'Electronics') {
-                db.query("SELECT * FROM electronics WHERE productid=?", [id], (err, result1) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.send(result1);
-                    }
-                }
-                );
-            }
-            else if (result[0].Type == 'Books') {
-                
-                db.query("SELECT * FROM books WHERE productid=?", [id], (err, result1) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.send(result1);
-                    }
-                }
-                );
-            }
-
-
+           // console.log(result);
+            res.send(result);
         }
-
     });
 });
 
@@ -107,10 +64,9 @@ home.get('/getProductDiscount/:id', async (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            if(result.length>0)
-            {
+            if (result.length > 0) {
                 res.status(200).send(result);
-            }else{
+            } else {
                 res.status(201).send("No Discount");
             }
         }
@@ -118,5 +74,8 @@ home.get('/getProductDiscount/:id', async (req, res) => {
     );
 
 });
+
+
+
 
 module.exports = home;
