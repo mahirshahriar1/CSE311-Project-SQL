@@ -123,8 +123,8 @@ export default function Category() {
                 </div>
             </div>
             {isLoading && (
-                <div style={{ height: '200px', display: "flex", justifyContent: "center" }}>
-                    <div className="spinner-border" role="status">
+                <div style={{ marginTop:'50px', height: '200px', display: "flex", justifyContent: "center" }}>
+                    <div   style={{height:'60px', width:'60px'}} className="spinner-border" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>

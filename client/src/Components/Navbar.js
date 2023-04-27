@@ -41,7 +41,7 @@ export default function Navbar() {
     <div className="container">
 
    
-      <nav style={{marginLeft:'50px', backgroundColor:'rgb(44, 62, 80)'}} className="navbar navbar-expand-lg ">
+      <nav style={{marginLeft:'50px', backgroundColor:'#131414'}} className="navbar navbar-expand-lg ">
         <div className="container-fluid">
           <a style={{color:'#e3dede'}} className="navbar-brand "  href='/'>  Navbar</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,6 +64,29 @@ export default function Navbar() {
               <li className="nav-item">
                 <a style={{color:'#e3dede'}}  className="nav-link" href='/category/books'>Books</a>
               </li>
+              
+                    {!loginStatus &&  <li className="nav-item dropdown">
+                      <a style={{color:'#e3dede'}}  className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                      </a>
+                      <ul className="dropdown-menu">
+                        <li><a   className="dropdown-item" href='/AdminLogin'>Admin</a></li>
+                        <li><a  className="dropdown-item" href='/SellerLogin'>Seller</a></li>
+                        <li><hr className="dropdown-divider" /></li>
+                        <li><a  className="dropdown-item" href='/CustomerLogin'>Customer</a></li>
+                      </ul>
+                    </li>
+                    }
+                    
+                    {loginStatus && <li className="nav-item">
+                      <a className="nav-link disabled" style={{color:'#e3dede'}}  aria-current="page" href='/'>Welcome {username}</a>
+                    </li>
+                    }
+      
+                    {loginStatus && <li className="nav-item">
+                      <a style={{color:'#e3dede'}}  onClick={logout} className="nav-link active" aria-current="page" href='/'>Logout</a>
+                    </li>
+                    }
 
               {/* <li className="nav-item dropdown">
                 <a style={{color:'#e3dede'}}  className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -76,29 +99,6 @@ export default function Navbar() {
                   <li style={{color:'#e3dede'}}  ><a className="dropdown-item" href='/'>Something else here</a></li>
                 </ul>
               </li> */}
-        
-              {!loginStatus &&  <li className="nav-item dropdown">
-                <a style={{color:'#e3dede'}}  className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Login
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a   className="dropdown-item" href='/AdminLogin'>Admin</a></li>
-                  <li><a  className="dropdown-item" href='/SellerLogin'>Seller</a></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a  className="dropdown-item" href='/CustomerLogin'>Customer</a></li>
-                </ul>
-              </li>
-              }
-              
-              {loginStatus && <li className="nav-item">
-                <a className="nav-link disabled" style={{color:'#e3dede'}}  aria-current="page" href='/'>Welcome {username}</a>
-              </li>
-              }
-
-              {loginStatus && <li className="nav-item">
-                <a style={{color:'#e3dede'}}  onClick={logout} className="nav-link active" aria-current="page" href='/'>Logout</a>
-              </li>
-              }
 
 
             </ul>

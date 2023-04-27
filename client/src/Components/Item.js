@@ -178,7 +178,7 @@ const Item = (props) => {
     return (
         <div>
             <div className="container my-3">
-                <div className="card" style={{ width: '18rem' }}>
+                <div className="card bg-dark text-white" style={{ width: '18rem' }}>
                     {hasdiscount && <div style={{position: 'absolute', right: '0', top: '0', start:'100', }}>
                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {discountPercentage + '%'}

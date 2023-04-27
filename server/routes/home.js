@@ -12,7 +12,7 @@ home.get('/importProducts', (req, res) => {
     //electronics (productid,specification,type,brand)
     //books (productid,genre,summary,author)
 
-    db.query('SELECT * FROM products ', (err, result) => {
+    db.query('SELECT * FROM products ORDER by ID DESC', (err, result) => {
         if (err) {
             console.log(err);
         }

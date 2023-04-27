@@ -47,7 +47,7 @@ export default function Orders() {
         admin && <div>
             <Navbar />
 
-            <div className="container" >
+            <div className="container bg-dark" >
                 <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
                     <div className="col-4">
                         <Button className='btn btn-primary'
@@ -70,7 +70,7 @@ export default function Orders() {
 
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-image">
+                        <table className="table table-image" style={{color:'rgb(227, 222, 222)'}}>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

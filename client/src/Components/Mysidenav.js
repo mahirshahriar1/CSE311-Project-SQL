@@ -42,7 +42,7 @@ export default function Mysidenav() {
     return (
         <div  >
 
-            <Sidenav style={{ background: '#2c3e50', position: 'fixed' }}
+            <Sidenav style={{ background: '#131414', position: 'fixed' }}
                 onSelect={(selected) => {
                     // console.log(selected);
                     if (selected !== '')

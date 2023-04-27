@@ -43,17 +43,17 @@ export default function Orders() {
     return (
         customer && <div>
             <Navbar />
-            <div className="container" style={{ marginLeft: "270px" }}>
+            <div className="container " style={{marginTop:'20px'}}>
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-image">
-                            <thead>
+                        <table className="table table-striped table-dark " style={{color:'rgb(227, 222, 222)'}}>
+                            <thead thead-dark>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Date of Order</th>
-                                    <th scope="col">Total Price</th>
-                                    <th scope="col">Order Status</th>
-                                    <th scope="col">Check Order</th>
+                                    <th scope="col"   >#</th>
+                                    <th scope="col"   >Date of Order</th>
+                                    <th scope="col"   >Total Price</th>
+                                    <th scope="col"   >Order Status</th>
+                                    <th scope="col"   >Check Order</th>
                                 </tr>
                             </thead>
                             <tbody>

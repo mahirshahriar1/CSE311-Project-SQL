@@ -1,14 +1,82 @@
-.App { 
+.App {
   text-align: center;
-  
+
+}
+#spec{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-size: cover;
+}
+
+#spec2{  
+  height: 80vh;
+  width: 100vh;
+}
+
+body {
+  background: url(https://images.unsplash.com/photo-1544306094-e2dcf9479da3) no-repeat;
+  /* Keep the inherited background full size. */
+  background-attachment: fixed; 
+}
+
+.containerx {
+  width: 60rem;
+  height: 45rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+  border-radius: 5px;
+  position: relative;
+  z-index: 1;
+  background: inherit;
+  overflow: hidden;
+}
+
+.containerx:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+  filter: blur(10px);
+  margin: -20px;
+}
+
+.containery {
+  width: 40rem;
+  height: 30rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+  border-radius: 5px;
+  position: relative;
+  z-index: 1;
+  background: inherit;
+  overflow: hidden;
+}
+
+.containery:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+  filter: blur(10px);
+  margin: -20px;
 }
 
 /* .App button{
   margin-top: 20pt;
 } */
-#sp{
+#sp {
   margin-top: 20pt;
-  width:300px;
+  width: 300px;
   height: 50px;
   font-size: 20px;
   /* margin-top: 20px; */
@@ -18,35 +86,47 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
 #sp:hover {
   opacity: 0.8;
   cursor: pointer;
 }
 
-.registration, .login {
+.registration,
+.login {
   display: flex;
   flex-direction: column;
-  width:100%;
+  width: 100%;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 
-.registration input, .login input{
-  width:300px;
+.registration input,
+.login input {
+  width: 300px;
   height: 50px;
   font-size: 20px;
   padding-left: 10px;
-  margin:5px;
+  margin: 5px;
 }
 
 
+.registration h1,.login h1{
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 5px;
+  color: black; 
+}
 
 
-.registration label,.login label{
+.registration label,
+.login label {
   font-size: 20px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
-  margin:5px;
+  margin: 5px;
+  color: black; 
 }
 
 
@@ -57,7 +137,7 @@
   right: 20px;
   width: 70px;
   height: 70px;
-  background-color: #5daf99;
+  background-color: #000000;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -68,5 +148,6 @@
 }
 
 .cart-button:hover {
-  background-color: #057222;
+  background-color: #ffffff;
+  color: #000000;
 }

@@ -79,10 +79,10 @@ export default function Cart() {
     return (
         customer && <div>
             <Navbar />
-            <div className="container" style={{ marginLeft: "340px" }}>
+            <div className="container" style={{marginTop:'20px'}} >
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-image">
+                        <table className="table table-striped table-dark" style={{color:'rgb(227, 222, 222)'}}>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

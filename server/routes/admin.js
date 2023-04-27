@@ -158,4 +158,19 @@ admin.get('/importReports', (req, res) => {
 });
 
 
+admin.post('/deleteReport', (req, res) => {
+    const id = req.body.id;
+   // console.log(id);
+    db.query('DELETE FROM reports WHERE id=?', [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.status(201).json({ status: 201, data: result })
+        }
+    }
+    );
+});
+
+
 module.exports = admin;

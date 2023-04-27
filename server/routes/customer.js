@@ -287,13 +287,13 @@ customer.post('/postReport', (req, res) => {
     const ProductID = req.body.ProductID;
     const comment = req.body.comment;
     const DateOfReport = moment().format('YYYY-MM-DD HH:mm:ss');
+    const Image= req.body.Image;
 
-    db.query("INSERT INTO reports (DateOfReport,TextOfReport,CustomerID,ProductID) VALUES (?,?,?,?)", 
-    [DateOfReport, comment, CustomerID, ProductID], (err, result) => {
+    db.query("INSERT INTO reports (DateOfReport,TextOfReport,CustomerID,ProductID,Image) VALUES (?,?,?,?,?)", [DateOfReport, comment, CustomerID, ProductID,Image], (err, result) => {
         if (err) {
             console.log(err);
-        } else {       
-            res.status(200).send({ message: 'Reported Successfully' });
+        } else {
+           res.status(200).send('Reported');
         }
     }
     );

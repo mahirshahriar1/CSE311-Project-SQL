@@ -26,6 +26,19 @@ export default function ReportList() {
 
     };
 
+    const deleteReport = (id) => {
+        console.log(id);
+        Axios.post('http://localhost:3001/deleteReport', { id: id }).then((response) => {
+            if (response.data.status === 201) {
+                
+                importReports();
+
+                alert('Report Deleted Successfully');
+
+            }
+        }
+        );
+    };
 
 
     useEffect(() => {
@@ -40,25 +53,40 @@ export default function ReportList() {
 
     }, [admin])
 
+    const deleteProduct = (id,Image) => {
+        //console.log(id);
+        Axios.delete(`http://localhost:3001/dltProduct/${id}/${Image}`).then((response) => {
+            if (response.data.status === 201) {
+                //console.log(response.data);
+                importReports();
+                alert('Product Deleted Successfully');
+            }
+        }
+        );
+        
+    };
+
 
 
     return (
         admin && <div>
             <Navbar />
-
-            <div className="container" >
+            <div style={{ margin: '50px' }}></div>
+            <div className="container bg-dark" >
 
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-image">
+                        <table className="table table-image " style={{ color: 'rgb(227, 222, 222)' }}>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col"> Date of Report</th>
+                                    <th scope="col">Date of Report</th>
                                     <th scope="col">Reported Product</th>
                                     <th scope="col">Reported By</th>
                                     <th scope="col">Comment </th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Action 1</th>
+                                    <th scope="col">Action 2</th>
+                                    <th scope="col">Action 3</th>
                                 </tr>
 
                             </thead>
@@ -72,7 +100,22 @@ export default function ReportList() {
                                         <td>{item.CustomerID}</td>
                                         <td>{item.TextOfReport}</td>
                                         <td>
-                                            <button className="btn btn-danger" ></button>
+                                            <button className="btn btn-danger"
+                                               onClick={() => deleteProduct(item.ProductID,item.Image)}
+                                            >Delete Product</button>
+                                        </td>
+                                        <td>
+                                            <button className="btn btn-success"
+                                                onClick={() => deleteReport(item.ID)}
+                                            >Delete Report</button>
+                                        </td>
+                                        <td>
+                                        {/* <Link to={`/ItemInfo/${id}`} className="btn btn-primary">Check</Link> */}
+                                            <button className="btn btn-primary"
+                                                onClick={() =>
+                                                    window.location.href = `/ItemInfo/${item.ProductID}`
+                                                }
+                                            >Check Product</button>
                                         </td>
                                     </tr>
                                 ))}

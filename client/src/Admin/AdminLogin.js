@@ -23,7 +23,7 @@ export default function Registration(props) {
     const [redirect, setRedirect] = useState("false");
     Axios.defaults.withCredentials = true;
 
-   
+
     const login = () => {
 
         Axios.post('http://localhost:3001/adminlogin', {
@@ -77,7 +77,7 @@ export default function Registration(props) {
                 }, 2000);
             }
         });
-      
+
     }, []);
 
 
@@ -85,7 +85,7 @@ export default function Registration(props) {
         Axios.get('http://localhost:3001/logout').then((response) => {
             alert(response.data);
         });
-        
+
         localStorage.removeItem("token");
         window.location.reload(false);
 
@@ -94,9 +94,9 @@ export default function Registration(props) {
     };
 
     // const goto = () => {
-      
+
     //     window.location.href='/Main';
-  
+
     // }
 
 
@@ -104,51 +104,50 @@ export default function Registration(props) {
         // (redirect === "true" && (
         //     <Navigate to="/Main" />
         // )) ||
-       
-        <div className="App">
-             <Navbar/>
-           
-            <div className="login">
-                <h1>Login</h1>
+        <div>
 
-                <label> Username </label>
-                <input type="text" placeholder="Username..."
-                    onChange={(e) => setUsername(e.target.value)} />
+            <Navbar />
+            <div style={{ marginTop: '20px' }}></div>
+            <div className="container" id='spec2'>
 
-                <label > Password </label>
-                <input type="text" placeholder="Password..."
-                    onChange={(e) => setPassword(e.target.value)} />
+                <div className="containery login " id='spec2'>
+                    <h1>Login</h1>
 
-                <button id="sp" onClick={login} >Login</button>
-                  <h1 style={{ color }}>{message}</h1>
-            </div>
+                    <label> Username </label>
+                    <input type="text" placeholder="Username..."
+                        onChange={(e) => setUsername(e.target.value)} />
+
+                    <label > Password </label>
+                    <input type="text" placeholder="Password..."
+                        onChange={(e) => setPassword(e.target.value)} />
+
+                    <button id="sp" onClick={login} >Login</button>
+                    <h1 style={{ color }}>{message}</h1>
 
 
-            {loginStatus && (
-                <div>  
-                    <button id="sp" style={{ background: '#4c99af' }}onClick={userAuthenticated}> Check if Authenticated</button>
-                    <br />
-                    {/* <button  id="sp" style={{ background: '#4c99af' }} onClick={goto}  >
+
+                    {loginStatus && (
+                        <div style={{marginBottom:'20px'}} >
+                            <button id="sp" style={{ background: '#4c99af' }} onClick={userAuthenticated}> Check if Authenticated</button>
+                            <br />
+                            {/* <button  id="sp" style={{ background: '#4c99af' }} onClick={goto}  >
                         Check Role </button>
                     <br /> */}
-                    <button id="sp" style={{ background: '#bd1d1d' }} onClick={logout}>Logout</button>
-                    
-
-                </div>
-               
+                            <button id="sp" style={{ background: '#bd1d1d' }} onClick={logout}>Logout</button>
 
 
-            )}
-            {/* {
+                        </div>
+
+
+
+                    )}
+                    {/* {
                 redirect === "true" && <Navigate to="/Main" />
             } */}
+                </div>
 
-
-          
-
-
+            </div>
         </div>
-
 
     )
 }

@@ -122,7 +122,8 @@ export default function Main() {
           </Button>
           <Button variant="primary" onClick={
             () => {
-              Axios.post('http://localhost:3001/postReport', { CustomerID: userID, ProductID: id,comment: comment }).then((response) => {
+              Axios.post('http://localhost:3001/postReport', { CustomerID: userID, ProductID: id,comment: comment ,Image:image
+            }).then((response) => {
                if(response.status===200)
                 {
                   alert('Reported Successfully');
