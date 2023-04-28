@@ -50,7 +50,7 @@ home.post('/specific', (req, res) => {
         if (err) {
             console.log(err);
         } else {
-           // console.log(result);
+            // console.log(result);
             res.send(result);
         }
     });
@@ -73,6 +73,73 @@ home.get('/getProductDiscount/:id', async (req, res) => {
     }
     );
 
+});
+
+//        Axios.get('http://localhost:3001/importProducts/'+cat+'/'+name).then((response) => {
+
+home.get('/importProducts/:cat/:name', (req, res) => {
+    const cat = req.params.cat;
+    const name = req.params.name;
+    //console.log(cat);
+    //console.log(name);
+    if (cat === 'Main') {
+        db.query('SELECT * FROM products WHERE Name LIKE ?', ['%' + name + '%'], (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result);
+            }
+        });
+
+    }
+    else {
+        db.query('SELECT * FROM products WHERE Type=? AND Name LIKE ?', [cat, '%' + name + '%'], (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result);
+            }
+        });
+
+    }
+});
+
+
+
+home.get('/sortProducts/:txt1/:txt2', (req, res) => {
+    const txt1 = req.params.txt1;
+    const txt2 = req.params.txt2;
+    //console.log(txt);
+    //console.log(txt2);
+    db.query('SELECT * FROM products ORDER BY ' + txt1 + ' ' + txt2, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
+});
+
+//sort categories
+
+home.get('/sortCategories/:cat/:txt1/:txt2', (req, res) => {
+
+    const cat = req.params.cat;
+    const txt1 = req.params.txt1;
+    const txt2 = req.params.txt2;
+    // console.log(txt);
+    // console.log(txt2);
+    db.query('SELECT * FROM products WHERE Type=? ORDER BY ' + txt1 + ' ' + txt2, [cat], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
 });
 
 

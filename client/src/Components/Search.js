@@ -2,10 +2,13 @@ import React from 'react'
 import Item from './Item'
 import Navbar from './Navbar'
 import Axios from 'axios';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+
+export default function Search() {
+    var name=window.location.href.split('/').reverse()[0];
+    var cat=window.location.href.split('/').reverse()[1];
 
 
-export default function Main() {
     const [seller, setSeller] = useState(false);
     const [admin, setAdmin] = useState(false);
     const [customer, setCustomer] = useState(false);
@@ -22,19 +25,24 @@ export default function Main() {
     const [isComplete, setIsComplete] = useState(false);
 
 
-
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
     const getProducts = () => {
-        Axios.get('http://localhost:3001/importProducts').then((response) => {
+        var Cat=capitalizeFirstLetter(cat);
+        Axios.get('http://localhost:3001/importProducts/'+Cat+'/'+name).then((response) => {
+            console.log(response.data);
             setAllProducts(response.data);
             setProductList(response.data.slice(0, 6));
         });
+       
     };
 
     const getMoreProducts = () => {
         const numFetchedProducts = productList.length;
         const remainingProducts = allProducts.length - numFetchedProducts;
-        //console.log(remainingProducts);
+        console.log(remainingProducts);
         if (remainingProducts === 0) {
             setIsComplete(true);
             setIsLoading(false);
@@ -56,44 +64,39 @@ export default function Main() {
     };
 
 
-    const sort = (text) => {
-        console.log(text);
-        
-       Axios.get(`http://localhost:3001/sortProducts/${text}/ASC`).then((response) => {
-            //clear product list
-            setProductList([])
-
-            setAllProducts(response.data);
-            setProductList(response.data.slice(0, 6));
-        });
-
-    }
-
-    const [showMenu, setShowMenu] = useState(false);
-    const containerRef = useRef(null);
 
 
-    useEffect(() => {      
+    useEffect(() => {
         if (bool === false) {
             getProducts();
             setBool(true);
-    
+
             Axios.get('http://localhost:3001/login').then((response) => {
+                //console.log(response.data.user[0].ID)
                 if (response.data.type === 'Seller') {
+                    //console.log("Seller");
                     setSeller(true);
                 } else if (response.data.type === 'Customer') {
                     setCustomerID(response.data.user[0].ID)
                     setCustomer(true);
-    
+
                     Axios.get('http://localhost:3001/getCartID', { params: { id: response.data.user[0].ID } }).then((response) => {
+                        // console.log(response.data);
                         setCartID(response.data[0].ID);
                     })
+
+
+                    // console.log("Customer");
                 } else if (response.data.type === 'Admin') {
                     setAdmin(true);
+                    // console.log("Admin");
                 }
-            });
+
+            }
+            )
+
         }
-    
+
         const handleScroll = () => {
             if (
                 window.innerHeight + window.scrollY >=
@@ -104,34 +107,21 @@ export default function Main() {
                 getMoreProducts();
             }
         };
-    
-        const handleClickOutside = (event) => {
-            if (containerRef.current && !containerRef.current.contains(event.target)) {
-                setShowMenu(false);
-            }
-        };
-    
+
         window.addEventListener("scroll", handleScroll);
-        document.addEventListener('mousedown', handleClickOutside);
-    
+
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            document.removeEventListener('mousedown', handleClickOutside);
         };
-           
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading, productList, containerRef, showMenu]);
-
-
-
+    }, [isLoading, productList])
 
     return (
         <div>
             <Navbar />
 
-
             <div className="container">
-                {/* <button className="btn btn-primary" onClick={sort}>Sort</button> */}
+
                 <div className="row">
                     {productList.map((element) => {
 
@@ -147,8 +137,8 @@ export default function Main() {
 
             </div>
             {isLoading && (
-                <div style={{ marginTop: '50px', height: '200px', display: "flex", justifyContent: "center" }}>
-                    <div style={{ height: '60px', width: '60px' }} className="spinner-border" role="status">
+                <div style={{ marginTop:'50px', height: '200px', display: "flex", justifyContent: "center" }}>
+                    <div   style={{height:'60px', width:'60px'}} className="spinner-border" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>
@@ -163,42 +153,7 @@ export default function Main() {
                 }
 
             > </button>}
-            <button className='back-to-top fa-solid fa-arrow-up' onClick={() => { window.scrollTo(0, 0); }}></button>
 
-            <div className="show-more-options-container" ref={containerRef}>
-                <button className="show-more-options" onClick={() => setShowMenu(!showMenu)}>
-                    Sort
-                </button>
-                {showMenu && (
-                    <div className="show-more-options-menu">
-                        <button  
-                            onClick={() => {
-                                sort('Name');
-                                setShowMenu(false);
-                            }}           
-                        >Name</button>
-                        <button    
-                            onClick={() => {
-                                sort('Price');
-                                setShowMenu(false);
-                            }}
-                        
-                        >Price</button>
-                        <button    
-                            onClick={() => {
-                                sort('Quantity');
-                                setShowMenu(false);
-                            }}
-                        >Quantity</button>
-                        <button    
-                            onClick={() => {
-                                sort('ID');
-                                setShowMenu(false);
-                            }}
-                        >Date Added</button>
-                    </div>
-                )}
-            </div>
 
         </div>
     )

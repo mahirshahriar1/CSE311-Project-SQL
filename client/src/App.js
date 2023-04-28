@@ -23,7 +23,9 @@ import OrderList from './Admin/OrderList';
 import SellerDiscounts from './Sellers/SellerDiscounts';
 import Category from './Components/Category';
 import ReportList from './Admin/ReportList';
-import Background from './Images/Background.jpg';
+import Search from './Components/Search';
+
+// import Background from './Images/Background.jpg';
 
  
 function App() {
@@ -36,14 +38,14 @@ function App() {
   //   console.log(container);
   // };
 
-  document.body.style.backgroundAttachment = "fixed";
-  document.body.style.backgroundRepeat = "no-repeat";
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundPosition = "center";
-  document.body.style.height = 'auto';
+  // document.body.style.backgroundAttachment = "fixed";
+  // document.body.style.backgroundRepeat = "no-repeat";
+  // document.body.style.backgroundSize = "cover";
+  // document.body.style.backgroundPosition = "center";
+  // document.body.style.height = 'auto';
 
   // document.body.style.backgroundImage = `url(${Background})`
-  document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033a01f47e0c0b1d6e.jpg')"
+  // document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/b9/c8/f8/b9c8f893c9a782033a01f47e0c0b1d6e.jpg')"
   // console.log(document.body.style.backgroundImage);
 
   return (
@@ -84,7 +86,7 @@ function App() {
 
           <Route exact path='/yourDiscounts' element={<SellerDiscounts />} />
           <Route exact path='/reportList' element={<ReportList />} />
-
+          <Route exact path='/search/:param1/:param2' element={<Search />} />
 
         </Routes>
       </Router>
