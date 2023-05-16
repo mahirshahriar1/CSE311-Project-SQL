@@ -15,7 +15,7 @@ export default function ReportList() {
 
 
     const importReports = (status) => {
-
+        //admin route
         Axios.get('http://localhost:3001/importReports').then((response) => {
             // console.log(response.data);
             setReports(response.data);
@@ -27,10 +27,11 @@ export default function ReportList() {
     };
 
     const deleteReport = (id) => {
-        console.log(id);
+        //console.log(id);
+        //admin route
         Axios.post('http://localhost:3001/deleteReport', { id: id }).then((response) => {
             if (response.data.status === 201) {
-                
+
                 importReports();
 
                 alert('Report Deleted Successfully');
@@ -42,7 +43,7 @@ export default function ReportList() {
 
 
     useEffect(() => {
-
+        //logreg route
         Axios.get('http://localhost:3001/login').then((response) => {
             if (response.data.type === 'Admin') {
                 setAdmin(true);
@@ -53,8 +54,9 @@ export default function ReportList() {
 
     }, [admin])
 
-    const deleteProduct = (id,Image) => {
+    const deleteProduct = (id, Image) => {
         //console.log(id);
+        //customer route
         Axios.delete(`http://localhost:3001/dltProduct/${id}/${Image}`).then((response) => {
             if (response.data.status === 201) {
                 //console.log(response.data);
@@ -63,13 +65,13 @@ export default function ReportList() {
             }
         }
         );
-        
+
     };
 
 
 
     return (
-        admin && <div>
+        admin && <div id='particles'>
             <Navbar />
             <div style={{ margin: '50px' }}></div>
             <div className="container bg-dark" >
@@ -101,7 +103,7 @@ export default function ReportList() {
                                         <td>{item.TextOfReport}</td>
                                         <td>
                                             <button className="btn btn-danger"
-                                               onClick={() => deleteProduct(item.ProductID,item.Image)}
+                                                onClick={() => deleteProduct(item.ProductID, item.Image)}
                                             >Delete Product</button>
                                         </td>
                                         <td>
@@ -110,7 +112,7 @@ export default function ReportList() {
                                             >Delete Report</button>
                                         </td>
                                         <td>
-                                        {/* <Link to={`/ItemInfo/${id}`} className="btn btn-primary">Check</Link> */}
+                                            {/* <Link to={`/ItemInfo/${id}`} className="btn btn-primary">Check</Link> */}
                                             <button className="btn btn-primary"
                                                 onClick={() =>
                                                     window.location.href = `/ItemInfo/${item.ProductID}`

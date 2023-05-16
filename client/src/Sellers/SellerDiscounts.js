@@ -51,16 +51,16 @@ export default function Orders() {
 
 
     return (
-        <div>
+        <div id='particles'>
             <Navbar />
 
 
-            <div className='container' style={{marginLeft:'300px'}}>
+            <div className='container ' >
+                <div style={{padding:'20px'}}></div>
 
-
-                <div className="row">
+                <div className="row ">
                     <div className="col-12">
-                        <table className="table table-image">
+                        <table className="table table-striped table-dark">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

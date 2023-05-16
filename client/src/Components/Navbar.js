@@ -8,7 +8,7 @@ import Axios from 'axios';
 export default function Navbar() {
 
   var link = window.location.href.split('/').reverse()[0]
-  var link2=window.location.href.split('/').reverse()[1]
+  var link2 = window.location.href.split('/').reverse()[1]
   if (link === '') {
     link = 'main';
   }
@@ -47,13 +47,13 @@ export default function Navbar() {
       return;
     }
 
-    if (link === 'clothes' || link2==='clothes') {
+    if (link === 'clothes' || link2 === 'clothes') {
       window.location.href = `/search/clothes/${search}`
-    } else if (link === 'cosmetics'||link2==='cosmetics') {
+    } else if (link === 'cosmetics' || link2 === 'cosmetics') {
       window.location.href = `/search/cosmetics/${search}`
-    } else if (link === 'electronics'||link2==='electronics') {
+    } else if (link === 'electronics' || link2 === 'electronics') {
       window.location.href = `/search/electronics/${search}`
-    } else if (link === 'books'||link2==='books') {
+    } else if (link === 'books' || link2 === 'books') {
       window.location.href = `/search/books/${search}`
     } else {
       window.location.href = `/search/main/${search}`
@@ -66,80 +66,67 @@ export default function Navbar() {
   return (
 
     <>
-      <div className="container"  >
-
-
-        <nav style={{ marginLeft: '50px', backgroundColor: '#131414'   }} className="navbar navbar-expand-lg ">
+      <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-dark ">
           <div className="container-fluid">
-            <a style={{ color: '#e3dede' }} className="navbar-brand " href='/'>  Navbar</a>
+            <a style={{ color: 'white', backgroundColor: 'transparent' }}
+            className="navbar-brand nav-link disabled" href="/">ShopEZ</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a style={{ color: '#e3dede' }} className="nav-link active" aria-current="page" href='/'>Home</a>
+                  <a className="nav-link active" href="/">Home</a>
                 </li>
                 <li className="nav-item">
-                  <a style={{ color: '#e3dede' }} className="nav-link" href='/category/clothes'>Clothes</a>
+                  <a className="nav-link" href="/category/clothes">Clothes</a>
                 </li>
                 <li className="nav-item">
-                  <a style={{ color: '#e3dede' }} className="nav-link" href='/category/cosmetics'>Cosmetics</a>
+                  <a className="nav-link" href="/category/cosmetics">Cosmetics</a>
                 </li>
                 <li className="nav-item">
-                  <a style={{ color: '#e3dede' }} className="nav-link" href='/category/electronics'>Electronics</a>
+                  <a className="nav-link" href="/category/electronics">Electronics</a>
                 </li>
                 <li className="nav-item">
-                  <a style={{ color: '#e3dede' }} className="nav-link" href='/category/books'>Books</a>
+                  <a className="nav-link" href="/category/books">Books</a>
                 </li>
+                {!loginStatus && (
 
-                {!loginStatus && <li className="nav-item dropdown">
-                  <a style={{ color: '#e3dede' }} className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Login
-                  </a>
-                  <ul className="dropdown-menu">
-                    <li><a className="dropdown-item" href='/AdminLogin'>Admin</a></li>
-                    <li><a className="dropdown-item" href='/SellerLogin'>Seller</a></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li><a className="dropdown-item" href='/CustomerLogin'>Customer</a></li>
-                  </ul>
-                </li>
-                }
-
-                {loginStatus && <li className="nav-item">
-                  <a className="nav-link disabled" style={{ color: '#e3dede' }} aria-current="page" href='/'>Welcome {username}</a>
-                </li>
-                }
-
-                {loginStatus && <li className="nav-item">
-                  <a style={{ color: '#e3dede' }} onClick={logout} className="nav-link active" aria-current="page" href='/'>Logout</a>
-                </li>
-                }
-
-                {/* <li className="nav-item dropdown">
-                <a style={{color:'#e3dede'}}  className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul className="dropdown-menu">
-                  <li style={{color:'#e3dede'}}  ><a className="dropdown-item" href='/'>Action</a></li>
-                  <li><a className="dropdown-item" href='/'>Another action</a></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li style={{color:'#e3dede'}}  ><a className="dropdown-item" href='/'>Something else here</a></li>
-                </ul>
-              </li> */}
+                  <li      style={{ marginLeft:'320px', color: 'white', backgroundColor: 'transparent'}}
+                  className="nav-item dropdown">
+                       <a                       
+                       className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Login
+                    </a>
+                    <ul className="dropdown-menu">
+                      <li><a className="dropdown-item" href="/AdminLogin">Admin</a></li>
+                      <li><a className="dropdown-item" href="/SellerLogin">Seller</a></li>
+                      <li><hr className="dropdown-divider" /></li>
+                      <li><a className="dropdown-item" href="/CustomerLogin">Customer</a></li>
+                    </ul>
+                  </li>
+                )}              
+             
 
 
+                {loginStatus && (
+                  <li 
+                  style={{ marginLeft:'180px', color: 'white', backgroundColor: 'transparent'}}
+                  className="nav-item">
+                    <a style={{ color: 'white', backgroundColor: 'transparent' }}
+                    className="nav-link disabled" aria-current="page" href="/">Welcome {username}</a>
+                  </li>
+                )}
+                {loginStatus && (
+                  <li className="nav-item">
+                    <a onClick={logout} className="nav-link active" aria-current="page" href="/">Logout</a>
+                  </li>
+                )}
               </ul>
               <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                  onChange={(event) => {
-                    setSearch(event.target.value);
-                  }}
-
-                />
-                <button type="button" className="btn btn-outline-success"
-                  onClick={Search}
-                >Search</button>
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(event) => setSearch(event.target.value)} />
+                <button type="button" className="btn btn-outline-success" onClick={Search}>Search</button>
               </form>
             </div>
           </div>

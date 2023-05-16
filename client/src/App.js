@@ -25,18 +25,21 @@ import Category from './Components/Category';
 import ReportList from './Admin/ReportList';
 import Search from './Components/Search';
 
-// import Background from './Images/Background.jpg';
+import Background from './Images/BackgroundCopy.jpg';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
+import particlesOptions from './particleOptions';
 
  
 function App() {
 
-  // const particlesInit = async (main) => {
-  //   console.log(main);
-  //   await loadFull(main);
-  // };
-  // const particlesLoaded = (container) => {
-  //   console.log(container);
-  // };
+  const particlesInit = async (main) => {
+    console.log(main);
+    await loadFull(main);
+  };
+  const particlesLoaded = (container) => {
+    console.log(container);
+  };
 
   // document.body.style.backgroundAttachment = "fixed";
   // document.body.style.backgroundRepeat = "no-repeat";
@@ -52,12 +55,12 @@ function App() {
     <>
 
      
-      {/* <Particles
+      <Particles 
         id="tsparticles"
         init={particlesInit}
         loaded={particlesLoaded}
         options={particlesOptions}
-      /> */}
+      />
 
       <Router>
         <Mysidenav />

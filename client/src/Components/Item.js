@@ -12,7 +12,7 @@ import format from 'date-fns/format';
 
 const Item = (props) => {
     // eslint-disable-next-line
-    let { name, description, imglink, id, seller, customer, admin, product, customerID, cartID, prodQuantity, home } = props;
+    let { name, price, imglink, id, seller, customer, admin, product, customerID, cartID, prodQuantity, home } = props;
 
     let Type = props.Type;
     // console.log(props);
@@ -178,7 +178,7 @@ const Item = (props) => {
     return (
         <div>
             <div className="container my-3">
-                <div className="card bg-dark text-white" style={{ width: '18rem' }}>
+                <div className="card text-white" style={{ width: '18rem' , background:'#081621'}}>
                     {hasdiscount && <div style={{position: 'absolute', right: '0', top: '0', start:'100', }}>
                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             {discountPercentage + '%'}
@@ -186,13 +186,16 @@ const Item = (props) => {
                     </div>}
                     <img src={`http://localhost:3001/uploads/${imglink}`} className="card-img-top " style={{ height: '240px', width: '100%' }} alt="..." />
                     <div className="card-body">
-                        <h5 className="card-title">{name}</h5>
+                        <h5 className="card-title"  
+                        // center the text
+                        style={{textAlign: 'center'}}
+                        >{name}</h5>
 
-                        <p className="card-text">{description}</p>
+                    {  product &&  <p className="card-text">{price} BDT</p>}
                         {/* {product ? <p className="card-text">Discount - {discountPercentage}</p> : null} */}
 
-                        {product ? <p className='card-text'>Quantity- {prodQuantity2}</p> : null}
-
+                        {product ? <p className='card-text'>{ prodQuantity2>0?`${prodQuantity2} pcs Available`:"Sold Out"}  </p> : null}
+                    
 
                         {product ? <Link to={`/ItemInfo/${id}`} className="btn btn-primary">Check</Link> : null}
                         {!home && seller ? <Link to={`/EditItem/${id}`} style={{ marginLeft: '98px' }} className="btn btn-warning">Edit</Link> : null}

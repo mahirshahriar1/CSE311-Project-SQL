@@ -62,6 +62,7 @@ export default function Category() {
             setProductList([])
             setAllProducts(response.data);
             setProductList(response.data.slice(0, 6));
+            setIsComplete(false);
         });
        
 

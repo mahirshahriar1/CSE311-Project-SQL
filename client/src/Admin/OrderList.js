@@ -16,7 +16,7 @@ export default function Orders() {
    
 
     const importOrders = (status) => {
-        
+        //admin route
         Axios.post('http://localhost:3001/importOrders', { status: status }).then((response) => {
            // console.log(response.data);
             setOrders(response.data);
@@ -29,7 +29,7 @@ export default function Orders() {
 
 
     useEffect(() => {
-
+        //logreg route
         Axios.get('http://localhost:3001/login').then((response) => {
             if (response.data.type === 'Admin') {
                 setAdmin(true);
@@ -44,7 +44,7 @@ export default function Orders() {
 
 
     return (
-        admin && <div>
+        admin && <div id='particles'>
             <Navbar />
 
             <div className="container bg-dark" >

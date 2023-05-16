@@ -3,6 +3,8 @@ import Item from './Item'
 import Navbar from './Navbar'
 import Axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
+import Carousel from './Carousel';
+
 
 
 export default function Main() {
@@ -58,8 +60,8 @@ export default function Main() {
 
     const sort = (text) => {
         console.log(text);
-        
-       Axios.get(`http://localhost:3001/sortProducts/${text}/ASC`).then((response) => {
+
+        Axios.get(`http://localhost:3001/sortProducts/${text}/ASC`).then((response) => {
             //clear product list
             setProductList([])
 
@@ -73,18 +75,18 @@ export default function Main() {
     const containerRef = useRef(null);
 
 
-    useEffect(() => {      
+    useEffect(() => {
         if (bool === false) {
             getProducts();
             setBool(true);
-    
+
             Axios.get('http://localhost:3001/login').then((response) => {
                 if (response.data.type === 'Seller') {
                     setSeller(true);
                 } else if (response.data.type === 'Customer') {
                     setCustomerID(response.data.user[0].ID)
                     setCustomer(true);
-    
+
                     Axios.get('http://localhost:3001/getCartID', { params: { id: response.data.user[0].ID } }).then((response) => {
                         setCartID(response.data[0].ID);
                     })
@@ -93,7 +95,7 @@ export default function Main() {
                 }
             });
         }
-    
+
         const handleScroll = () => {
             if (
                 window.innerHeight + window.scrollY >=
@@ -104,21 +106,21 @@ export default function Main() {
                 getMoreProducts();
             }
         };
-    
+
         const handleClickOutside = (event) => {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
                 setShowMenu(false);
             }
         };
-    
+
         window.addEventListener("scroll", handleScroll);
         document.addEventListener('mousedown', handleClickOutside);
-    
+
         return () => {
             window.removeEventListener("scroll", handleScroll);
             document.removeEventListener('mousedown', handleClickOutside);
         };
-           
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading, productList, containerRef, showMenu]);
 
@@ -130,13 +132,38 @@ export default function Main() {
             <Navbar />
 
 
+
+
             <div className="container">
+
+                {/* <div className="jumbotron jumbotron-fluid" style={{
+                    marginLeft: '300px', width: '700px', height: '70px', marginBottom: '0px', background: 'white',
+                    position: 'relative', zindex: '100'
+                }}
+
+                >
+                    <div className="container">
+                        <h1 className="display-4" style={{ color: 'black', textAlign: 'center', marginTop: '50px', fontFamily: 'cursive' }}>
+                            Welcome to ShopEZ
+                        </h1>
+                    </div>
+                </div>                       */}
+                
+                <div style={{ padding: '20px' }}
+                ></div>
+
+                <div style={{ marginBottom: '50px', marginLeft: '180px', width: '1000px', boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.75)', border: '5px solid black' }}>
+                    <Carousel />
+                </div>
+
+
+
                 {/* <button className="btn btn-primary" onClick={sort}>Sort</button> */}
                 <div className="row">
                     {productList.map((element) => {
 
                         return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
-                            <Item name={element.Name} description={element.Price}
+                            <Item name={element.Name} price={element.Price}
                                 imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
                                 cartID={cartID} prodQuantity={element.Quantity} home={true}
                             />
@@ -171,26 +198,26 @@ export default function Main() {
                 </button>
                 {showMenu && (
                     <div className="show-more-options-menu">
-                        <button  
+                        <button
                             onClick={() => {
                                 sort('Name');
                                 setShowMenu(false);
-                            }}           
+                            }}
                         >Name</button>
-                        <button    
+                        <button
                             onClick={() => {
                                 sort('Price');
                                 setShowMenu(false);
                             }}
-                        
+
                         >Price</button>
-                        <button    
+                        <button
                             onClick={() => {
                                 sort('Quantity');
                                 setShowMenu(false);
                             }}
                         >Quantity</button>
-                        <button    
+                        <button
                             onClick={() => {
                                 sort('ID');
                                 setShowMenu(false);

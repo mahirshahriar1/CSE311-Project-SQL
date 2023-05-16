@@ -215,9 +215,20 @@ export default function Registration(props) {
                                 onChange={(e) => setUsername(e.target.value)} />
 
                             <label > Password </label>
-                            <input type="text" placeholder="Password..."
-                                onChange={(e) => setPassword(e.target.value)} />
-
+                            <div className="password-container">
+                                <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)} />
+                                <i className="toggle-password fas fa-eye" onClick={
+                                    () => {
+                                        console.log("clicked");
+                                        var x = document.getElementById("password-input");
+                                        if (x.type === "password") {
+                                            x.type = "text";
+                                        } else {
+                                            x.type = "password";
+                                        }
+                                    }
+                                }></i>
+                            </div>
                             <button id="sp" onClick={login} >Login</button>
                             <h1 style={{ color }}>{message}</h1>
                             {loginStatus && (
@@ -226,20 +237,12 @@ export default function Registration(props) {
                                     {/* <img src={`http://localhost:3001/uploads/${imagepath}`} alt="" /> */}
                                     <button id="sp" style={{ background: '#4c99af' }} onClick={userAuthenticated}> Check if Authenticated</button>
                                     <br />
-                                    {/* <button  id="sp" style={{ background: '#4c99af' }} onClick={goto}  >
-                        Check Role </button>
-                    <br /> */}
+                                    {/* <button  id="sp" style={{ background: '#4c99af' }} onClick={goto}  >Check Role </button><br /> */}
                                     <button id="sp" style={{ background: '#bd1d1d' }} onClick={logout}>Logout</button>
-
-
                                 </div>
-
-
 
                             )}
                         </div>
-
-
 
                     </div>
                 </div>

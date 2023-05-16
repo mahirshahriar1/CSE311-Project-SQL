@@ -83,7 +83,7 @@ home.get('/importProducts/:cat/:name', (req, res) => {
     //console.log(cat);
     //console.log(name);
     if (cat === 'Main') {
-        db.query('SELECT * FROM products WHERE Name LIKE ?', ['%' + name + '%'], (err, result) => {
+        db.query('SELECT * FROM products WHERE Name LIKE ? Order by ID DESC', ['%' + name + '%'], (err, result) => {
             if (err) {
                 console.log(err);
             }

@@ -38,6 +38,17 @@ export default function Registration(props) {
 
 
     const register = async (e) => {
+        //regex to check phone number
+
+        const phoneRegex = /^[0-9]{11}$/;
+        if (!phoneRegex.test(phonereg)) {
+            alert("Invalid phone number");
+            return;
+        }
+
+
+
+
         e.preventDefault();
 
         var formData = new FormData();
@@ -217,8 +228,20 @@ export default function Registration(props) {
                                 onChange={(e) => setUsername(e.target.value)} />
 
                             <label > Password </label>
-                            <input type="text" placeholder="Password..."
-                                onChange={(e) => setPassword(e.target.value)} />
+                            <div className="password-container">
+                                <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)} />
+                                <i className="toggle-password fas fa-eye" onClick={
+                                    () => {
+                                        console.log("clicked");
+                                        var x = document.getElementById("password-input");
+                                        if (x.type === "password") {
+                                            x.type = "text";
+                                        } else {
+                                            x.type = "password";
+                                        }
+                                    }
+                                }></i>
+                            </div>
 
                             <button id="sp" onClick={login} >Login</button>
                             <h1 style={{ color }}>{message}</h1>

@@ -2,7 +2,18 @@
   text-align: center;
 
 }
-#spec{
+
+td {
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+p {
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#spec {
   display: grid;
   align-items: center;
   justify-content: center;
@@ -10,22 +21,31 @@
   background-size: cover;
 }
 
-#spec2{  
+#spec2 {
   height: 80vh;
   width: 100vh;
 }
 
 body {
-  /* background: url(https://images.unsplash.com/photo-1544306094-e2dcf9479da3) no-repeat; */
+  /* background: url(https://wallpapercave.com/wp/wp10292474.jpg) no-repeat; */
   /* Keep the inherited background full size. */
-  background-attachment: fixed; 
-  background-color: rgb(190, 190, 184);
+  background-size: cover;
+
+  background-attachment: fixed;
+  background: linear-gradient(to right, #8099a8, #4b8ab1);
+}
+
+#particles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
 }
 
 .containerx {
   width: 60rem;
   height: 45rem;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
   border-radius: 5px;
   position: relative;
   z-index: 1;
@@ -50,7 +70,7 @@ body {
 .containery {
   width: 40rem;
   height: 30rem;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2); 
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
   border-radius: 5px;
   position: relative;
   z-index: 1;
@@ -112,12 +132,13 @@ body {
 }
 
 
-.registration h1,.login h1{
+.registration h1,
+.login h1 {
   font-size: 30px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   margin: 5px;
-  color: black; 
+  color: rgb(0, 0, 0);
 }
 
 
@@ -127,7 +148,7 @@ body {
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   margin: 5px;
-  color: black; 
+  color: rgb(0, 0, 0);
 }
 
 
@@ -147,6 +168,7 @@ body {
   cursor: pointer;
   z-index: 9999;
 }
+
 .cart-button:hover {
   background-color: #ffffff;
   color: #000000;
@@ -169,13 +191,14 @@ body {
 }
 
 .back-to-top:hover {
-  background-color: #ffffff;
-  color: #000000;
+  /* background-color: #ffffff;
+  color: #000000; */
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
 }
 
 .show-more-options-container {
   position: fixed;
-  bottom: 500px;
+  bottom: 450px;
   right: 20px;
 }
 
@@ -190,6 +213,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  
+}
+.show-more-options:hover {
+   box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+
 }
 
 .show-more-options-menu {
@@ -219,10 +247,88 @@ body {
 
 .show-more-options:focus,
 .show-more-options:active {
+
   outline: none;
+  
 }
 
 .show-more-options:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
+}
+
+
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#password-input {
+  padding-right: 30px;
+}
+
+
+
+
+
+
+
+
+.navbar {
+  background-color: rgb(8, 22, 33);
+  display: flex;
+  align-items: center;
+  
+}
+
+
+.navbar ul {
+  list-style: none; 
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0 10px;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+  background-color: #FFA500;
+  color: #FFF;
+}
+
+.navbar .dropdown-menu {
+  background-color: #081621;
+  border: none;
+  box-shadow: none;
+  flex-direction: column;
+}
+
+.navbar .dropdown-item {
+  color: #e3dede;
+  transition: background-color 0.3s ease-in-out;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.navbar .dropdown-item:hover {
+  background-color: #FFA500;
+  color: #FFF;
 }

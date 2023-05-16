@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Axios from 'axios';
 import Navbar from './Navbar'
 import { Modal, Button, Form } from 'react-bootstrap';
-
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 export default function Main() {
   var id = window.location.href.split('/').reverse()[0]
@@ -12,10 +12,19 @@ export default function Main() {
   const [image, setImage] = useState('');
   const [type, setType] = useState('');
 
-
-
   const [userType, setUserType] = useState('');
   const [userID, setUserID] = useState();
+
+  const postReport = () => {
+    Axios.post('http://localhost:3001/postReport', {
+      CustomerID: userID, ProductID: id, comment: comment, Image: image
+    }).then((response) => {
+      if (response.status === 200) {
+        alert('Reported Successfully');
+      }
+    });
+    handleClose();
+  }
 
   useEffect(() => {
     const getUserType = () => {
@@ -26,26 +35,20 @@ export default function Main() {
         }
       });
     };
-    
 
     const getData = () => {
-
-
       Axios.post('http://localhost:3001/specific', { id: id }).then((response) => {
-
-        console.log(response.data);
+        //console.log(response.data);
         setName(response.data[0].Name);
         setPrice(response.data[0].Price);
         setType(response.data[0].product_type);
         setImage(response.data[0].Image);
-
-
       });
     };
     getData();
     getUserType();
 
-  }, [id,userType])
+  }, [id, userType])
 
 
   const [show, setShow] = useState(false);
@@ -55,44 +58,54 @@ export default function Main() {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  
+
   return (
     <div >
       <Navbar />
-      <div className='container' style={{ paddingLeft: '100px' }}>
-        <div className='row'>
-          <div className='col-md-6'>
-            <img src={`http://localhost:3001/uploads/${image}`} style={{ height: '240px', width: '50%' }} alt="..." />
+      <div className='container '
+        style={{
+          display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100%', height: '80vh',
+        }}
+      >
+        <div >
+          <h5
+            style={{
+              color: 'black', fontWeight: 'bold',
+              background: 'white'
+            }}
+          >Scroll to zoom in and out</h5>
+        </div>
+        <div style={{ borderRadius: '10px', borderBlockColor: 'black', border: '5px solid black', background: 'black' }}>
 
-            <div>
-              <h1>{name}</h1>
-            </div>
-            <div>
-              <h3>{price}</h3>
-            </div>
-            <div>
-              <h3>{type}</h3>
-            </div>
-            { userType==='Customer' &&  <div>
-              <button className='btn btn-primary'
-                onClick={() => {
-                  handleShow();
-                }
-                }
-              >
-                Report
-              </button>
-            </div>}
-
-          </div>
+          <TransformWrapper defaultScale={1}
+            defaultPositionX={100}
+            defaultPositionY={200}
+          >
+            <TransformComponent>
+              <img src={`http://localhost:3001/uploads/${image}`}
+                style={{ height: '400px', width: '400px' }} alt="..." />
+            </TransformComponent>
+          </TransformWrapper>
+        </div>
+        <div>
+          <h1>{name}</h1>
+        </div>
+        <div>
+          <h3>{price}</h3>
+        </div>
+        <div>
+          <h3>{type}</h3>
         </div>
 
+        {userType === 'Customer' && <div>
+          <button className='btn btn-primary' onClick={() => { handleShow(); }}>
+            Report
+          </button>
+        </div>}
 
       </div>
 
-      <Modal show={show} onHide={handleClose}
-        centered
-
+      <Modal show={show} onHide={handleClose} centered
       // backdrop="static" 
       //backdrop might remove the close button                            
       >
@@ -106,41 +119,15 @@ export default function Main() {
               <Form.Control
                 type="text"
                 // placeholder="name@example.com"
-                autoFocus
-                onChange={(e) => {
-                  setComment(e.target.value);
-                }
-                }
-              />
+                autoFocus  onChange={(e) => {setComment(e.target.value);}}/>
             </Form.Group>
-
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={
-            () => {
-              Axios.post('http://localhost:3001/postReport', { CustomerID: userID, ProductID: id,comment: comment ,Image:image
-            }).then((response) => {
-               if(response.status===200)
-                {
-                  alert('Reported Successfully');
-                }
-                 
-              });
-              handleClose();
-            }
-          }
-          >
-            Send Report
-          </Button>
+          <Button variant="secondary" onClick={handleClose}>Close</Button>
+          <Button variant="primary" onClick={() => {postReport();}}>Send Report</Button>
         </Modal.Footer>
-      </Modal>
-
-
-
+        </Modal>
     </div>
   )
 }
