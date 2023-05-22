@@ -70,7 +70,7 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-dark ">
           <div className="container-fluid">
             <a style={{ color: 'white', backgroundColor: 'transparent' }}
-            className="navbar-brand nav-link disabled" href="/">ShopEZ</a>
+              className="navbar-brand nav-link disabled" href="/">ShopEZ</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -93,29 +93,29 @@ export default function Navbar() {
                 </li>
                 {!loginStatus && (
 
-                  <li      style={{ marginLeft:'320px', color: 'white', backgroundColor: 'transparent'}}
-                  className="nav-item dropdown">
-                       <a                       
-                       className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <li style={{ marginLeft: '320px', color: 'white', backgroundColor: 'transparent' }}
+                    className="nav-item dropdown">
+                    <a
+                      className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Login
                     </a>
                     <ul className="dropdown-menu">
                       <li><a className="dropdown-item" href="/AdminLogin">Admin</a></li>
                       <li><a className="dropdown-item" href="/SellerLogin">Seller</a></li>
-                      <li><hr className="dropdown-divider" /></li>
                       <li><a className="dropdown-item" href="/CustomerLogin">Customer</a></li>
+                      <li><hr className="dropdown-divider" /></li>
                     </ul>
                   </li>
-                )}              
-             
+                )}
+
 
 
                 {loginStatus && (
-                  <li 
-                  style={{ marginLeft:'180px', color: 'white', backgroundColor: 'transparent'}}
-                  className="nav-item">
+                  <li
+                    style={{ marginLeft: '180px', color: 'white', backgroundColor: 'transparent' }}
+                    className="nav-item">
                     <a style={{ color: 'white', backgroundColor: 'transparent' }}
-                    className="nav-link disabled" aria-current="page" href="/">Welcome {username}</a>
+                      className="nav-link disabled" aria-current="page" href="/">Welcome {username}</a>
                   </li>
                 )}
                 {loginStatus && (

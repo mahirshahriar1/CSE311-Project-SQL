@@ -47,8 +47,6 @@ export default function Registration(props) {
         }
 
 
-
-
         e.preventDefault();
 
         var formData = new FormData();
@@ -180,6 +178,7 @@ export default function Registration(props) {
 
     // }
 
+    const mittha=false;
 
     return (
         // (redirect === "true" && (
@@ -245,23 +244,21 @@ export default function Registration(props) {
 
                             <button id="sp" onClick={login} >Login</button>
                             <h1 style={{ color }}>{message}</h1>
-                            {loginStatus && (
+
+                            {/* {loginStatus &&  */}
+                            {mittha &&
                                 <div>
                                     {getCustomerData()}
                                     {/* <img src={`http://localhost:3001/uploads/${imagepath}`} alt="" /> */}
                                     <button id="sp" style={{ background: '#4c99af' }} onClick={userAuthenticated}> Check if Authenticated</button>
                                     <br />
-                                    {/* <button  id="sp" style={{ background: '#4c99af' }} onClick={goto}  >
-                        Check Role </button>
-                    <br /> */}
+                                    {/* <button  id="sp" style={{ background: '#4c99af' }} onClick={goto}  >Check Role </button><br /> */}
                                     <button id="sp" style={{ background: '#bd1d1d' }} onClick={logout}>Logout</button>
 
 
                                 </div>
+                            }
 
-
-
-                            )}
                         </div>
 
 

@@ -54,9 +54,9 @@ export default function Category() {
 
     };
     const sort = (text) => {
-      //  console.log(text);
+        //  console.log(text);
 
-      
+
         Axios.get(`http://localhost:3001/sortCategories/${category}/${text}/ASC`).then((response) => {
             //clear product list
             setProductList([])
@@ -64,7 +64,7 @@ export default function Category() {
             setProductList(response.data.slice(0, 6));
             setIsComplete(false);
         });
-       
+
 
     }
 
@@ -72,18 +72,18 @@ export default function Category() {
     const containerRef = useRef(null);
 
 
-    useEffect(() => {      
+    useEffect(() => {
         if (bool === false) {
             getProducts();
             setBool(true);
-    
+
             Axios.get('http://localhost:3001/login').then((response) => {
                 if (response.data.type === 'Seller') {
                     setSeller(true);
                 } else if (response.data.type === 'Customer') {
                     setCustomerID(response.data.user[0].ID)
                     setCustomer(true);
-    
+
                     Axios.get('http://localhost:3001/getCartID', { params: { id: response.data.user[0].ID } }).then((response) => {
                         setCartID(response.data[0].ID);
                     })
@@ -92,7 +92,7 @@ export default function Category() {
                 }
             });
         }
-    
+
         const handleScroll = () => {
             if (
                 window.innerHeight + window.scrollY >=
@@ -103,23 +103,23 @@ export default function Category() {
                 getMoreProducts();
             }
         };
-    
+
         const handleClickOutside = (event) => {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
                 setShowMenu(false);
             }
         };
-    
+
         window.addEventListener("scroll", handleScroll);
         document.addEventListener('mousedown', handleClickOutside);
-    
+
         return () => {
             window.removeEventListener("scroll", handleScroll);
             document.removeEventListener('mousedown', handleClickOutside);
         };
-           
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [category,isLoading, productList, containerRef, showMenu]);
+    }, [category, isLoading, productList, containerRef, showMenu]);
 
 
 
@@ -151,7 +151,7 @@ export default function Category() {
                     </div>
                 </div>
             )}
-            <button className='cart-button fa-solid fa-cart-shopping'
+            {customer && <button className='cart-button fa-solid fa-cart-shopping'
                 onClick={() => {
                     //send cartid to /cart
 
@@ -160,7 +160,9 @@ export default function Category() {
                 }
                 }
 
-            > </button>
+            > </button>}
+            <button className='back-to-top fa-solid fa-arrow-up' onClick={() => { window.scrollTo(0, 0); }}></button>
+
             <div className="show-more-options-container" ref={containerRef}>
                 <button className="show-more-options" onClick={() => setShowMenu(!showMenu)}>
                     Sort

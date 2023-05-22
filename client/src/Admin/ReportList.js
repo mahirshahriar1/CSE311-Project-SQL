@@ -74,7 +74,9 @@ export default function ReportList() {
         admin && <div id='particles'>
             <Navbar />
             <div style={{ margin: '50px' }}></div>
-            <div className="container bg-dark" >
+            <div className="container"  
+            style={{background:'rgb(8, 22, 33)'}}
+            >
 
                 <div className="row">
                     <div className="col-12">

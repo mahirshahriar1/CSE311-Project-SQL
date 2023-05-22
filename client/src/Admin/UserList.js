@@ -13,23 +13,19 @@ export default function UserList() {
     // eslint-disable-next-line 
     const [userType, setuserType] = useState('');
 
-    const [color1, setcolor1] = useState('');
-    const [color2, setcolor2] = useState('');
+  
     const [auth, setauth] = useState(false);
     axios.defaults.withCredentials = true;
     function setUser1() {
         setuserType('Sellers');
-        setcolor2('primary');
-        setcolor1('success');
+    
         getSellers();
     }
     function setUser2() {
         setuserType('Customers');
-        setcolor1('primary');
-        setcolor2('success');
+     
         getCustomers();
     }
-
 
 
     const getSellers = (utype) => {
@@ -79,10 +75,14 @@ export default function UserList() {
 
                 <div className="row" style={{marginLeft:'300px', marginTop:'25px'}}>
                     <div className="col md-4" > 
-                        <Button  className={`btn btn-${color1}`} onClick={setUser1}>Sellers</Button>
+                        <Button style={{  '--clr': 'lightgreen'}} className='btnn' onClick={setUser1}>
+                            <i> <span style={{ display: 'flex',justifyContent: 'center',alignItems: 'center',height: '95%',}}>Sellers</span></i>
+                        </Button>
                     </div>
                     <div className="col md-4">
-                        <Button className={`btn btn-${color2}`} onClick={setUser2}>Customers</Button>
+                    <Button style={{  '--clr': 'lightgreen'}} className='btnn' onClick={setUser2}>
+                            <i> <span style={{ display: 'flex',justifyContent: 'center',alignItems: 'center',height: '95%',}}>Customers</span></i>
+                        </Button>
                     </div>
 
                 </div>

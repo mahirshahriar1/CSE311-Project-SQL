@@ -41,7 +41,7 @@ export default function Orders() {
 
 
     return (
-        customer && <div>
+        customer && <div id='particles'>
             <Navbar />
             <div className="container " style={{marginTop:'20px'}}>
                 <div className="row">

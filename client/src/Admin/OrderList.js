@@ -47,7 +47,9 @@ export default function Orders() {
         admin && <div id='particles'>
             <Navbar />
 
-            <div className="container bg-dark" >
+            <div className="container"  
+            style={{background:'rgb(8, 22, 33)'}}
+            >
                 <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
                     <div className="col-4">
                         <Button className='btn btn-primary'

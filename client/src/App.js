@@ -56,6 +56,7 @@ function App() {
 
      
       <Particles 
+
         id="tsparticles"
         init={particlesInit}
         loaded={particlesLoaded}

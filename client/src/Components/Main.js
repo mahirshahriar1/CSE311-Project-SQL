@@ -132,8 +132,6 @@ export default function Main() {
             <Navbar />
 
 
-
-
             <div className="container">
 
                 {/* <div className="jumbotron jumbotron-fluid" style={{
@@ -149,10 +147,9 @@ export default function Main() {
                     </div>
                 </div>                       */}
                 
-                <div style={{ padding: '20px' }}
-                ></div>
+                <div style={{ padding: '20px' }}></div>
 
-                <div style={{ marginBottom: '50px', marginLeft: '180px', width: '1000px', boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.75)', border: '5px solid black' }}>
+                <div style={{ marginBottom: '50px', marginLeft: '50px', width: '1200px', height:'700px', boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.75)', border: '5px solid black' }}>
                     <Carousel />
                 </div>
 
