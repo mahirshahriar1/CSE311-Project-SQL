@@ -31,6 +31,7 @@ export default function Main() {
             setAllProducts(response.data);
             setProductList(response.data.slice(0, 6));
         });
+
     };
 
     const getMoreProducts = () => {
@@ -67,7 +68,7 @@ export default function Main() {
 
             setAllProducts(response.data);
             setProductList(response.data.slice(0, 6));
-        });
+        });    
 
     }
 
@@ -146,10 +147,10 @@ export default function Main() {
                         </h1>
                     </div>
                 </div>                       */}
-                
+
                 <div style={{ padding: '20px' }}></div>
 
-                <div style={{ marginBottom: '50px', marginLeft: '50px', width: '1200px', height:'700px', boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.75)', border: '5px solid black' }}>
+                <div style={{ marginBottom: '50px', marginLeft: '50px', width: '1200px', height: '700px', boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.75)', border: '5px solid black' }}>
                     <Carousel />
                 </div>
 
@@ -158,13 +159,13 @@ export default function Main() {
                 {/* <button className="btn btn-primary" onClick={sort}>Sort</button> */}
                 <div className="row">
                     {productList.map((element) => {
-
-                        return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
-                            <Item name={element.Name} price={element.Price}
-                                imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
-                                cartID={cartID} prodQuantity={element.Quantity} home={true}
-                            />
-                        </div>
+                      
+                            return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
+                                <Item name={element.Name} price={element.Price}
+                                    imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
+                                    cartID={cartID} prodQuantity={element.Quantity} home={true}
+                                />
+                            </div>
                     })}
 
                 </div>

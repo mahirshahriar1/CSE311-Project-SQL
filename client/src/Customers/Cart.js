@@ -117,16 +117,21 @@ export default function Cart() {
                 </div>
                 {cartProducts.length !== 0 &&
                     <div style={{ paddingBottom: '100px', paddingTop: '30px' }}>
-                        <button style={{ marginLeft: '560px', height: '50px' }} className='btn btn-success'
+                        <button style={{ marginLeft: '560px', height: '50px' , '--clr': 'lightgreen'}} className='btnn'
                             onClick={() => {
                                 //send cartid to checkout
                                 window.location.href = `/checkout/${CartID}`
 
                             }
                             }
-                        > Confirm Your Order</button>
+                        > <i>
+                             Confirm Your Order
+                            </i>
+                             </button>
                     </div>
                 }
+
+
 
             </div>
         </div>

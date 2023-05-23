@@ -1,8 +1,10 @@
 .App {
-  text-align: center;
-
+  text-align: center; 
+  
 }
-
+h3{
+  padding: 10px;
+}
 td {
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -11,8 +13,15 @@ td {
 p {
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #ece9e9;
 }
-
+a{
+  /* style={{fontFamily:'monospace',fontSize:'20px',color:'white',backgroundColor:'transparent'}} */
+  font-family: cursive;
+  font-size: 20px;
+  color: white;
+  background-color: transparent;
+}
 #spec {
   display: grid;
   align-items: center;
@@ -161,7 +170,7 @@ body {
   right: 20px;
   width: 70px;
   height: 70px;
-  background-color: #000000;
+  background-color: #081621;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -318,6 +327,7 @@ body {
   color: #FFF;
 }
 
+
 .navbar .dropdown-menu {
   background-color: #081621;
   border: none;
@@ -356,7 +366,7 @@ body {
   border: none;
   letter-spacing: 0.1rem;
   font-size: 1.5rem; /* Increase the font size */
-  padding: 2rem 6rem; /* Increase the padding for larger size */
+  padding: 2.2rem 7rem; /* Increase the padding for larger size */
   display: flex;
   justify-content: center; /* Center the content horizontally */
   align-items: center; /* Center the content vertically */
@@ -366,7 +376,7 @@ body {
 
 .btnn:hover {
   letter-spacing: 0.2rem;
-  padding: 2rem 6rem;
+  padding: 2.2rem 7rem;
   background: var(--clr);
   color: var(--clr);
   /* box-shadow: 0 0 35px var(--clr); */
@@ -449,3 +459,4 @@ body {
     box-shadow: #27272c;
   }
 }
+

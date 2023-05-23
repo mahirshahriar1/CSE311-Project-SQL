@@ -20,10 +20,9 @@ export default function Registration(props) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    // eslint-disable-next-line
     const [loginStatus, setLoginStatus] = useState(false);
     const [message, setMessage] = useState("");
-    const [color, setColor] = useState("red");
     const [imgfile, setImgfile] = useState("");
     const setimgfile = (e) => {
         // console.log(e.target.files[0])
@@ -78,7 +77,6 @@ export default function Registration(props) {
             if (!response.data.auth) {
                 setMessage(response.data.message);
                 setLoginStatus(false);
-                setColor("red");
             } else {
                 //console.log(response.data);
                 setMessage(response.data.result[0].Name + " is logged in");
@@ -86,7 +84,6 @@ export default function Registration(props) {
 
                 localStorage.setItem("token", response.data.token);
                 setLoginStatus(true);
-                setColor("green");
                 setTimeout(() => {
                     setRedirect("true");
                 }, 2000);
@@ -138,7 +135,6 @@ export default function Registration(props) {
                 setLoginStatus(true);
                 setMessage(response.data.user[0].Name + " is logged in");
                 setUsernameLogin(response.data.user[0].Username);
-                setColor("green");
                 setTimeout(() => {
                     setRedirect("true");
                 }, 2000);
@@ -164,6 +160,7 @@ export default function Registration(props) {
     //     window.location.href='/Main';
 
     // }
+    const mittha = false;
 
 
     return (
@@ -230,8 +227,8 @@ export default function Registration(props) {
                                 }></i>
                             </div>
                             <button id="sp" onClick={login} >Login</button>
-                            <h1 style={{ color }}>{message}</h1>
-                            {loginStatus && (
+                            <h1 style={{ color:'black' }}>{message}</h1>
+                            {mittha && (
                                 <div>
                                     {getSellerData()}
                                     {/* <img src={`http://localhost:3001/uploads/${imagepath}`} alt="" /> */}
