@@ -83,6 +83,8 @@ export default function Orders() {
                                         console.log(item.ID);
                                         Axios.post('http://localhost:3001/deleteDiscount', { DiscountID: item.ID }).then((response) => {
                                             if (response.data.status === 201) {
+                                                alert("Discount Deleted");
+                                                window.location.reload();
                                                 importDiscounts();
                                             }
                                         })

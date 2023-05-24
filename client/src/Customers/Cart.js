@@ -66,13 +66,22 @@ export default function Cart() {
     }, [customer, CartID])
 
     function check(TotalPrice,Price,TotalQuantity){
-       if(TotalPrice!==Price*TotalQuantity){
-        
-            return (Price-TotalPrice/TotalQuantity).toFixed(0);
-        }
-        else{
+      
+        if(parseFloat(TotalPrice)===parseFloat(Price*TotalQuantity)){
             return 0;
         }
+
+       if(TotalPrice!==Price*TotalQuantity){
+         
+            let discount=TotalPrice-(Price*TotalQuantity);
+            let percentage=(discount/TotalPrice)*100;
+            //absolute value
+            if(percentage<0){
+                percentage=percentage*-1;
+            }
+            return percentage.toFixed(0);
+        }
+       
     }
 
 
@@ -100,7 +109,9 @@ export default function Cart() {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td className="w-25">
-                                            <img src={`http://localhost:3001/uploads/${item.Image}`} className="img-fluid img-thumbnail" alt={item.Name} />
+                                            <img 
+                                            style={{ height: '100px' }}
+                                            src={`http://localhost:3001/uploads/${item.Image}`} className="img-fluid img-thumbnail" alt={item.Name} />
                                         </td>
                                         <td>{item.Name}</td>
                                         <td>{item.Price}</td>
