@@ -123,7 +123,7 @@ export default function Registration(props) {
                         }></i>
                     </div>
                     <div className="containerb" style={{marginTop:'30px'}}>
-                        <div className="btn"><a href="/#" onClick={login}>Login</a></div>
+                        <div className="btn"><a href={() => false} onClick={login}>Login</a></div>
                     </div>
 
 

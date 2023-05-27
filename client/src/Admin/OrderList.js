@@ -20,7 +20,7 @@ export default function Orders() {
         Axios.post('http://localhost:3001/importOrders', { status: status }).then((response) => {
             // console.log(response.data);
             setOrders(response.data);
-            //console.log(response.data);
+            console.log(response.data);
         }
         );
 
