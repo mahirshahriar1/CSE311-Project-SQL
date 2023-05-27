@@ -39,8 +39,16 @@ home.get('/importCategoricalProducts', (req, res) => {
 home.post('/specific', (req, res) => {
     const id = req.body.id;
     //console.log(id);
+
+
+
     db.query(`SELECT p.*, c.*, cl.*, e.*, b.* ,
-              p.Type AS product_type
+              p.Type AS product_type,
+              c.Type AS cosmetics_type,
+              e.Type AS electronics_type,
+              c.Brand AS cosmetics_brand,
+              cl.Brand AS clothes_brand,
+              e.Brand AS electronics_brand
               FROM products p
               LEFT JOIN cosmetics c ON p.id = c.productid
               LEFT JOIN clothes cl ON p.id = cl.productid
@@ -113,14 +121,29 @@ home.get('/sortProducts/:txt1/:txt2', (req, res) => {
     const txt2 = req.params.txt2;
     //console.log(txt);
     //console.log(txt2);
-    db.query('SELECT * FROM products ORDER BY ' + txt1 + ' ' + txt2, (err, result) => {
-        if (err) {
-            console.log(err);
+    if(txt1==='Quantity'){
+        db.query('SELECT * FROM products where Quantity>0 ORDER BY ' + txt1 + ' ' + txt2, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result);
+            }
         }
-        else {
-            res.send(result);
-        }
-    });
+        );
+       
+    }else{
+
+        db.query('SELECT * FROM products ORDER BY ' + txt1 + ' ' + txt2, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result);
+            }
+        });
+    }
+
 });
 
 //sort categories

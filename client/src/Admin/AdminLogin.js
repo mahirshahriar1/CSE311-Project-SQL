@@ -12,7 +12,6 @@ export default function Registration(props) {
 
     const [loginStatus, setLoginStatus] = useState(false);
     const [message, setMessage] = useState("");
-    const [color, setColor] = useState("red");
 
     Axios.defaults.withCredentials = true;
 
@@ -26,14 +25,12 @@ export default function Registration(props) {
             if (!response.data.auth) {
                 setMessage(response.data.message);
                 setLoginStatus(false);
-                setColor("red");
             } else {
                 //console.log(response.data);
                 setMessage(response.data.result[0].Username + " is logged in");
 
                 localStorage.setItem("token", response.data.token);
                 setLoginStatus(true);
-                setColor("green");
 
                 window.location.reload(false);
 
@@ -60,7 +57,6 @@ export default function Registration(props) {
             if (response.data.loggedIn === true) {
                 setLoginStatus(true);
                 setMessage(response.data.user[0].Username + " is logged in");
-                setColor("green");
             }
         });
 
@@ -114,7 +110,7 @@ export default function Registration(props) {
 
 
                     <button id="sp" onClick={login} >Login</button>
-                    <h1 style={{ color }}>{message}</h1>
+                    <h1 style={{ color:'black' }}>{message}</h1>
 
                     {loginStatus && (
                         <div style={{ marginBottom: '20px' }} >

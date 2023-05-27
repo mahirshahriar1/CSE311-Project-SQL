@@ -43,7 +43,7 @@ export default function Orders() {
     return (
         customer && <div id='particles'>
             <Navbar />
-            <div className="container " style={{marginTop:'20px'}}>
+            <div className="container " style={{marginTop:'20px',}}>
                 <div className="row">
                     <div className="col-12">
                         <table className="table table-striped table-dark " style={{color:'rgb(227, 222, 222)'}}>
