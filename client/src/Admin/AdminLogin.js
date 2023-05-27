@@ -16,11 +16,11 @@ export default function Registration(props) {
     Axios.defaults.withCredentials = true;
 
     const login = () => {
-        if(password===""){
+        if (password === "") {
             alert("Please enter password");
             return;
         }
-        if(username===""){
+        if (username === "") {
             alert("Please enter username");
             return;
         }
@@ -89,6 +89,7 @@ export default function Registration(props) {
             login();
         }
     }
+    const mittha=false;
 
     return (
 
@@ -103,7 +104,7 @@ export default function Registration(props) {
 
                     <label> Username </label>
                     <input type="text" placeholder="Username..."
-                        onChange={(e) => setUsername(e.target.value)}  onKeyDown={keyPress} />
+                        onChange={(e) => setUsername(e.target.value)} onKeyDown={keyPress} />
 
                     <label > Password </label>
                     <div className="password-container">
@@ -121,12 +122,15 @@ export default function Registration(props) {
                             }
                         }></i>
                     </div>
+                    <div className="containerb" style={{marginTop:'30px'}}>
+                        <div className="btn"><a href="/#" onClick={login}>Login</a></div>
+                    </div>
 
 
-                    <button id="sp" onClick={login}>Login</button>
-                    <h1 style={{ color:'black' }}>{message}</h1>
 
-                    {loginStatus && (
+                    <h1 style={{ color: 'black' }}>{message}</h1>
+
+                    {mittha && loginStatus && (
                         <div style={{ marginBottom: '20px' }} >
                             {/* <button id="sp" style={{ background: '#4c99af' }} onClick={userAuthenticated}> Check if Authenticated</button> */}
                             <br />

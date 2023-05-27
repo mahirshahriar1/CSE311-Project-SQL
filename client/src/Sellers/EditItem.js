@@ -216,112 +216,128 @@ export default function EditItem() {
     }, [clothes, books, electronics, cosmetics])
 
 
-
+    console.log(checkid);
+    console.log(sellerid);
     return (
         checkid === sellerid && <>
             <Navbar />
-            <div className='container' style={{ paddingLeft: '500px' }}>
+            <div style={{ margin: '35px' }}></div>
+            <div className="container" style={{
+                display: 'flex', justifyContent: 'center', alignItems: 'center'
+            }}>
 
-                <div >
-                    <img src={`http://localhost:3001/uploads/${image}`} style={{ height: '240px', width: '300px' }} alt="..." />
+                <div className='container' style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div >
+                        <img id='particles' src={`http://localhost:3001/uploads/${image}`} style={{ height: '430px', width: '500px', border: '5px solid black' }} alt="..." />
+                    </div>
+
                 </div>
-            </div>
-            <div className="container">
-                <div style={{ paddingLeft: '50px' }} className="container mt-3">
-                    <h1 style={{ textAlign: 'center' }}>Add A {type}</h1>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" name='fname' onChange={setname} defaultValue={name} />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Price</Form.Label>
-                            <Form.Control type="text" name='fname' onChange={setprice} defaultValue={price} />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Quantity</Form.Label>
-                            <Form.Control type="text" name='fname' onChange={setquantity2} defaultValue={quantity} />
-                        </Form.Group>
+                <div className="container">
+                    <div id='particles' style={{ padding: '50px', background: 'rgb(5 37 62)', width: '800px' }} className="container mt-3">
+                        <h1 style={{ textAlign: 'center', color: 'white', fontFamily: 'cursive' }}>Edit this {type}</h1>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Name</Form.Label>
+                                <Form.Control type="text" name='fname' onChange={setname} defaultValue={name} />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Price</Form.Label>
+                                <Form.Control type="text" name='fname' onChange={setprice} defaultValue={price} />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Quantity</Form.Label>
+                                <Form.Control type="text" name='fname' onChange={setquantity2} defaultValue={quantity} />
+                            </Form.Group>
 
-                        {clothes && <>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Color</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setcolor} defaultValue={color} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Brand</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Size</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setsize} defaultValue={size} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Material</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setmaterial} defaultValue={material} />
-                            </Form.Group>
-                        </>}
+                            {clothes && <>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Color</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setcolor} defaultValue={color} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Size</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setsize} defaultValue={size} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Material</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setmaterial} defaultValue={material} />
+                                </Form.Group>
+                            </>}
 
-                        {books && <>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Author</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setauthor} defaultValue={author} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Genre</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setgenre} defaultValue={genre} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Summary</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setsummary} defaultValue={summary} />
-                            </Form.Group>
-                        </>}
+                            {books && <>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Author</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setauthor} defaultValue={author} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Genre</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setgenre} defaultValue={genre} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Summary</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setsummary} defaultValue={summary} />
+                                </Form.Group>
+                            </>}
 
-                        {cosmetics && <>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setdescription} defaultValue={description} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Brand</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Type</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={settype1} defaultValue={Type} />
-                            </Form.Group>
-                        </>}
-                        {electronics && <>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Brand</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Type</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={settype1} defaultValue={Type} />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Specification</Form.Label>
-                                <Form.Control type="text" name='fname' onChange={setspecification} defaultValue={specification} />
-                            </Form.Group>
-                        </>
+                            {cosmetics && <>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Description</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setdescription} defaultValue={description} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Type</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={settype1} defaultValue={Type} />
+                                </Form.Group>
+                            </>}
+                            {electronics && <>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Type</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={settype1} defaultValue={Type} />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Specification</Form.Label>
+                                    <Form.Control type="text" name='fname' onChange={setspecification} defaultValue={specification} />
+                                </Form.Group>
+                            </>
 
-                        }
-
+                            }
 
 
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Select your image</Form.Label>
-                            <Form.Control type="file" name='photo' onChange={setimgfile} />
-                        </Form.Group>
 
-                        <Button variant="primary" type="submit" onClick={editproduct}>
-                            Submit
-                        </Button>
-                    </Form>
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                                <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Select your image</Form.Label>
+                                <Form.Control type="file" name='photo' onChange={setimgfile} />
+                            </Form.Group>
+
+
+                            <div style={{ display: 'flex', justifyContent: 'center', }}>
+
+                                <Button style={{ '--clr': '#2baefb' }} className='btnn'
+                                    variant="primary" type="submit" onClick={editproduct}>
+                                    <i>
+                                        <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%', }}>
+                                            Submit Edit
+                                        </span>
+                                    </i>
+                                </Button>
+                            </div>                           
+                        </Form>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </>
     )
 }

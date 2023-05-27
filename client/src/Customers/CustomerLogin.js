@@ -230,8 +230,9 @@ export default function Registration(props) {
                                 </Form.Group>
                             </Form>
 
-
-                            <button id="sp" onClick={register} >Register</button>
+                            <div className="containerb" style={{ marginTop: '30px' }}>
+                                <div className="btn"><a href="/#" onClick={register}>Register</a></div>
+                            </div>
                         </div>
                     </div>
 
@@ -261,7 +262,9 @@ export default function Registration(props) {
                                 }></i>
                             </div>
 
-                            <button id="sp" onClick={login} >Login</button>
+                            <div className="containerb" style={{ marginTop: '30px' }}>
+                                <div className="btn"><a href="/#" onClick={login}>Login</a></div>
+                            </div>
                             <h1 style={{ marginTop: '15px', color: 'black' }}>{message}</h1>
 
                             {/* {loginStatus &&  */}

@@ -37,11 +37,11 @@ export default function Registration(props) {
 
 
     const register = async (e) => {
-        if(nameReg===""||usernameReg===""||passwordReg===""||phonereg===""){
+        if (nameReg === "" || usernameReg === "" || passwordReg === "" || phonereg === "") {
             alert("Please fill all the fields");
             return;
         }
-        if(imgfile===""){
+        if (imgfile === "") {
             alert("Please upload an image");
             return;
         }
@@ -87,7 +87,8 @@ export default function Registration(props) {
     };
 
     const login = () => {
-        if(username===""||password===""){
+        
+        if (username === "" || password === "") {
             alert("Please enter password");
             return;
         }
@@ -186,12 +187,12 @@ export default function Registration(props) {
     const mittha = false;
     const keyPress1 = (e) => {
         if (e.keyCode === 13) {
-           register();
+            register();
         }
     }
     const keyPress2 = (e) => {
 
-        if(e.keyCode===13){
+        if (e.keyCode === 13) {
             login();
         }
     }
@@ -215,11 +216,11 @@ export default function Registration(props) {
                             <label> Username </label>
                             <input type="text" onChange={(e) => setUsernameReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Password </label>
-                            <input type="text" onChange={(e) => setPasswordReg(e.target.value)} onKeyDown={keyPress1}/>
+                            <input type="text" onChange={(e) => setPasswordReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Name </label>
-                            <input type="text" onChange={(e) => setNameReg(e.target.value)} onKeyDown={keyPress1}/>
+                            <input type="text" onChange={(e) => setNameReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Phone </label>
-                            <input type="text" onChange={(e) => setPhoneReg(e.target.value)} onKeyDown={keyPress1}/>
+                            <input type="text" onChange={(e) => setPhoneReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Image </label>
                             <Form>
 
@@ -229,8 +230,9 @@ export default function Registration(props) {
                                 </Form.Group>
                             </Form>
 
-
-                            <button id="sp" onClick={register} >Register</button>
+                            <div className="containerb" style={{ marginTop: '30px' }}>
+                                <div className="btn"><a href="/#" onClick={register}>Register</a></div>
+                            </div>
                         </div>
                     </div>
 
@@ -259,8 +261,12 @@ export default function Registration(props) {
                                     }
                                 }></i>
                             </div>
-                            <button id="sp" onClick={login} >Login</button>
-                            <h1 style={{ color:'black' }}>{message}</h1>
+          
+                            <div className="containerb" style={{ marginTop: '30px' }}>
+                                <div className="btn"><a href="/#" onClick={login}>Login</a></div>
+                            </div>
+
+                            <h1 style={{ color: 'black' }}>{message}</h1>
                             {mittha && (
                                 <div>
                                     {getSellerData()}

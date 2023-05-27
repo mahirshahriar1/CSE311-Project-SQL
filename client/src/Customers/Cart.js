@@ -65,33 +65,33 @@ export default function Cart() {
 
     }, [customer, CartID])
 
-    function check(TotalPrice,Price,TotalQuantity){
-      
-        if(parseFloat(TotalPrice)===parseFloat(Price*TotalQuantity)){
+    function check(TotalPrice, Price, TotalQuantity) {
+
+        if (parseFloat(TotalPrice) === parseFloat(Price * TotalQuantity)) {
             return 0;
         }
 
-       if(TotalPrice!==Price*TotalQuantity){
-         
-            let discount=TotalPrice-(Price*TotalQuantity);
-            let percentage=(discount/TotalPrice)*100;
+        if (TotalPrice !== Price * TotalQuantity) {
+
+            let discount = TotalPrice - (Price * TotalQuantity);
+            let percentage = (discount / TotalPrice) * 100;
             //absolute value
-            if(percentage<0){
-                percentage=percentage*-1;
+            if (percentage < 0) {
+                percentage = percentage * -1;
             }
             return percentage.toFixed(0);
         }
-       
+
     }
 
 
     return (
         customer && <div id='particles'>
             <Navbar />
-            <div className="container" style={{marginTop:'20px'}} >
+            <div className="container" style={{ marginTop: '20px' }} >
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-striped table-dark" style={{color:'rgb(227, 222, 222)'}}>
+                        <table className="table table-striped table-dark" style={{ color: 'rgb(227, 222, 222)' }}>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -109,15 +109,15 @@ export default function Cart() {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td className="w-25">
-                                            <img 
-                                            style={{ height: '100px' }}
-                                            src={`http://localhost:3001/uploads/${item.Image}`} className="img-fluid img-thumbnail" alt={item.Name} />
+                                            <img
+                                                style={{ height: '100px' }}
+                                                src={`http://localhost:3001/uploads/${item.Image}`} className="img-fluid img-thumbnail" alt={item.Name} />
                                         </td>
                                         <td>{item.Name}</td>
                                         <td>{item.Price}</td>
                                         <td>{item.TotalQuantity}</td>
-                                        <td>{check(item.TotalPrice,item.Price,item.TotalQuantity)===0?'No Discount':
-                                        check(item.TotalPrice,item.Price,item.TotalQuantity)+'%'}</td>
+                                        <td>{check(item.TotalPrice, item.Price, item.TotalQuantity) === 0 ? 'No Discount' :
+                                            check(item.TotalPrice, item.Price, item.TotalQuantity) + '%'}</td>
                                         <td>{item.TotalPrice}</td>
                                         <td><Button className='btn btn-danger' onClick={() => removeFromCart(item.ProductID, item.TotalQuantity, item.Price)} >Remove</Button></td>
                                     </tr>
@@ -128,17 +128,17 @@ export default function Cart() {
                 </div>
                 {cartProducts.length !== 0 &&
                     <div style={{ paddingBottom: '100px', paddingTop: '30px' }}>
-                        <button style={{ marginLeft: '560px', height: '50px' , '--clr': 'lightgreen'}} className='btnn'
+                        <button style={{ marginLeft: '560px', height: '50px', '--clr': 'lightgreen' }} className='btnn'
                             onClick={() => {
                                 //send cartid to checkout
                                 window.location.href = `/checkout/${CartID}`
 
                             }
                             }
-                        > <i>
-                             Confirm Your Order
+                        > <i>                 
+                                Confirm Your Order                            
                             </i>
-                             </button>
+                        </button>
                     </div>
                 }
 

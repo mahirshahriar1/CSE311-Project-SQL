@@ -13,12 +13,12 @@ export default function Orders() {
     Axios.defaults.withCredentials = true;
 
     const [orders, setOrders] = useState([]);
-   
+
 
     const importOrders = (status) => {
         //admin route
         Axios.post('http://localhost:3001/importOrders', { status: status }).then((response) => {
-           // console.log(response.data);
+            // console.log(response.data);
             setOrders(response.data);
             //console.log(response.data);
         }
@@ -47,10 +47,11 @@ export default function Orders() {
         admin && <div id='particles'>
             <Navbar />
 
-            <div className="container"  
-            style={{background:'rgb(8, 22, 33)'}}
+            <div className="container"
+                style={{ background: 'rgb(8, 22, 33)' }}
             >
                 <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
+                    <div style={{ marginTop: '20px' }}></div>
                     <div className="col-4">
                         <Button className='btn btn-primary'
                             onClick={() =>
@@ -59,7 +60,7 @@ export default function Orders() {
                         >Pending</Button>
                     </div>
                     <div className="col-4">
-                        <Button className='btn btn-success'  onClick={() =>
+                        <Button className='btn btn-success' onClick={() =>
                             importOrders('Confirmed')
                         } >Confirmed</Button>
                     </div>
@@ -72,7 +73,7 @@ export default function Orders() {
 
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-image" style={{color:'rgb(227, 222, 222)'}}>
+                        <table className="table table-image" style={{ color: 'rgb(227, 222, 222)' }}>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -95,14 +96,14 @@ export default function Orders() {
                                             {item.DateOfOrder.trim().split('T')[0]}
                                         </td>
                                         <td >
-                                            {item.DateOfProcess.trim().split('T')[0]? item.DateOfProcess.trim().split('T')[0] : 'Not Processed'}
+                                            {item.DateOfProcess.trim().split('T')[0] ? item.DateOfProcess.trim().split('T')[0] : 'Not Processed'}
                                         </td>
                                         <td>
                                             {item.TotalAmount}
-                                        </td>                                       
+                                        </td>
                                         <td style={{
-                                            color: item.OrderStatus === 'Pending' ? 'black' : item.OrderStatus === 'Confirmed' ?
-                                                'green' : 'red'
+                                            color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Confirmed' ?
+                                                '#2cd32c' : 'red'
                                         }}>
                                             {item.OrderStatus}
                                         </td>

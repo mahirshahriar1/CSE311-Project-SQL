@@ -172,5 +172,20 @@ admin.post('/deleteReport', (req, res) => {
     );
 });
 
+// Axios.get(`http://localhost:3001/getCustomerName/${id}`).then((response) => {
+
+admin.get('/getCustomerName/:id', (req, res) => {
+    const id = req.params.id;
+    db.query('SELECT * FROM customers WHERE id=?', [id], (err, result) => {
+        if (err) {
+            res.json({ status: 422, error: err });
+        }
+        else {
+            res.send(result);
+        }
+    }
+    );
+});
+
 
 module.exports = admin;

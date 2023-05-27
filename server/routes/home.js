@@ -36,6 +36,82 @@ home.get('/importCategoricalProducts', (req, res) => {
     });
 });
 
+home.post('/specific1', (req, res) => {
+    const id = req.body.id;
+
+    db.query("SELECT * FROM products WHERE id=?", [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+
+            res.send(result);
+        }
+    }
+    );
+
+});
+
+home.post('/specific2', (req, res) => {
+    const id = req.body.id;
+
+    db.query("SELECT * FROM products WHERE id=?", [id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            //cosmetics  (productid,type,brand,description)
+            //clothes (productid,color,brand,size,material)
+            //electronics (productid,specification,type,brand)
+            //books (productid,genre,summary,author)
+
+          
+            if (result[0].Type == 'Cosmetics') {
+                db.query("SELECT * FROM cosmetics WHERE productid=?", [id], (err, result1) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send(result1);
+                    }
+                }
+                );
+            }
+            else if (result[0].Type == 'Clothes') {
+                db.query("SELECT * FROM clothes WHERE productid=?", [id], (err, result1) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send(result1);
+                    }
+                }
+                );
+            }
+            else if (result[0].Type == 'Electronics') {
+                db.query("SELECT * FROM electronics WHERE productid=?", [id], (err, result1) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send(result1);
+                    }
+                }
+                );
+            }
+            else if (result[0].Type == 'Books') {
+                
+                db.query("SELECT * FROM books WHERE productid=?", [id], (err, result1) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send(result1);
+                    }
+                }
+                );
+            }
+
+
+        }
+
+    });
+});
+
 home.post('/specific', (req, res) => {
     const id = req.body.id;
     //console.log(id);
@@ -88,7 +164,7 @@ home.get('/getProductDiscount/:id', async (req, res) => {
 home.get('/importProducts/:cat/:name', (req, res) => {
     const cat = req.params.cat;
     const name = req.params.name;
-    //console.log(cat);
+
     //console.log(name);
     if (cat === 'Main') {
         db.query('SELECT * FROM products WHERE Name LIKE ? Order by ID DESC', ['%' + name + '%'], (err, result) => {
@@ -114,6 +190,26 @@ home.get('/importProducts/:cat/:name', (req, res) => {
     }
 });
 
+// Axios.get('http://localhost:3001/importProducts/' + Cat + '/' + name + '/' + userID).then((response) => {
+
+home.get('/importProducts2/:cat/:name/:userID', (req, res) => {
+
+    const cat = req.params.cat;
+    const name = req.params.name;
+    const userID = req.params.userID;
+    console.log(cat);
+    //console.log(name);
+
+    db.query('SELECT * FROM products WHERE Name LIKE ? AND SellerID=? Order by ID DESC', ['%' + name + '%', userID], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    });
+
+});
 
 
 home.get('/sortProducts/:txt1/:txt2', (req, res) => {
@@ -121,7 +217,7 @@ home.get('/sortProducts/:txt1/:txt2', (req, res) => {
     const txt2 = req.params.txt2;
     //console.log(txt);
     //console.log(txt2);
-    if(txt1==='Quantity'){
+    if (txt1 === 'Quantity') {
         db.query('SELECT * FROM products where Quantity>0 ORDER BY ' + txt1 + ' ' + txt2, (err, result) => {
             if (err) {
                 console.log(err);
@@ -131,8 +227,8 @@ home.get('/sortProducts/:txt1/:txt2', (req, res) => {
             }
         }
         );
-       
-    }else{
+
+    } else {
 
         db.query('SELECT * FROM products ORDER BY ' + txt1 + ' ' + txt2, (err, result) => {
             if (err) {

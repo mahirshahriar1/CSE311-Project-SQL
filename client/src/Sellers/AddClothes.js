@@ -91,46 +91,56 @@ export default function AddClothes() {
     return (
         bool && <>
             <Navbar></Navbar>
-            <div style={{ paddingLeft: '50px' }} className="container mt-3">
-                <h1 style={{ textAlign: 'center' }}>Add A Cloth</h1>
+            <div id='particles' style={{ padding: '50px', background: 'rgb(5 37 62)', width: '800px' }} className="container mt-3">
+                <h1 style={{ color: 'white', textAlign: 'center' }}>Add Clothes</h1>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Name</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setname} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Price</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Price</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setprice} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Color</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Color</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setcolor} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Brand</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setbrand} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Size</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Size</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setsize} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Material</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Material</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setmaterial} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Quantity</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Quantity</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setquantity} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Select your image</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Select your image</Form.Label>
                         <Form.Control type="file" name='photo' onChange={setimgfile} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={addUserDate}>
-                        Submit
-                    </Button>
+                    <div style={{ display: 'flex', justifyContent: 'center', }}>
+
+                        <Button style={{ '--clr': '#2baefb' }}
+                            variant="primary" type="submit" onClick={addUserDate}
+                            className='btnn'
+                        >
+                            <i>
+                                <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%', }}>
+                                    Submit
+                                </span>
+                            </i>
+                        </Button>
+                    </div>
                 </Form>
             </div>
 

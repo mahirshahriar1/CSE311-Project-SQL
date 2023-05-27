@@ -107,10 +107,11 @@ export default function CheckOrder() {
     return (
         (customer || admin) && <div>
             <Navbar />
-            <div className="container" style={{ marginLeft: "270px" }}>
+            <div style={{ marginTop: '50px' }}></div>
+            <div id='particles' className="container">
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-image">
+                        <table className="table table-striped table-dark">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -141,43 +142,52 @@ export default function CheckOrder() {
                 </div>
 
                 <div>
-                    <h2 style={{ marginLeft: '450px' }}>Customer Information</h2>
+
                     <div className="row">
-                        <div className="col-6">
-                            <h4 style={{ marginLeft: '450px' }}>Name: {name}</h4>
-                            <h4 style={{ marginLeft: '450px' }}>Region: {region}</h4>
-                            <h4 style={{ marginLeft: '450px' }}>Address: {address}</h4>
-                            <h4 style={{ marginLeft: '450px' }}>Phone: {phone}</h4>
-                            <h4 style={{ marginLeft: '450px' }}>Total Amount: {TotalAmount}</h4>
+                        <div className="col-6" style={{ marginLeft: '450px' }} >
+                            <div id='particles'
+                                style={{ display: 'grid', justifyContent: 'left', paddingLeft: '20px', alignItems: 'center', height: 'auto', width: '440px', borderRadius: '10px', borderBlockColor: 'black', border: '5px solid black', background: 'rgb(8, 22, 33)', flexDirection: 'column' }}>
+
+                                <h2 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive', textAlign: 'center' }}>  <u> Customer Information</u> </h2>
+                                <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Name: {name}</h3>
+                                <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Region : {region} BDT</h3>
+                                <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Address : {address}</h3>
+                                <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Phone : {phone}</h3>
+                                <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Total Amount : {TotalAmount}</h3>
+                                <br />
+                                {status !== 'Pending'
+                                    && <div>
+                                        <Fragment>
+
+                                            <h2 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive', textAlign: 'center', border:'5px solid white', padding:'5px' }} >
+                                                
+                                                    Order Status: <span style={{ color: status === 'Confirmed' ? 'green' : 'red' }}>{status}</span>
+
+                                                
+                                            </h2>
+                                        </Fragment>
+                                    </div>
+                                }
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
 
                 {status === 'Pending' && admin && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
-                    <Button style={{ marginLeft: '560px', height: '50px', width: '200px' }} className='btn btn-success'
-                        onClick={() => {
 
-                            order('Confirmed');
-                        }
-                        }
-                    > Confirm this Order</Button>
-                    <Button style={{ marginLeft: '560px', height: '50px', marginTop: '25px', width: '200px' }} className='btn btn-danger'
-                        onClick={() => {
+                    <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'lightgreen' }} className='btnn' onClick={() => { order('Confirmed'); }}>
+                        <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}>Confirm this Order</span></i>
+                    </Button>
+                    <div style={{ padding: '20px' }}></div>
+                    <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'red' }} className='btnn' onClick={() => { order('Cancelled'); }}>
+                        <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}>Cancel this Order </span></i>
+                    </Button>
 
-                            order('Cancelled');
 
-                        }
-                        }
-                    > Cancel this Order  </Button>
                 </div>}
-                {status !== 'Pending'
-                    && <div style={{ marginLeft: '450px' }}>
-                        <Fragment>
-                            <h2 >Order Status: <span style={{ color: status === 'Confirmed' ? 'green' : 'red' }}>{status}</span> </h2>
-                        </Fragment>
-                    </div>
-                }
 
             </div>
         </div>

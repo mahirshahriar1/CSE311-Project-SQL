@@ -138,6 +138,7 @@ export default function Category() {
                             <Item name={element.Name} description={element.Price}
                                 imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
                                 cartID={cartID} prodQuantity={element.Quantity} home={true}
+                                price={element.Price}
                             />
                         </div>
                     })}
