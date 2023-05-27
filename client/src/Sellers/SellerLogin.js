@@ -231,7 +231,7 @@ export default function Registration(props) {
                             </Form>
 
                             <div className="containerb" style={{ marginTop: '30px' }}>
-                                <div className="btn"><a href={() => false} onClick={register}>Register</a></div>
+                                <div className="btn"><a href="# " onClick={register}>Register</a></div>
                             </div>
                         </div>
                     </div>
@@ -263,7 +263,7 @@ export default function Registration(props) {
                             </div>
           
                             <div className="containerb" style={{ marginTop: '30px' }}>
-                                <div className="btn"><a href={() => false} onClick={login}>Login</a></div>
+                                <div className="btn"><a href="# " onClick={login}>Login</a></div>
                             </div>
 
                             <h1 style={{ color: 'black' }}>{message}</h1>
