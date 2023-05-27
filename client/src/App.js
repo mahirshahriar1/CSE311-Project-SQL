@@ -34,11 +34,11 @@ import particlesOptions from './particleOptions';
 function App() {
 
   const particlesInit = async (main) => {
-    console.log(main);
+    //console.log(main);
     await loadFull(main);
   };
   const particlesLoaded = (container) => {
-    console.log(container);
+    //console.log(container);
   };
 
   // document.body.style.backgroundAttachment = "fixed";

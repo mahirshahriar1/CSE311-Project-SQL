@@ -38,6 +38,16 @@ export default function Registration(props) {
 
 
     const register = async (e) => {
+        if(nameReg===""||usernameReg===""||passwordReg===""||phonereg===""){
+            alert("Please fill all the fields");
+            return;
+        }
+        if(imgfile===""){
+            alert("Please upload an image");
+            return;
+        }
+
+
         //regex to check phone number
 
         const phoneRegex = /^[0-9]{11}$/;
@@ -141,6 +151,18 @@ export default function Registration(props) {
 
     }
 
+    const keyPress1 = (e) => {
+        if (e.keyCode === 13) {
+            register();
+        }
+    }
+    const keyPress2 = (e) => {
+
+        if (e.keyCode === 13) {
+            login();
+        }
+    }
+
 
     useEffect(() => {
 
@@ -192,13 +214,13 @@ export default function Registration(props) {
                         <div className="registration">
                             <h1>Registration</h1>
                             <label> Username </label>
-                            <input type="text" onChange={(e) => setUsernameReg(e.target.value)} />
+                            <input type="text" onChange={(e) => setUsernameReg(e.target.value)} onKeyDown={keyPress1}  />
                             <label > Password </label>
-                            <input type="text" onChange={(e) => setPasswordReg(e.target.value)} />
+                            <input type="text" onChange={(e) => setPasswordReg(e.target.value)}  onKeyDown={keyPress1}/>
                             <label > Name </label>
-                            <input type="text" onChange={(e) => setNameReg(e.target.value)} />
+                            <input type="text" onChange={(e) => setNameReg(e.target.value)}  onKeyDown={keyPress1}/>
                             <label > Phone </label>
-                            <input type="text" onChange={(e) => setPhoneReg(e.target.value)} />
+                            <input type="text" onChange={(e) => setPhoneReg(e.target.value)}  onKeyDown={keyPress1}/>
                             <label > Image </label>
                             <Form>
 
@@ -208,8 +230,9 @@ export default function Registration(props) {
                                 </Form.Group>
                             </Form>
 
-
-                            <button id="sp" onClick={register} >Register</button>
+                            <div className="containerb" style={{ marginTop: '30px' }}>
+                                <div className="btn"><a href="# " onClick={register}>Register</a></div>
+                            </div>
                         </div>
                     </div>
 
@@ -221,11 +244,11 @@ export default function Registration(props) {
 
                             <label> Username </label>
                             <input type="text" placeholder="Username..."
-                                onChange={(e) => setUsername(e.target.value)} />
+                                onChange={(e) => setUsername(e.target.value)}   onKeyDown={keyPress2} />
 
                             <label > Password </label>
                             <div className="password-container">
-                                <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)} />
+                                <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)}  onKeyDown={keyPress2} />
                                 <i className="toggle-password fas fa-eye" onClick={
                                     () => {
                                         console.log("clicked");
@@ -239,7 +262,9 @@ export default function Registration(props) {
                                 }></i>
                             </div>
 
-                            <button id="sp" onClick={login} >Login</button>
+                            <div className="containerb" style={{ marginTop: '30px' }}>
+                                <div className="btn"><a href="# " onClick={login}>Login</a></div>
+                            </div>
                             <h1 style={{ marginTop: '15px', color: 'black' }}>{message}</h1>
 
                             {/* {loginStatus &&  */}

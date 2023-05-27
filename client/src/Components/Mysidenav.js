@@ -67,7 +67,8 @@ export default function Mysidenav() {
                     </NavItem>
                     }
                     {sellerStatus && <NavItem eventKey='yourDiscounts'>
-                        <NavIcon> <i className='fa fa-fw  fa-shop' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                   
+                        <NavIcon> <i className='fa-sharp fa-regular fa-percent' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                         <NavText>
                             Check Discounts
                         </NavText>
@@ -104,7 +105,7 @@ export default function Mysidenav() {
                     }
                     {
                         adminStatus && <NavItem eventKey='userList'>
-                            <NavIcon> <i className='fa fa-fw  fa-shop' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavIcon> <i className='fa-sharp fa-solid fa-users' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                             <NavText>
                                 Check Users
                             </NavText>
@@ -120,7 +121,7 @@ export default function Mysidenav() {
                     }
                     {
                         adminStatus && <NavItem eventKey='reportList'>
-                            <NavIcon> <i className='fa fa-fw  fa-bag-shopping' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavIcon> <i className='fa-sharp fa-solid fa-flag' style={{ fontsize: "1.5em" }}></i> </NavIcon>
                             <NavText>
                                 Check Reports
                             </NavText>

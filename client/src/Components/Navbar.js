@@ -32,6 +32,7 @@ export default function Navbar() {
     });
 
   }, []);
+  
   const logout = () => {
     Axios.get('http://localhost:3001/logout').then((response) => {
       alert(response.data);
@@ -55,7 +56,10 @@ export default function Navbar() {
       window.location.href = `/search/electronics/${search}`
     } else if (link === 'books' || link2 === 'books') {
       window.location.href = `/search/books/${search}`
-    } else {
+    } else if(link  === 'yourshop' || link2 === 'yourshop'){
+      window.location.href = `/search/yourshop/${search}`
+    }
+    else {
       window.location.href = `/search/main/${search}`
     }
 

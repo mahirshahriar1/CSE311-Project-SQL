@@ -36,7 +36,7 @@ export default function Checkout() {
 
 
         Axios.post('http://localhost:3001/placeOrder', {
-            CartID: cartID, Address: address, Phone: phone, CustomerID: customerID , Region: selectedRegion, Name: name
+            CartID: cartID, Address: address, Phone: phone, CustomerID: customerID, Region: selectedRegion, Name: name
         }).then((response) => {
             console.log(response.data);
             alert('Order Placed Successfully');
@@ -47,8 +47,6 @@ export default function Checkout() {
 
 
 
-
-    
 
     useEffect(() => {
         Axios.get('http://localhost:3001/login').then((response) => {
@@ -71,7 +69,7 @@ export default function Checkout() {
         }
 
 
-    }, [customerID,name,phone])
+    }, [customerID, name, phone])
     // console.log(checkCart);
     // console.log(cartID);
 
@@ -79,38 +77,48 @@ export default function Checkout() {
         // eslint-disable-next-line
         (checkCart == cartID) && <>
             <Navbar />
-            <div style={{ paddingLeft: '50px' }} className="container mt-3">
-                <h1 style={{ textAlign: 'center' }}>Checkout Your Cart</h1>
+            <div id='particles' style={{ padding: '50px', background: 'rgb(5 37 62)', width: '800px' }} className="container mt-3">
+                <h1 style={{ textAlign: 'center', color: 'white', fontFamily: 'cursive' }}>Checkout Your Cart</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail"   >
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Name</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setname} disabled={true} defaultValue={name}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Phone</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Phone</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setphone} defaultValue={phone} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Address</Form.Label>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Address</Form.Label>
                         <Form.Select aria-label="Select region" name='address' value={selectedRegion} onChange={handleRegionChange}>
-                            <option value="">Select Region</option>
-                            <option value="Dhaka">Dhaka</option>
-                            <option value="Chittagong">Chittagong</option>
-                            <option value="Sylhet">Sylhet</option>
-                            <option value="Rangpur">Rangpur</option>
-                            <option value="Barishal">Barishal</option>
+                            <option style={{ fontFamily: 'cursive' }} value="">Select Region</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Dhaka">Dhaka</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Chittagong">Chittagong</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Sylhet">Sylhet</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Rangpur">Rangpur</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Barishal">Barishal</option>
                         </Form.Select>
                         <div style={{ paddingTop: '30px' }}>
-                            <Form.Label>Enter detailed location</Form.Label>
+                            <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Enter detailed location</Form.Label>
                             <Form.Control type="text" name='fname' style={{ height: '80px' }} onChange={setaddress} />
                         </div>
 
 
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+
+                    <div style={{ display: 'flex', justifyContent: 'center', }}>
+
+                        <Button style={{ '--clr': '#2baefb' }} className='btnn'
+                            variant="primary" type="submit">
+                            <i>
+                                <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%', }}>
+                                    Submit
+                                </span>
+                            </i>
+                        </Button>
+                    </div>
+                    
                 </Form>
             </div>
         </>

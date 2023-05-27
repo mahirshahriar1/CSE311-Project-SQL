@@ -78,30 +78,30 @@ export default function Main() {
         if (response.data[0].Author)
           setAuthor(response.data[0].Author);
 
-        if(response.data[0].Color)
+        if (response.data[0].Color)
           setColor(response.data[0].Color);
 
-        if(response.data[0].clothes_brand)
+        if (response.data[0].clothes_brand)
           setBrand(response.data[0].clothes_brand);
-        else if(response.data[0].cosmetics_brand)
+        else if (response.data[0].cosmetics_brand)
           setBrand(response.data[0].cosmetics_brand);
-        else if(response.data[0].electronics_brand)
+        else if (response.data[0].electronics_brand)
           setBrand(response.data[0].electronics_brand);
 
-        if(response.data[0].Size)
+        if (response.data[0].Size)
           setSize(response.data[0].Size);
-        if(response.data[0].Material)
+        if (response.data[0].Material)
           setMaterial(response.data[0].Material);
 
-        if(response.data[0].Specification)
+        if (response.data[0].Specification)
           setSpecifications(response.data[0].Specification);
-        if(response.data[0].electronics_type)
+        if (response.data[0].electronics_type)
           setElecType(response.data[0].electronics_type);
-        
-        if(response.data[0].cosmetics_type)
+
+        if (response.data[0].cosmetics_type)
           setCosType(response.data[0].cosmetics_type);
 
-        
+
       });
     };
     getData();
@@ -180,17 +180,17 @@ export default function Main() {
           </TransformWrapper>
         </div>
         <div style={{ marginLeft: '20px' }}>
-        
+
           <div id='particles'
             style={{ display: 'grid', justifyContent: 'left', paddingLeft: '20px', alignItems: 'center', height: 'auto', width: '440px', borderRadius: '10px', borderBlockColor: 'black', border: '5px solid black', background: 'rgb(8, 22, 33)', flexDirection: 'column' }}>
 
             <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Name: {name}</h3>
             <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Price : {price} BDT</h3>
 
-            <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Quantity : {prodQuantity2===0 ? <span style={{ color: '#df3838' }}>Out of Stock!</span>: prodQuantity2}</h3>
+            <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Quantity : {prodQuantity2 === 0 ? <span style={{ color: '#df3838' }}>Out of Stock!</span> : prodQuantity2}</h3>
             {description !== '' && <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Description : {description}</h3>}
             {genre !== '' && <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Genre : {genre}</h3>}
-            {summary !== '' && <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Summary : {summary}</h3>}
+            {summary !== '' && <h3 style={{marginLeft:'5px', color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Summary : {summary}</h3>}
             {author !== '' && <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Author : {author}</h3>}
             {color !== '' && <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Color : {color}</h3>}
             {brand !== '' && <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Brand : {brand}</h3>}

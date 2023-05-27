@@ -3,6 +3,7 @@ const express = require('express');
 const admin = new express.Router();
 const db = require("../db/conn");
 const fs = require('fs');
+const moment = require('moment');
 
 
 admin.get('/importSellers', (req, res) => {
@@ -94,7 +95,8 @@ admin.post('/orderAction', (req, res) => {
     const id = req.body.CartID;
     const status = req.body.Status;
     //console.log(status);
-    db.query('UPDATE orders SET OrderStatus=? , DateOfProcess=? WHERE CartID=?', [status, Date.now(), id], (err, result) => {
+    const date=moment().format('YYYY-MM-DD');
+    db.query('UPDATE orders SET OrderStatus=? , DateOfProcess=? WHERE CartID=?', [status, date, id], (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -167,6 +169,21 @@ admin.post('/deleteReport', (req, res) => {
         }
         else {
             res.status(201).json({ status: 201, data: result })
+        }
+    }
+    );
+});
+
+// Axios.get(`http://localhost:3001/getCustomerName/${id}`).then((response) => {
+
+admin.get('/getCustomerName/:id', (req, res) => {
+    const id = req.params.id;
+    db.query('SELECT * FROM customers WHERE id=?', [id], (err, result) => {
+        if (err) {
+            res.json({ status: 422, error: err });
+        }
+        else {
+            res.send(result);
         }
     }
     );

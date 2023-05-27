@@ -5,8 +5,8 @@ import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
 export default function Search() {
-    var name=window.location.href.split('/').reverse()[0];
-    var cat=window.location.href.split('/').reverse()[1];
+    var name = window.location.href.split('/').reverse()[0];
+    var cat = window.location.href.split('/').reverse()[1];
 
 
     const [seller, setSeller] = useState(false);
@@ -27,16 +27,26 @@ export default function Search() {
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
-      }
+    }
 
     const getProducts = () => {
-        var Cat=capitalizeFirstLetter(cat);
-        Axios.get('http://localhost:3001/importProducts/'+Cat+'/'+name).then((response) => {
-            console.log(response.data);
-            setAllProducts(response.data);
-            setProductList(response.data.slice(0, 6));
-        });
-       
+        var Cat = capitalizeFirstLetter(cat);
+        if (cat === 'yourshop') {
+            console.log("Your Shop");
+            Axios.get('http://localhost:3001/importProducts2/' + Cat + '/' + name + '/' + userID).then((response) => {              
+                console.log(response.data);
+                setAllProducts(response.data);
+                setProductList(response.data.slice(0, 6));
+            });
+
+        } else {
+            Axios.get('http://localhost:3001/importProducts/' + Cat + '/' + name).then((response) => {
+                console.log(response.data);
+                setAllProducts(response.data);
+                setProductList(response.data.slice(0, 6));
+            });
+        }
+
     };
 
     const getMoreProducts = () => {
@@ -64,12 +74,25 @@ export default function Search() {
     };
 
 
-
+    const [loginStatus, setLoginStatus] = useState(false);
+    const [userID, setuserID] = useState("");
 
     useEffect(() => {
+
+        Axios.get('http://localhost:3001/login').then((response) => {
+            //console.log(response.data);
+            if (response.data.loggedIn === true) {
+                setLoginStatus(true);
+                if (response.data.user[0].ID)
+                    setuserID(response.data.user[0].ID);
+            }
+        });
+
         if (bool === false) {
-            getProducts();
-            setBool(true);
+            if(userID !== ""){
+                getProducts();
+                setBool(true);
+            }
 
             Axios.get('http://localhost:3001/login').then((response) => {
                 //console.log(response.data.user[0].ID)
@@ -114,7 +137,7 @@ export default function Search() {
             window.removeEventListener("scroll", handleScroll);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading, productList])
+    }, [isLoading, productList, userID])
 
     return (
         <div>
@@ -137,8 +160,8 @@ export default function Search() {
 
             </div>
             {isLoading && (
-                <div style={{ marginTop:'50px', height: '200px', display: "flex", justifyContent: "center" }}>
-                    <div   style={{height:'60px', width:'60px'}} className="spinner-border" role="status">
+                <div style={{ marginTop: '50px', height: '200px', display: "flex", justifyContent: "center" }}>
+                    <div style={{ height: '60px', width: '60px' }} className="spinner-border" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>

@@ -67,8 +67,8 @@ export default function Orders() {
                                             {item.TotalAmount}
                                         </td>
                                         <td style={{
-                                            color: item.OrderStatus === 'Pending' ? 'black' : item.OrderStatus === 'Confirmed' ?
-                                                'green' : 'red'
+                                            color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Confirmed' ?
+                                                '#35f135' : 'red'
                                         }}>
                                             {item.OrderStatus}
                                         </td>

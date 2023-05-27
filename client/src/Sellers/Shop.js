@@ -17,13 +17,13 @@ export default function Main() {
             if (response.data.loggedIn === true && response.data.user[0].Type === 'Seller') {
                 setID(response.data.user[0].ID);
             }
-        });        
+        });
         const getYourShop = () => {
 
             // console.log(ID);
             Axios.post('http://localhost:3001/importShop',
                 { ID: ID }).then((response) => {
-                   setProductList(response.data);
+                    setProductList(response.data);
                 }
                 );
         };
@@ -42,7 +42,7 @@ export default function Main() {
                     {productList.map((element) => {
 
                         return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
-                            <Item name={element.Name} description={element.Price}
+                            <Item name={element.Name} price={element.Price}
                                 imglink={element.Image} id={element.ID} seller={true} product={true} user={false} prodQuantity={element.Quantity}
                             />
                         </div>

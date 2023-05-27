@@ -42,6 +42,7 @@ export default function ReportList() {
     };
 
 
+    const [customerName, setCustomerName] = useState([]);
     useEffect(() => {
         //logreg route
         Axios.get('http://localhost:3001/login').then((response) => {
@@ -51,6 +52,7 @@ export default function ReportList() {
         }
         )
         importReports();
+
 
     }, [admin])
 
@@ -68,14 +70,28 @@ export default function ReportList() {
 
     };
 
+    const getCustomerName = (id) => {
+        //console.log(id);
+        //customer route
+        Axios.get(`http://localhost:3001/getCustomerName/${id}`).then((response) => {
+            if (response.data.status === 422) {
+                console.log(response.data.error);
+            }
+            else {
+                console.log(response.data[0].Name);
+                setCustomerName(response.data[0].Name);
+            }
+        }
+        );
+    };
 
 
     return (
         admin && <div id='particles'>
             <Navbar />
             <div style={{ margin: '50px' }}></div>
-            <div className="container"  
-            style={{background:'rgb(8, 22, 33)'}}
+            <div className="container"
+                style={{ background: 'rgb(8, 22, 33)' }}
             >
 
                 <div className="row">
@@ -101,7 +117,10 @@ export default function ReportList() {
                                         <td>{item.DateOfReport.trim().substring(0, 10)
                                         }</td>
                                         <td>{item.ProductID}</td>
-                                        <td>{item.CustomerID}</td>
+                                        <td>
+                                            {getCustomerName(item.CustomerID)}
+                                            {customerName}</td>
+
                                         <td>{item.TextOfReport}</td>
                                         <td>
                                             <button className="btn btn-danger"

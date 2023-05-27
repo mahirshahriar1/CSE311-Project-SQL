@@ -16,6 +16,14 @@ export default function Registration(props) {
     Axios.defaults.withCredentials = true;
 
     const login = () => {
+        if (password === "") {
+            alert("Please enter password");
+            return;
+        }
+        if (username === "") {
+            alert("Please enter username");
+            return;
+        }
         //logreg route
         Axios.post('http://localhost:3001/adminlogin', {
             username: username,
@@ -76,6 +84,12 @@ export default function Registration(props) {
         setMessage("Logged out");
     };
 
+    const keyPress = (e) => {
+        if (e.keyCode === 13) {
+            login();
+        }
+    }
+    const mittha = false;
 
     return (
 
@@ -90,11 +104,12 @@ export default function Registration(props) {
 
                     <label> Username </label>
                     <input type="text" placeholder="Username..."
-                        onChange={(e) => setUsername(e.target.value)} />
+                        onChange={(e) => setUsername(e.target.value)} onKeyDown={keyPress} />
 
                     <label > Password </label>
                     <div className="password-container">
-                        <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)} onKeyDown={keyPress}
+                        />
                         <i className="toggle-password fas fa-eye" onClick={
                             () => {
                                 console.log("clicked");
@@ -107,12 +122,14 @@ export default function Registration(props) {
                             }
                         }></i>
                     </div>
+                    <div className="containerb" style={{ marginTop: '30px' }}>
+                        <div className="btn"><a href="# " onClick={login}>Login</a></div>
+                    </div>
 
 
-                    <button id="sp" onClick={login} >Login</button>
-                    <h1 style={{ color:'black' }}>{message}</h1>
+                    <h1 style={{ color: 'black' }}>{message}</h1>
 
-                    {loginStatus && (
+                    {mittha && loginStatus && (
                         <div style={{ marginBottom: '20px' }} >
                             {/* <button id="sp" style={{ background: '#4c99af' }} onClick={userAuthenticated}> Check if Authenticated</button> */}
                             <br />

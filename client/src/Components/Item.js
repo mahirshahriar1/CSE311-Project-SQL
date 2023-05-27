@@ -13,7 +13,7 @@ import format from 'date-fns/format';
 const Item = (props) => {
     // eslint-disable-next-line
     let { name, price, imglink, id, seller, customer, admin, product, customerID, cartID, prodQuantity, home } = props;
-
+    let { phone } = props;
     let Type = props.Type;
     // console.log(props);
 
@@ -61,6 +61,7 @@ const Item = (props) => {
             }
         });
         if (res.data.status === 201) {
+            alert("User Deleted");
             window.location.reload();
             //could have called getuserdata again
         } else {
@@ -186,10 +187,10 @@ const Item = (props) => {
                     </div>}
                     <img src={`http://localhost:3001/uploads/${imglink}`} className="card-img-top " style={{ height: '240px', width: '100%' }} alt="..." />
                     <div className="card-body">
-                        <h5 className="card-title"
+                        <h3 className="card-title"
                             // center the text
                             style={{ textAlign: 'center' }}
-                        >{name}</h5>
+                        >{name}</h3>
 
                         {product && <p className="card-text">Price: {price} BDT</p>}
                         {/* {product ? <p className="card-text">Discount - {discountPercentage}</p> : null} */}
@@ -212,8 +213,16 @@ const Item = (props) => {
                                 dltProduct(id, imglink);
                             }}>Delete</Button> : null}
                         </div>}
-
+                        {
+                            admin && !product ?
+                                <h3  style={{ textAlign: 'center' }}>
+                                    {phone}
+                                </h3>
+                                : null
+                        }
                         {admin && !product ?
+
+
                             <Button style={{ marginLeft: '75px', width: '100px' }} className="btn btn-danger" onClick={() => {
                                 dltUser(id, Type, imglink);
                             }}>Delete</Button>
