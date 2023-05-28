@@ -129,7 +129,8 @@ export default function Navbar() {
                 )}
               </ul>
               <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(event) => setSearch(event.target.value)} />
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" 
+                onChange={(event) => setSearch(event.target.value)} />
                 <button type="button" className="btn btn-outline-success" onClick={Search}>Search</button>
               </form>
             </div>

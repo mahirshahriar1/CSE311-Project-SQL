@@ -44,8 +44,7 @@ export default function Main() {
             return;
         }
 
-        setTimeout
-            (() => {
+        setTimeout(() => {
 
                 setProductList((prevProductList) =>
 

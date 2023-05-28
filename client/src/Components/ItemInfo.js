@@ -54,6 +54,7 @@ export default function Main() {
           setUserID(response.data.user[0].ID);
           setUserType(response.data.user[0].Type);
           Axios.get('http://localhost:3001/getCartID', { params: { id: response.data.user[0].ID } }).then((response) => {
+            if(response.data.length !== 0) 
             setCartID(response.data[0].ID);
           })
         }

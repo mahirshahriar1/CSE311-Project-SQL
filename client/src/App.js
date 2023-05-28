@@ -25,7 +25,6 @@ import Category from './Components/Category';
 import ReportList from './Admin/ReportList';
 import Search from './Components/Search';
 
-import Background from './Images/BackgroundCopy.jpg';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import particlesOptions from './particleOptions';

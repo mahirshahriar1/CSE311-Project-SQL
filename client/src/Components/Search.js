@@ -59,22 +59,19 @@ export default function Search() {
             return;
         }
 
-        setTimeout
-            (() => {
-
+        setTimeout(() => {
                 setProductList((prevProductList) =>
 
                     prevProductList.concat(allProducts.slice(prevProductList.length, prevProductList.length + 6))
                 );
                 setIsLoading(false);
 
-            }
-                , 500);
+            }, 500);
 
     };
 
-
-    const [loginStatus, setLoginStatus] = useState(false);
+    
+    //const [loginStatus, setLoginStatus] = useState(false);
     const [userID, setuserID] = useState("");
 
     useEffect(() => {
@@ -82,17 +79,18 @@ export default function Search() {
         Axios.get('http://localhost:3001/login').then((response) => {
             //console.log(response.data);
             if (response.data.loggedIn === true) {
-                setLoginStatus(true);
+               // setLoginStatus(true);
                 if (response.data.user[0].ID)
                     setuserID(response.data.user[0].ID);
             }
+            //console.log(loginStatus);
         });
 
         if (bool === false) {
-            if(userID !== ""){
+          
                 getProducts();
                 setBool(true);
-            }
+            
 
             Axios.get('http://localhost:3001/login').then((response) => {
                 //console.log(response.data.user[0].ID)

@@ -40,8 +40,7 @@ export default function Category() {
             return;
         }
 
-        setTimeout
-            (() => {
+        setTimeout(() => {
 
                 setProductList((prevProductList) =>
 
