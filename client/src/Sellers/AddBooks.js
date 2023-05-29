@@ -91,9 +91,18 @@ export default function AddBooks() {
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Price</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setprice} />
                     </Form.Group>
+
                     <Form.Group className="mb-3" controlId="formBasicEmail">
+
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Genre</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setgenre} />
+                        <Form.Select aria-label="Select region" name='address' value={genre} onChange={setgenre}>
+                            <option style={{ fontFamily: 'cursive' }} value="">Select Genre</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Non-Fiction">Non-Fiction</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Horror">Horror</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Romantic">Romantic</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Fantasy">Fantasy</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Children">Children</option>
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Author</Form.Label>

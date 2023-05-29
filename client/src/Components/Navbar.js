@@ -84,20 +84,62 @@ export default function Navbar() {
                   <a className="nav-link active" href="/">Home</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/category/clothes">Clothes</a>
+
+                  <a className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">Clothes</a>
+                  <ul style={{ marginLeft: '200px' }} className="dropdown-menu">
+                    <li><a className="dropdown-item" href='/category/clothes/Male'>Male</a></li>
+                    <li><a className="dropdown-item" href="/category/clothes/Female">Female</a></li>
+                    <li><a className="dropdown-item" href="/category/clothes/Children">Children</a></li>
+              
+                    <li><hr className="dropdown-divider" /></li>
+                  </ul>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/category/cosmetics">Cosmetics</a>
+                  <a className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">Cosmetics</a>
+                  <ul style={{ marginLeft: '300px' }} className="dropdown-menu">
+                    <li><a className="dropdown-item" href='/category/cosmetics/SkinCare'>Skin Care</a></li>
+                    <li><a className="dropdown-item" href="/category/cosmetics/HairCare">Hair Care</a></li>
+                    <li><a className="dropdown-item" href="/category/cosmetics/Fragrance">Fragrance</a></li>
+                    <li><a className="dropdown-item" href="/category/cosmetics/Makeup">Makeup</a></li>
+                    <li><a className="dropdown-item" href="/category/cosmetics/Men">Men's Care</a></li>
+                    <li><hr className="dropdown-divider" /></li>
+                  </ul>
+                </li>
+
+                <li className="nav-item">
+                  <a className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">Electronics</a>
+                  <ul style={{ marginLeft: '400px' }} className="dropdown-menu">
+                    <li><a className="dropdown-item" href='/category/electronics/PC'>PC</a></li>
+                    <li><a className="dropdown-item" href="/category/electronics/Laptop">Laptop</a></li>
+                    <li><a className="dropdown-item" href="/category/electronics/Phone">Phone</a></li>
+                    <li><a className="dropdown-item" href="/category/electronics/Office-Equipments">Office-Equipments</a></li>
+                    <li><a className="dropdown-item" href="/category/electronics/Others">Others</a></li>
+                    <li><hr className="dropdown-divider" /></li>
+                  </ul>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/category/electronics">Electronics</a>
+                  <a className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">Books</a>
+                  <ul style={{ marginLeft: '500px' }} className="dropdown-menu">
+                    <li><a className="dropdown-item" href='/category/books/Non-Fiction'>Non-Fiction</a></li>
+                    <li><a className="dropdown-item" href="/category/books/Horror">Horror</a></li>
+                    <li><a className="dropdown-item" href="/category/books/Romantic">Romantic</a></li>
+                    <li><a className="dropdown-item" href="/category/books/Fantasy">Fantasy</a></li>
+                    <li><a className="dropdown-item" href="/category/books/Children">Children</a></li>
+                    <li><hr className="dropdown-divider" /></li>
+                  </ul>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/category/books">Books</a>
+                  <a className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">Furnitures</a>
+                  <ul style={{ marginLeft: '600px' }} className="dropdown-menu">
+                    <li><a className="dropdown-item" href='/category/furnitures/Office'>Office Furnitures</a></li>
+                    <li><a className="dropdown-item" href="/category/furnitures/Home">Home Furnitures</a></li>
+                    <li><a className="dropdown-item" href="/category/furnitures/Outdoor">Outdoor Furnitures</a></li>         
+                    <li><hr className="dropdown-divider" /></li>
+                  </ul>
                 </li>
                 {!loginStatus && (
 
-                  <li style={{ marginLeft: '320px', color: 'white', backgroundColor: 'transparent' }}
+                  <li style={{ marginLeft: '130px', color: 'white', backgroundColor: 'transparent' }}
                     className="nav-item dropdown">
                     <a
                       className="nav-link dropdown-toggle" href='/' role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -117,10 +159,10 @@ export default function Navbar() {
 
                 {loginStatus && (
                   <li
-                    style={{ marginLeft: '150px', color: 'white', backgroundColor: 'transparent' }}
+                    style={{ marginLeft: '90px', color: 'white', backgroundColor: 'transparent' }}
                     className="nav-item">
-                    <a style={{ color: 'white', backgroundColor: 'transparent' }}
-                      className="nav-link disabled" aria-current="page" href="/">Welcome {username}</a>
+                    <a style={{ color: 'white', backgroundColor: 'transparent',fontFamily:'monospace',fontSize:'20px' }} 
+                      className="nav-link disabled" aria-current="page" href="/"> {username}</a>
                   </li>
                 )}
                 {loginStatus && (

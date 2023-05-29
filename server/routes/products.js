@@ -83,9 +83,9 @@ products.post('/addElectronics', upload.single("photo"), (req, res) => {
     const { type } = req.body;
     const { brand } = req.body;
     const { quantity } = req.body;
-   
 
-    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name,Type,Quantity) VALUES (?,?,?,?,?,?,?)", [filename, price, sellerid, 1, name, 'Electronics',quantity], (err, result) => {
+
+    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name,Type,Quantity) VALUES (?,?,?,?,?,?,?)", [filename, price, sellerid, 1, name, 'Electronics', quantity], (err, result) => {
         if (err) {
             res.send({ err: err });
         }
@@ -187,4 +187,51 @@ products.post('/addClothes', upload.single("photo"), (req, res) => {
 });
 
 
+
+
+
+
+
+products.post('/addFurnitures', upload.single("photo"), (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    const { filename } = req.file;
+    const { name } = req.body;
+    const { price } = req.body;
+    //console.log(filename);
+    const { sellerid } = req.body;
+    // console.log(sellerid);
+       const { color } = req.body;
+    const { brand } = req.body;
+ 
+    const { quantity } = req.body;
+    const { type } = req.body;
+    const { description } = req.body;
+
+    db.query("INSERT INTO products (Image,Price,SellerID, AdminID, Name,Type,Quantity) VALUES (?,?,?,?,?,?,?)", [filename, price, sellerid, 1, name, 'Furnitures', quantity], (err, result) => {
+
+        if (err) {
+            console.log(err)
+            res.send({ err: err });
+        }
+        else {
+            //Furnitures(ID	ProductID	Type	Brand	Description	Color	)
+
+            db.query("Insert into furnitures(productId,type,brand,description,color) values (?,?,?,?,?)", [result.insertId, type, brand, description, color], (err, result) => {
+                if (err) {
+                    res.send({ err: err });
+                }
+                else {
+                    res.send({ message: "Clothes Added Successfully" });
+                }
+            });
+
+        }
+
+    }
+    );
+
+});
+
 module.exports = products;
+

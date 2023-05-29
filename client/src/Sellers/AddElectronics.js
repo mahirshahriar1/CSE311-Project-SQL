@@ -102,7 +102,17 @@ export default function AddElectronics() {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Type</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={settype} />
+                       
+                        <Form.Select aria-label="Select region" name='address' value={type} onChange={settype}>
+                            <option style={{ fontFamily: 'cursive' }} value="">Select Type</option>
+                            <option style={{ fontFamily: 'cursive' }} value="PC">PC</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Laptop">Laptop</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Phone">Phone</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Office-Equipments">Office-Equipments</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Others">Others</option>
+                        </Form.Select>
+
+
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>

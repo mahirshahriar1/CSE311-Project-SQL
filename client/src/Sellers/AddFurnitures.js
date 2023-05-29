@@ -8,14 +8,15 @@ import { useEffect } from 'react';
 import Axios from 'axios';
 
 
-export default function AddClothes() {
+export default function AddFurnitures() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
 
     const [color, setColor] = useState("");
-    const [size, setSize] = useState("");
+
     const [brand, setBrand] = useState("");
-    const [material, setMaterial] = useState("");
+    const [type, setType] = useState("");
+    const [description, setDescription] = useState("")
     const [quantity, setQuantity] = useState(0);
 
     const [imgfile, setImgfile] = useState("");
@@ -27,10 +28,10 @@ export default function AddClothes() {
     const setname = (e) => { setName(e.target.value); }
     const setprice = (e) => { setPrice(e.target.value); }
     const setcolor = (e) => { setColor(e.target.value); }
-    const setsize = (e) => { setSize(e.target.value); }
     const setbrand = (e) => { setBrand(e.target.value); }
-    const setmaterial = (e) => { setMaterial(e.target.value); }
+    const settype = (e) => { setType(e.target.value); }
     const setquantity = (e) => { setQuantity(e.target.value); }
+    const setdescription = (e) => { setDescription(e.target.value); }
 
 
 
@@ -41,18 +42,17 @@ export default function AddClothes() {
 
     const addUserDate = async (e) => {
         e.preventDefault();
-
+ 
         var formData = new FormData();
         formData.append("photo", imgfile);
         formData.append("name", name);
         formData.append("price", price);
         formData.append("sellerid", sellerid);
-        formData.append("color", color);
-        formData.append("size", size);
+        formData.append("color", color);     
         formData.append("brand", brand);
-        formData.append("material", material);
+        formData.append("type", type);
         formData.append("quantity", quantity);
-
+        formData.append("description", description);
         // console.log(formData);
         const config = {
             headers: {
@@ -60,11 +60,11 @@ export default function AddClothes() {
             }
         }
         //products route
-        const res = await axios.post('http://localhost:3001/addClothes', formData, config);
+        const res = await axios.post('http://localhost:3001/addFurnitures', formData, config);
 
         if (res.data.message) {
             console.log(res.data.message);
-            alert(res.data.message);
+            alert('Furniture Added Successfully');
 
             window.location.reload();
         }
@@ -92,7 +92,7 @@ export default function AddClothes() {
         bool && <>
             <Navbar></Navbar>
             <div id='particles' style={{ padding: '50px', background: 'rgb(5 37 62)', width: '800px' }} className="container mt-3">
-                <h1 style={{ color: 'white', textAlign: 'center' }}>Add Clothes</h1>
+                <h1 style={{ color: 'white', textAlign: 'center' }}>Add Furnitures</h1>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Name</Form.Label>
@@ -109,21 +109,21 @@ export default function AddClothes() {
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setbrand} />
-                    </Form.Group>
+                    </Form.Group>                  
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Size</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setsize} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Category</Form.Label>                     
-                        <Form.Select aria-label="Select region" name='address' value={material} onChange={setmaterial}>
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Category</Form.Label>
+                        <Form.Select aria-label="Select region" name='address' value={type} onChange={settype}>
                             <option style={{ fontFamily: 'cursive' }} value="">Select Category</option>
-                            <option style={{ fontFamily: 'cursive' }} value="Male">Male</option>
-                            <option style={{ fontFamily: 'cursive' }} value="Female">Female</option>
-                            <option style={{ fontFamily: 'cursive' }} value="Children">Children</option>
-     
+                            <option style={{ fontFamily: 'cursive' }} value="Office">Office </option>
+                            <option style={{ fontFamily: 'cursive' }} value="Home">Home </option>
+                            <option style={{ fontFamily: 'cursive' }} value="Outdoor">Outdoor </option>
+
                         </Form.Select>
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Description</Form.Label>
+                        <Form.Control type="text" name='fname' onChange={setdescription} />
+                    </Form.Group>     
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Quantity</Form.Label>
                         <Form.Control type="text" name='fname' onChange={setquantity} />

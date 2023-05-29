@@ -104,6 +104,13 @@ export default function Mysidenav() {
                                 Clothes
                             </NavText>
                         </NavItem>
+                        <NavItem eventKey='addFurnitures'>
+                            <NavText>
+                                Furnitures
+                            </NavText>
+                        </NavItem>
+                        
+
 
                     </NavItem>
                     }

@@ -97,8 +97,17 @@ export default function AddCosmetics() {
                         <Form.Control type="text" name='fname' onChange={setprice} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
+
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Type</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={settype} />
+
+                        <Form.Select aria-label="Select region" name='address' value={type} onChange={settype}>
+                            <option style={{ fontFamily: 'cursive' }} value="">Select Type</option>
+                            <option style={{ fontFamily: 'cursive' }} value="SkinCare">Skin Care</option>
+                            <option style={{ fontFamily: 'cursive' }} value="HairCare">Hair Care</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Fragrance">Fragrance</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Makeup">Makeup</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Men">Men's Care</option>
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
