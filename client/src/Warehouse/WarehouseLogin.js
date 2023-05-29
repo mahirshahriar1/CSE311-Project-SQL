@@ -20,7 +20,6 @@ export default function Registration(props) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
     // eslint-disable-next-line
     const [loginStatus, setLoginStatus] = useState(false);
     const [message, setMessage] = useState("");
@@ -38,18 +37,16 @@ export default function Registration(props) {
 
 
     const register = async (e) => {
-        if(nameReg===""||usernameReg===""||passwordReg===""||phonereg===""){
+        if (nameReg === "" || usernameReg === "" || passwordReg === "" || phonereg === "") {
             alert("Please fill all the fields");
             return;
         }
-        if(imgfile===""){
+        if (imgfile === "") {
             alert("Please upload an image");
             return;
         }
 
-
-        //regex to check phone number
-
+        //regex for number
         const phoneRegex = /^[0-9]{11}$/;
         if (!phoneRegex.test(phonereg)) {
             alert("Invalid phone number");
@@ -57,7 +54,9 @@ export default function Registration(props) {
         }
 
 
+
         e.preventDefault();
+
 
         var formData = new FormData();
         formData.append("photo", imgfile);
@@ -73,7 +72,7 @@ export default function Registration(props) {
         }
 
 
-        const res = await axios.post('http://localhost:3001/customerRegister',
+        const res = await axios.post('http://localhost:3001/warehouseRegister',
             formData, config);
         console.log(res);
         if (res.data.message) {
@@ -82,7 +81,6 @@ export default function Registration(props) {
         }
         if (res.data.ok) {
             alert("Registration Successful");
-
             window.location.reload(false);
         }
 
@@ -90,12 +88,17 @@ export default function Registration(props) {
     };
 
     const login = () => {
+        
+        if (username === "" || password === "") {
+            alert("Please enter password");
+            return;
+        }
 
-        axios.post('http://localhost:3001/customerLogin', {
+        axios.post('http://localhost:3001/warehouselogin', {
             username: username,
             password: password
         }).then((response) => {
-            //console.log(response);
+            // console.log(response);
             if (!response.data.auth) {
                 setMessage(response.data.message);
                 setLoginStatus(false);
@@ -128,18 +131,14 @@ export default function Registration(props) {
 
     };
     const [bool, setBool] = useState(false);
-
     // eslint-disable-next-line
     const [imagepath, setimagepath] = useState("");
 
-
-    ///////////////////////////get customer data///////////////////////////
-    ///////////////////////////not yet utilized this function///////////////////////////
-    const getCustomerData = () => {
+    const getSellerData = () => {
 
         if (bool === false) {
 
-            axios.post('http://localhost:3001/getCustomerData',
+            axios.post('http://localhost:3001/getSellerData',
                 {
                     username: usernamelogin
                 }
@@ -151,18 +150,6 @@ export default function Registration(props) {
             setBool(true);
         }
 
-    }
-
-    const keyPress1 = (e) => {
-        if (e.keyCode === 13) {
-            register();
-        }
-    }
-    const keyPress2 = (e) => {
-
-        if (e.keyCode === 13) {
-            login();
-        }
     }
 
 
@@ -198,8 +185,18 @@ export default function Registration(props) {
     //     window.location.href='/Main';
 
     // }
-
     const mittha = false;
+    const keyPress1 = (e) => {
+        if (e.keyCode === 13) {
+            register();
+        }
+    }
+    const keyPress2 = (e) => {
+
+        if (e.keyCode === 13) {
+            login();
+        }
+    }
 
     return (
         // (redirect === "true" && (
@@ -210,19 +207,21 @@ export default function Registration(props) {
 
         <>
             <Navbar />
+
             <div className="container" id='spec' >
+
                 <div className="row containerx">
                     <div className="col-md-6">
                         <div className="registration">
                             <h1>Registration</h1>
                             <label> Username </label>
-                            <input type="text" onChange={(e) => setUsernameReg(e.target.value)} onKeyDown={keyPress1}  />
+                            <input type="text" onChange={(e) => setUsernameReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Password </label>
-                            <input type="text" onChange={(e) => setPasswordReg(e.target.value)}  onKeyDown={keyPress1}/>
+                            <input type="text" onChange={(e) => setPasswordReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Name </label>
-                            <input type="text" onChange={(e) => setNameReg(e.target.value)}  onKeyDown={keyPress1}/>
+                            <input type="text" onChange={(e) => setNameReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Phone </label>
-                            <input type="text" onChange={(e) => setPhoneReg(e.target.value)}  onKeyDown={keyPress1}/>
+                            <input type="text" onChange={(e) => setPhoneReg(e.target.value)} onKeyDown={keyPress1} />
                             <label > Image </label>
                             <Form>
 
@@ -246,11 +245,11 @@ export default function Registration(props) {
 
                             <label> Username </label>
                             <input type="text" placeholder="Username..."
-                                onChange={(e) => setUsername(e.target.value)}   onKeyDown={keyPress2} />
+                                onChange={(e) => setUsername(e.target.value)} onKeyDown={keyPress2} />
 
                             <label > Password </label>
                             <div className="password-container">
-                                <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)}  onKeyDown={keyPress2} />
+                                <input type="password" placeholder="Password" id="password-input" onChange={(e) => setPassword(e.target.value)} onKeyDown={keyPress2} />
                                 <i className="toggle-password fas fa-eye" onClick={
                                     () => {
                                         console.log("clicked");
@@ -263,33 +262,27 @@ export default function Registration(props) {
                                     }
                                 }></i>
                             </div>
-
+          
                             <div className="containerb" style={{ marginTop: '30px' }}>
                                 <div className="btn"><a href="# " onClick={login}>Login</a></div>
                             </div>
-                            <h1 style={{ marginTop: '15px', color: 'black' }}>{message}</h1>
 
-                            {/* {loginStatus &&  */}
-                            {mittha &&
+                            <h1 style={{ color: 'black' }}>{message}</h1>
+                            {mittha && (
                                 <div>
-                                    {getCustomerData()}
+                                    {getSellerData()}
                                     {/* <img src={`http://localhost:3001/uploads/${imagepath}`} alt="" /> */}
                                     <button id="sp" style={{ background: '#4c99af' }} onClick={userAuthenticated}> Check if Authenticated</button>
                                     <br />
                                     {/* <button  id="sp" style={{ background: '#4c99af' }} onClick={goto}  >Check Role </button><br /> */}
                                     <button id="sp" style={{ background: '#bd1d1d' }} onClick={logout}>Logout</button>
-
-
                                 </div>
-                            }
 
+                            )}
                         </div>
-
-
 
                     </div>
                 </div>
-
 
 
 
@@ -305,7 +298,7 @@ export default function Registration(props) {
 
             </div>
 
-        </>
 
+        </>
     )
 }

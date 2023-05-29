@@ -9,6 +9,7 @@ const home=require("./routes/home")
 const seller=require("./routes/seller")
 const admin=require("./routes/admin");
 const customer=require("./routes/customer")
+const warehouse=require("./routes/warehouse")
 
 const db=require("./db/conn");
 
@@ -29,6 +30,7 @@ app.use(products)
 app.use(home)
 app.use(seller)
 app.use(admin)
+app.use(warehouse)
 
 // app.get('/', (req, res) => {
 //     res.send('Hello World!');

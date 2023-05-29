@@ -4,11 +4,8 @@ import Axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 
-
-export default function Orders() {
-
-
-    const [admin, setAdmin] = useState(false);
+export default function WarehouseOrders() {
+    const [warehouse, setWarehouse] = useState(false);
 
     Axios.defaults.withCredentials = true;
 
@@ -16,22 +13,18 @@ export default function Orders() {
 
 
     const importOrders = (status) => {
-        //admin route
         Axios.post('http://localhost:3001/importOrders', { status: status }).then((response) => {
-            // console.log(response.data);
             setOrders(response.data);
-            console.log(response.data);
-        }
-        );
-        if(status !=='In Warehouse') return;
-        status = 'Delivery'
-        Axios.post('http://localhost:3001/importOrders', { status: status }).then((response) => {
-            // console.log(response.data);
-
-            setOrders(orders => [...orders, ...response.data]);
-        }
-        );
-
+        });
+        // Axios.post('http://localhost:3001/importOrders', { status: 'Delivery' }).then((response) => {
+        //     setOrders(orders => [...orders, ...response.data]);
+        // });
+        // Axios.post('http://localhost:3001/importOrders', { status: 'Delivered' }).then((response) => {
+        //     setOrders(orders => [...orders, ...response.data]);
+        // });
+        // Axios.post('http://localhost:3001/importOrders', { status: 'Cancelled' }).then((response) => {
+        //     setOrders(orders => [...orders, ...response.data]);
+        // });
     };
 
 
@@ -39,20 +32,20 @@ export default function Orders() {
     useEffect(() => {
         //logreg route
         Axios.get('http://localhost:3001/login').then((response) => {
-            if (response.data.type === 'Admin') {
-                setAdmin(true);
+            if (response.data.type === 'Warehouse') {
+                setWarehouse(true);
             }
         }
         )
 
-        importOrders('Pending');
+        importOrders('In Warehouse');
 
-    }, [admin])
+    }, [warehouse])
 
 
 
     return (
-        admin && <div id='particles'>
+        warehouse && <div id='particles'>
             <Navbar />
 
             <div className="container"
@@ -63,7 +56,7 @@ export default function Orders() {
                     <div className="col-3">
                         <Button className='btn btn-primary'
                             onClick={() =>
-                                importOrders('Pending')
+                                importOrders('In Warehouse')
                             }
                         >Pending</Button>
                     </div>
@@ -74,8 +67,8 @@ export default function Orders() {
                     </div>
                     <div className="col-3">
                         <Button className='btn btn-warning' onClick={() =>
-                            importOrders('In Warehouse')
-                        } >Warehouse</Button>
+                            importOrders('Delivery')
+                        } >Out For Delivery</Button>
                     </div>
                     <div className="col-3">
                         <Button className='btn btn-danger' onClick={() =>
@@ -83,6 +76,7 @@ export default function Orders() {
                         } >Cancelled</Button>
                     </div>
                 </div>
+
 
                 <div className="row">
                     <div className="col-12">
@@ -97,7 +91,6 @@ export default function Orders() {
                                     <th scope="col">Customer Name</th>
                                     <th scope="col">Customer Phone</th>
                                     <th scope="col">Customer Region</th>
-                                    <th scope="col">Customer Address</th>
                                     <th scope="col">Check Order</th>
                                 </tr>
                             </thead>
@@ -115,8 +108,7 @@ export default function Orders() {
                                             {item.TotalAmount}
                                         </td>
                                         <td style={{
-                                           color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Delivered' ?
-                                           '#35f135' : item.OrderStatus === 'In Warehouse' ? '#00ff72' : item.OrderStatus === 'Cancelled' ? 'red' : 'orange'
+                                            color: item.OrderStatus === 'In Warehouse' ? 'yellow' : item.OrderStatus === 'Delivery' ? 'orange' : item.OrderStatus === 'Cancelled' ? 'red' : '#3fed3f'
                                         }}>
                                             {item.OrderStatus}
                                         </td>

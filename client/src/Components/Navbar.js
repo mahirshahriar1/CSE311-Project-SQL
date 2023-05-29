@@ -32,7 +32,7 @@ export default function Navbar() {
     });
 
   }, []);
-  
+
   const logout = () => {
     Axios.get('http://localhost:3001/logout').then((response) => {
       alert(response.data);
@@ -56,7 +56,7 @@ export default function Navbar() {
       window.location.href = `/search/electronics/${search}`
     } else if (link === 'books' || link2 === 'books') {
       window.location.href = `/search/books/${search}`
-    } else if(link  === 'yourshop' || link2 === 'yourshop'){
+    } else if (link === 'yourshop' || link2 === 'yourshop') {
       window.location.href = `/search/yourshop/${search}`
     }
     else {
@@ -104,9 +104,10 @@ export default function Navbar() {
                       Login
                     </a>
                     <ul className="dropdown-menu">
+                      <li><a className="dropdown-item" href="/CustomerLogin">Customer</a></li>
                       <li><a className="dropdown-item" href="/AdminLogin">Admin</a></li>
                       <li><a className="dropdown-item" href="/SellerLogin">Seller</a></li>
-                      <li><a className="dropdown-item" href="/CustomerLogin">Customer</a></li>
+                      <li><a className="dropdown-item" href="/WarehouseLogin">Warehouse</a></li>
                       <li><hr className="dropdown-divider" /></li>
                     </ul>
                   </li>
@@ -129,8 +130,8 @@ export default function Navbar() {
                 )}
               </ul>
               <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" 
-                onChange={(event) => setSearch(event.target.value)} />
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                  onChange={(event) => setSearch(event.target.value)} />
                 <button type="button" className="btn btn-outline-success" onClick={Search}>Search</button>
               </form>
             </div>

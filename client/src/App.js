@@ -28,6 +28,8 @@ import Search from './Components/Search';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import particlesOptions from './particleOptions';
+import WarehouseLogin from './Warehouse/WarehouseLogin';
+import WarehouseOrders from './Warehouse/WarehouseOrders';
 
  
 function App() {
@@ -70,7 +72,8 @@ function App() {
           <Route exact path='/AdminLogin' element={<AdminLogin />} />
           <Route exact path='/CustomerLogin' element={<CustomerLogin />} />
           <Route exact path='/SellerLogin' element={<SellerLogin />} />
-
+          <Route exact path='/WarehouseLogin' element={<WarehouseLogin />} />
+          
 
           <Route exact path='/addBooks' element={<AddBooks />} />
           <Route exact path='/addElectronics' element={<AddElectronics />} />
@@ -86,6 +89,8 @@ function App() {
           <Route exact path='/checkOrder/:param1' element={<CheckOrder />} />
           <Route exact path='/category/:param1' element={<Category />} />
           <Route exact path='/orderList' element={<OrderList />} />
+  
+          <Route exact path='/warehouse' element={<WarehouseOrders />} />
 
           <Route exact path='/yourDiscounts' element={<SellerDiscounts />} />
           <Route exact path='/reportList' element={<ReportList />} />

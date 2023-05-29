@@ -103,6 +103,54 @@ log.post('/sellerRegister', upload.single("photo"), (req, res) => {
 });
 
 
+
+log.post('/warehouseRegister', upload.single("photo"), (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    const { fname } = req.body;
+    const { username } = req.body;
+    const { password } = req.body;
+    const { filename } = req.file;
+    const { phone } = req.body;
+
+
+
+    db.query("SELECT Username FROM warehouse WHERE Username = ?", [username], (err, result) => {
+        if (err) {
+            res.send({ err: err });
+        }
+
+        if (result.length > 0) {
+            res.send({ message: "Username already exists" });
+
+        } else {
+
+            bcrypt.hash(password, saltRounds, (err, hash) => {
+                if (err) {
+                    console.log(err);
+                }
+                //Username,   Password,   Name,   Phone,   Image, AdminID
+                db.query("INSERT INTO warehouse (Username, Password, Name, Phone, Image,AdminID,Type) VALUES (?,?,?,?,?,?,?)",
+
+                    [username, hash, fname, phone, filename, 1, 'Warehouse'],
+                    (err, result) => {
+                        console.log(err);
+                    }
+                );
+                if (err) {
+                    res.send({ ok: false });
+                }
+                else {
+                    res.send({ ok: true });
+                }
+
+            });
+        }
+
+    });
+});
+
+
 log.post('/customerRegister', upload.single("photo"), (req, res) => {
     // console.log(req.file);
     // console.log(req.body);
@@ -248,6 +296,9 @@ log.get('/sellerLogin', (req, res) => {
 
 
 
+
+
+
 log.get('/logout', (req, res) => {
     req.session.destroy();
 
@@ -293,6 +344,47 @@ log.post('/sellerLogin', (req, res) => {
 
         });
 });
+
+
+
+
+log.post('/warehouselogin', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+
+    db.query("SELECT * FROM warehouse WHERE Username = ?;", username,
+        (err, result) => {
+            if (err) {
+                res.send({ err: err });
+            }
+            //console.log(result);        
+
+            if (result.length > 0) {
+
+                bcrypt.compare(password, result[0].Password, (error, response) => {
+
+                    if (response) {
+
+                        const id = result[0].ID;
+                        const token = jwt.sign({ id }, "jwtSecret", {
+                            expiresIn: 300,
+                        });
+                        // console.log(req.session.user);  
+
+                        req.session.user = result;
+                        res.json({ auth: true, token: token, result: result });
+                    } else {
+                        res.json({ auth: false, message: "Wrong Username/Password Combination" });
+                    }
+                });
+            } else {
+                res.json({ auth: false, message: "No user exists" });
+            }
+
+        });
+});
+
 
 
 log.post('/customerLogin', (req, res) => {
