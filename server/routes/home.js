@@ -111,6 +111,7 @@ home.get('/importClothes', (req, res) => {
 home.get('/importFurnitures', (req, res) => {
     const category = req.query.category;
     const subcategory = req.query.subcategory;
+    
     // console.log(category);
     // console.log(subcategory);
     //SELECT * FROM `products` as p, electronics as e where p.Type='Electronics' and e.Type='PC' and p.ID=e.ProductID
@@ -119,6 +120,7 @@ home.get('/importFurnitures', (req, res) => {
             console.log(err);
         }
         else {
+           // console.log(result);
             res.send(result);
         }
     }
@@ -233,10 +235,11 @@ home.post('/specific', (req, res) => {
 
 home.get('/getProductDiscount/:id', async (req, res) => {
     const id = req.params.id;
+    // console.log(id);
     db.query("SELECT * from discounts where ProductID=?  and ExpirationDate >= NOW()  ", [id], (err, result) => {
         if (err) {
             console.log(err);
-        } else {
+        } else {            
             if (result.length > 0) {
                 res.status(200).send(result);
             } else {

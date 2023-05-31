@@ -68,6 +68,7 @@ export default function Category() {
             });
         }
     };
+    console.log(allProducts);
     const getMoreProducts = () => {
         const numFetchedProducts = productList.length;
         const remainingProducts = allProducts.length - numFetchedProducts;
@@ -175,8 +176,8 @@ export default function Category() {
                             <Item name={element.Name} description={element.Price}
                                 imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
                                 cartID={cartID} prodQuantity={element.Quantity} home={true}
-                                price={element.Price}
-                            />
+                                price={element.Price} productID={element.ProductID}
+                            /> 
                         </div>
                     })}
 

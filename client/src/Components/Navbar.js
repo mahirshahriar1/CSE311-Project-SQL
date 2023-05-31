@@ -159,9 +159,9 @@ export default function Navbar() {
 
                 {loginStatus && (
                   <li
-                    style={{ marginLeft: '90px', color: 'white', backgroundColor: 'transparent' }}
+                    style={{ marginLeft: '40px', color: 'white', backgroundColor: 'transparent' }}
                     className="nav-item">
-                    <a style={{ color: 'white', backgroundColor: 'transparent',fontFamily:'monospace',fontSize:'20px' }} 
+                    <a style={{ color: '#ffeb00', backgroundColor: 'transparent',fontFamily:'monospace',fontSize:'20px' }} 
                       className="nav-link disabled" aria-current="page" href="/"> {username}</a>
                   </li>
                 )}

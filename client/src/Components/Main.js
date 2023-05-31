@@ -28,10 +28,9 @@ export default function Main() {
 
     const getProducts = () => {
         Axios.get('http://localhost:3001/importProducts').then((response) => {
-            setAllProducts(response.data);
+            setAllProducts(response.data.slice(0, 100));    
             setProductList(response.data.slice(0, 6));
         });
-
     };
 
     const getMoreProducts = () => {
@@ -43,17 +42,18 @@ export default function Main() {
             setIsLoading(false);
             return;
         }
+        
+        
 
         setTimeout(() => {
 
-                setProductList((prevProductList) =>
+            setProductList((prevProductList) =>
 
-                    prevProductList.concat(allProducts.slice(prevProductList.length, prevProductList.length + 6))
-                );
-                setIsLoading(false);
+                prevProductList.concat(allProducts.slice(prevProductList.length, prevProductList.length + 6))
+            );
+            setIsLoading(false);
 
-            }
-                , 500);
+        }, 500);
 
     };
 
@@ -67,7 +67,7 @@ export default function Main() {
 
             setAllProducts(response.data);
             setProductList(response.data.slice(0, 6));
-        });    
+        });
 
     }
 
@@ -78,6 +78,8 @@ export default function Main() {
     useEffect(() => {
         if (bool === false) {
             getProducts();
+            
+            
             setBool(true);
 
             Axios.get('http://localhost:3001/login').then((response) => {
@@ -158,13 +160,13 @@ export default function Main() {
                 {/* <button className="btn btn-primary" onClick={sort}>Sort</button> */}
                 <div className="row">
                     {productList.map((element) => {
-                      
-                            return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
-                                <Item name={element.Name} price={element.Price}
-                                    imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
-                                    cartID={cartID} prodQuantity={element.Quantity} home={true}
-                                />
-                            </div>
+
+                        return <div className="col-md-4" key={element.ID} style={{ display: 'flex', justifyContent: 'center' }} >
+                            <Item name={element.Name} price={element.Price}
+                                imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
+                                cartID={cartID} prodQuantity={element.Quantity} home={true}
+                            />
+                        </div>
                     })}
 
                 </div>

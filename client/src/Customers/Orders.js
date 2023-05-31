@@ -68,7 +68,7 @@ export default function Orders() {
                                         </td>
                                         <td style={{
                                             color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Delivered' ?
-                                                '#35f135' : item.OrderStatus === 'In Warehouse' ? 'orange' : item.OrderStatus === 'Cancelled' ? 'red' : 'orange'
+                                                '#35f135' : item.OrderStatus === 'In Warehouse' ? 'orange' : item.OrderStatus === 'Cancelled' ? 'red' : '#8aff99'
                                         }}>
                                             {item.OrderStatus === 'Delivery' ? 'Out For Delivery' : item.OrderStatus}
                                         </td>

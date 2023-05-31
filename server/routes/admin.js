@@ -109,7 +109,7 @@ admin.post('/orderAction', (req, res) => {
 });
 
 admin.post('/checkOrderList', (req, res) => {
-    db.query('SELECT * FROM orders WHERE OrderStatus=?', ["Pending"], (err, result) => {
+    db.query('SELECT * FROM orders WHERE OrderStatus IN (?,?)', ['Pending', 'In Warehouse'], (err, result) => {
         if (err) {
             console.log(err);
         }
