@@ -75,8 +75,8 @@ export default function Orders() {
                                 {discounts.map((item, index) => (
                                 <tr key={index}>
                                     <th scope="row">{index + 1}</th>
-                                    <td>{item.Percentage}</td>
-                                    <td>{item.ExpirationDate}</td>
+                                    <td>{item.Percentage}</td>                                    
+                                    <td>{item.ExpirationDate.substring(0,10)}</td>
                                     <td>{item.ProductID}</td>
                                     <td><Button variant="primary" href={`/itemInfo/${item.ProductID}`}>Check Product</Button></td>
                                     <td><Button variant="danger" onClick={() => {

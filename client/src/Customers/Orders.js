@@ -28,7 +28,7 @@ export default function Orders() {
         const getOrders = () => {
 
             Axios.post('http://localhost:3001/getOrders', { CustomerID: customerID }).then((response) => {
-               // console.log(response.data);
+                console.log(response.data);
                 setOrders(response.data);
             }
             );
