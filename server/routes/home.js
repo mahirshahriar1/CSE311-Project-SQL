@@ -25,7 +25,9 @@ home.get('/importProducts', (req, res) => {
 
 home.get('/importCategoricalProducts', (req, res) => {
     const category = req.query.category;
+
     //console.log(category);
+
     db.query('SELECT * FROM products WHERE Type=?', [category], (err, result) => {
         if (err) {
             console.log(err);
@@ -34,6 +36,95 @@ home.get('/importCategoricalProducts', (req, res) => {
             res.send(result);
         }
     });
+});
+
+
+home.get('/importBooks', (req, res) => {
+    const category = req.query.category;
+    const subcategory = req.query.subcategory;
+    // console.log(category);
+    // console.log(subcategory);
+
+    db.query('SELECT * FROM products, books WHERE Type=? AND Genre=? AND products.ID=books.ProductID', [category, subcategory], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }
+    );
+});
+
+home.get('/importElectronics', (req, res) => {
+    const category = req.query.category;
+    const subcategory = req.query.subcategory;
+    // console.log(category);
+    // console.log(subcategory);
+    //SELECT * FROM `products` as p, electronics as e where p.Type='Electronics' and e.Type='PC' and p.ID=e.ProductID
+    db.query('SELECT * FROM products as p, electronics as e where p.Type=? and e.Type=? AND p.ID=e.ProductID', [category, subcategory], (err, result) => {  
+        if (err) {
+            console.log(err);
+        }
+        else {           
+            res.send(result);
+        }
+    }
+    );
+});
+
+home.get('/importCosmetics', (req, res) => {
+    const category = req.query.category;
+    const subcategory = req.query.subcategory;
+    // console.log(category);
+   //  console.log(subcategory);
+    //SELECT * FROM `products` as p, electronics as e where p.Type='Electronics' and e.Type='PC' and p.ID=e.ProductID
+    db.query('SELECT * FROM products as p, cosmetics as e where p.Type=? and e.Type=? AND p.ID=e.ProductID', [category, subcategory], (err, result) => {  
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    }
+    );
+});
+
+home.get('/importClothes', (req, res) => {
+    const category = req.query.category;
+    const subcategory = req.query.subcategory;
+    // console.log(category);
+    // console.log(subcategory);
+    //SELECT * FROM `products` as p, electronics as e where p.Type='Electronics' and e.Type='PC' and p.ID=e.ProductID
+    db.query('SELECT * FROM products as p, clothes as e where p.Type=? and e.Material=? AND p.ID=e.ProductID', [category, subcategory], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send(result);
+        }
+    }
+    );
+});
+
+home.get('/importFurnitures', (req, res) => {
+    const category = req.query.category;
+    const subcategory = req.query.subcategory;
+    
+    // console.log(category);
+    // console.log(subcategory);
+    //SELECT * FROM `products` as p, electronics as e where p.Type='Electronics' and e.Type='PC' and p.ID=e.ProductID
+    db.query('SELECT * FROM products as p, furnitures as e where p.Type=? and e.Type=? AND p.ID=e.ProductID', [category, subcategory], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+           // console.log(result);
+            res.send(result);
+        }
+    }
+    );
 });
 
 home.post('/specific1', (req, res) => {
@@ -63,7 +154,7 @@ home.post('/specific2', (req, res) => {
             //electronics (productid,specification,type,brand)
             //books (productid,genre,summary,author)
 
-          
+
             if (result[0].Type == 'Cosmetics') {
                 db.query("SELECT * FROM cosmetics WHERE productid=?", [id], (err, result1) => {
                     if (err) {
@@ -95,7 +186,7 @@ home.post('/specific2', (req, res) => {
                 );
             }
             else if (result[0].Type == 'Books') {
-                
+
                 db.query("SELECT * FROM books WHERE productid=?", [id], (err, result1) => {
                     if (err) {
                         console.log(err);
@@ -144,10 +235,11 @@ home.post('/specific', (req, res) => {
 
 home.get('/getProductDiscount/:id', async (req, res) => {
     const id = req.params.id;
+    // console.log(id);
     db.query("SELECT * from discounts where ProductID=?  and ExpirationDate >= NOW()  ", [id], (err, result) => {
         if (err) {
             console.log(err);
-        } else {
+        } else {            
             if (result.length > 0) {
                 res.status(200).send(result);
             } else {
@@ -265,3 +357,4 @@ home.get('/sortCategories/:cat/:txt1/:txt2', (req, res) => {
 
 
 module.exports = home;
+

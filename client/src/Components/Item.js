@@ -12,7 +12,7 @@ import format from 'date-fns/format';
 
 const Item = (props) => {
     // eslint-disable-next-line
-    let { name, price, imglink, id, seller, customer, admin, product, customerID, cartID, prodQuantity, home } = props;
+    let { name, price, imglink, id, seller, customer, admin, product, customerID, cartID, prodQuantity, home ,productID} = props;
     let { phone } = props;
     let Type = props.Type;
     // console.log(props);
@@ -50,7 +50,7 @@ const Item = (props) => {
             const res1 = await axios.post(`http://localhost:3001/checkOrderList`);
             //console.log(res1);
             if (res1.data.length > 0) {
-                alert("Cannot delete seller as their product might be in orders. Check Orders First");
+                alert("Cannot delete seller as their product might be in Pending or In Warehouse.");
                 return;
             }
         }
@@ -102,9 +102,7 @@ const Item = (props) => {
         } else {
             // console.log(res1.status);
         }
-
-
-
+  
         const res = await axios.post(`http://localhost:3001/addDiscount`, {
             ProductID: id,
             Percentage: Percentage,
@@ -154,18 +152,27 @@ const Item = (props) => {
 
 
     }
+    // console.log(productID);
     const [discountPercentage, setDiscountPercentage] = useState();
     const [discountEndDate, setDiscountEndDate] = useState("");
     const [hasdiscount, setHasDiscount] = useState(false);
     useEffect(() => {
         const getProductDiscount = async () => {
             const res = await axios.get(`http://localhost:3001/getProductDiscount/${id}`);
-            //console.log(res.data[0]);
-
+            
+            //console.log(id);
             if (res.status === 200) {
                 setDiscountPercentage(res.data[0].Percentage);
                 setDiscountEndDate(res.data[0].EndDate);
                 setHasDiscount(true);
+            }
+            else{
+                const res1 = await axios.get(`http://localhost:3001/getProductDiscount/${productID}`);
+                if (res1.status === 200) {
+                    setDiscountPercentage(res1.data[0].Percentage);
+                    setDiscountEndDate(res1.data[0].EndDate);
+                    setHasDiscount(true);
+                }
             }
         }
         getProductDiscount();

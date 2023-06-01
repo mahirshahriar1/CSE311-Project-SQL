@@ -5,8 +5,11 @@ import Axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 
 export default function Category() {
-    const category = window.location.href.split('/').reverse()[0]
+    const category = window.location.href.split('/').reverse()[1]
+    const subcategory = window.location.href.split('/').reverse()[0]
 
+    // console.log(category);
+    //console.log(subcategory);
 
     const [seller, setSeller] = useState(false);
     const [admin, setAdmin] = useState(false);
@@ -23,13 +26,49 @@ export default function Category() {
 
 
     const getProducts = () => {
-        Axios.get('http://localhost:3001/importCategoricalProducts'
-            , { params: { category: category } }).then((response) => {
+        if (category === 'books') {
+            Axios.get('http://localhost:3001/importBooks', { params: { category: category, subcategory: subcategory } }).then((response) => {
                 setAllProducts(response.data);
                 setProductList(response.data.slice(0, 6));
                 //console.log(response.data);
             });
+
+        } else if (category === 'electronics') {
+            Axios.get('http://localhost:3001/importElectronics', { params: { category: category, subcategory: subcategory } }).then((response) => {
+                setAllProducts(response.data);
+                setProductList(response.data.slice(0, 6));
+                //console.log(response.data);
+            });
+        } else if (category === 'cosmetics') {
+            Axios.get('http://localhost:3001/importCosmetics', { params: { category: category, subcategory: subcategory } }).then((response) => {
+                setAllProducts(response.data);
+                setProductList(response.data.slice(0, 6));
+                //console.log(response.data);
+            });
+        } else if (category === 'clothes') {
+            Axios.get('http://localhost:3001/importClothes', { params: { category: category, subcategory: subcategory } }).then((response) => {
+                setAllProducts(response.data);
+                setProductList(response.data.slice(0, 6));
+                //console.log(response.data);
+            });
+        } else if (category === 'furnitures') {
+            Axios.get('http://localhost:3001/importFurnitures', { params: { category: category, subcategory: subcategory } }).then((response) => {
+                setAllProducts(response.data);
+                setProductList(response.data.slice(0, 6));
+                //console.log(response.data);
+            });
+        }
+        else {
+
+
+            Axios.get('http://localhost:3001/importCategoricalProducts', { params: { category: category, subcategory: subcategory } }).then((response) => {
+                setAllProducts(response.data);
+                setProductList(response.data.slice(0, 6));
+                //console.log(response.data);
+            });
+        }
     };
+    console.log(allProducts);
     const getMoreProducts = () => {
         const numFetchedProducts = productList.length;
         const remainingProducts = allProducts.length - numFetchedProducts;
@@ -42,14 +81,14 @@ export default function Category() {
 
         setTimeout(() => {
 
-                setProductList((prevProductList) =>
+            setProductList((prevProductList) =>
 
-                    prevProductList.concat(allProducts.slice(prevProductList.length, prevProductList.length + 6))
-                );
-                setIsLoading(false);
+                prevProductList.concat(allProducts.slice(prevProductList.length, prevProductList.length + 6))
+            );
+            setIsLoading(false);
 
-            }
-                , 500);
+        }
+            , 500);
 
     };
     const sort = (text) => {
@@ -137,8 +176,8 @@ export default function Category() {
                             <Item name={element.Name} description={element.Price}
                                 imglink={element.Image} id={element.ID} product={true} admin={admin} customer={customer} seller={seller} customerID={customerID}
                                 cartID={cartID} prodQuantity={element.Quantity} home={true}
-                                price={element.Price}
-                            />
+                                price={element.Price} productID={element.ProductID}
+                            /> 
                         </div>
                     })}
 

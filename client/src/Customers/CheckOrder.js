@@ -17,6 +17,7 @@ export default function CheckOrder() {
 
 
     const [admin, setAdmin] = useState(false);
+    const [warehouse, setWarehouse] = useState(false);
 
 
 
@@ -55,6 +56,8 @@ export default function CheckOrder() {
 
             } else if (response.data.type === 'Admin') {
                 setAdmin(true);
+            } else if (response.data.type === 'Warehouse') {
+                setWarehouse(true);
             }
         }
         )
@@ -95,8 +98,43 @@ export default function CheckOrder() {
         }).then((response) => {
             if (response.data) {
                 //console.log(response.data);
-                alert('Order has been ' + status);
+                if (status === 'Cancelled')
+                    alert('Order has been cancelled');
+                else
+                    alert('Order has been sent for processing');
                 window.location.href = '/orderList';
+            }
+        }
+        );
+    }
+
+    const deliver = (status) => {
+        console.log(status);
+        Axios.post('http://localhost:3001/delivery', {
+            CartID: CartID, Status: status
+        }).then((response) => {
+            if (response.data) {
+                //console.log(response.data);
+                if (status === 'Cancelled')
+                    alert('Order has been cancelled');
+                else
+                    alert('Order has been sent for delivery');
+                window.location.href = '/warehouse';
+            }
+        }
+        );
+    }
+
+    const customerFeedback = (status) => {
+        console.log(status);
+        Axios.post('http://localhost:3001/delivery', {
+            CartID: CartID, Status: status
+        }).then((response) => {
+            if (response.data) {
+                //console.log(response.data);
+
+                alert('Order Received');
+                window.location.href = '/Orders';
             }
         }
         );
@@ -105,7 +143,7 @@ export default function CheckOrder() {
 
 
     return (
-        (customer || admin) && <div>
+        (customer || admin || warehouse) && <div>
             <Navbar />
             <div style={{ marginTop: '50px' }}></div>
             <div id='particles' className="container">
@@ -158,12 +196,9 @@ export default function CheckOrder() {
                                 {status !== 'Pending'
                                     && <div>
                                         <Fragment>
-
-                                            <h2 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive', textAlign: 'center', border:'5px solid white', padding:'5px' }} >
-                                                
-                                                    Order Status: <span style={{ color: status === 'Confirmed' ? 'green' : 'red' }}>{status}</span>
-
-                                                
+                                            <h2 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive', textAlign: 'center', border: '5px solid white', padding: '5px' }} >
+                                                Order Status: <span style={{color: status === 'Delivered' ? '#31bf31' : status === 'In Warehouse' ? 'yellow' : status === 'Delivery' ? 'Orange' : 'red'
+                                                }}>{status}</span>
                                             </h2>
                                         </Fragment>
                                     </div>
@@ -178,7 +213,7 @@ export default function CheckOrder() {
 
                 {status === 'Pending' && admin && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
 
-                    <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'lightgreen' }} className='btnn' onClick={() => { order('Confirmed'); }}>
+                    <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'lightgreen' }} className='btnn' onClick={() => { order('In Warehouse'); }}>
                         <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}>Confirm this Order</span></i>
                     </Button>
                     <div style={{ padding: '20px' }}></div>
@@ -188,6 +223,27 @@ export default function CheckOrder() {
 
 
                 </div>}
+                {
+                    status === 'In Warehouse' && warehouse && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
+                        <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'lightgreen' }} className='btnn' onClick={() => { deliver('Delivery'); }}>
+                            <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}>Send for Delivery</span></i>
+                        </Button>
+                        <div style={{ padding: '20px' }}></div>
+                        <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'red' }} className='btnn' onClick={() => { deliver('Cancelled'); }}>
+                            <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}> Cancel this Order </span></i>
+                        </Button>
+
+                    </div>
+                }
+                {
+                    status === 'Delivery' && customer && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
+                        <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'lightgreen' }} className='btnn' onClick={() => { customerFeedback('Delivered'); }}>
+                            <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}>Received</span></i>
+                        </Button>
+
+                    </div>
+
+                }
 
             </div>
         </div>

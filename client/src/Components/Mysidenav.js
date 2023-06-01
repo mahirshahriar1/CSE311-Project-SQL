@@ -15,6 +15,7 @@ export default function Mysidenav() {
     const [sellerStatus, setsellerStatus] = useState(false);
     const [adminStatus, setadminStatus] = useState(false);
     const [customerStatus, setcustomerStatus] = useState(false);
+    const [warehouseStatus, setwarehouseStatus] = useState(false);
     //eslint-disable-next-line
     const [username, setUsername] = useState("");
     Axios.defaults.withCredentials = true;
@@ -33,6 +34,9 @@ export default function Mysidenav() {
                 setUsername(response.data.user[0].Username);
             } else if (response.data.loggedIn === true && response.data.user[0].Type === 'Customer') {
                 setcustomerStatus(true);
+                setUsername(response.data.user[0].Username);
+            }else if(response.data.loggedIn === true && response.data.user[0].Type === 'Warehouse'){
+                setwarehouseStatus(true);
                 setUsername(response.data.user[0].Username);
             }
         });
@@ -100,6 +104,13 @@ export default function Mysidenav() {
                                 Clothes
                             </NavText>
                         </NavItem>
+                        <NavItem eventKey='addFurnitures'>
+                            <NavText>
+                                Furnitures
+                            </NavText>
+                        </NavItem>
+                        
+
 
                     </NavItem>
                     }
@@ -148,7 +159,15 @@ export default function Mysidenav() {
                         </NavItem>
 
                     }
+                    {
 
+                        warehouseStatus && <NavItem eventKey='warehouse'>
+                            <NavIcon> <i className='fa fa-fw  fa-warehouse' style={{ fontsize: "1.5em" }}></i> </NavIcon>
+                            <NavText>
+                                Warehouse
+                            </NavText>
+                        </NavItem>
+                    }
 
 
                 </Sidenav.Nav>

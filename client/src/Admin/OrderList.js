@@ -23,6 +23,14 @@ export default function Orders() {
             console.log(response.data);
         }
         );
+        if(status !=='In Warehouse') return;
+        status = 'Delivery'
+        Axios.post('http://localhost:3001/importOrders', { status: status }).then((response) => {
+            // console.log(response.data);
+
+            setOrders(orders => [...orders, ...response.data]);
+        }
+        );
 
     };
 
@@ -52,19 +60,24 @@ export default function Orders() {
             >
                 <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
                     <div style={{ marginTop: '20px' }}></div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <Button className='btn btn-primary'
                             onClick={() =>
                                 importOrders('Pending')
                             }
                         >Pending</Button>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <Button className='btn btn-success' onClick={() =>
-                            importOrders('Confirmed')
-                        } >Confirmed</Button>
+                            importOrders('Delivered')
+                        } >Delivered</Button>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
+                        <Button className='btn btn-warning' onClick={() =>
+                            importOrders('In Warehouse')
+                        } >Warehouse</Button>
+                    </div>
+                    <div className="col-3">
                         <Button className='btn btn-danger' onClick={() =>
                             importOrders('Cancelled')
                         } >Cancelled</Button>
@@ -102,8 +115,8 @@ export default function Orders() {
                                             {item.TotalAmount}
                                         </td>
                                         <td style={{
-                                            color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Confirmed' ?
-                                                '#2cd32c' : 'red'
+                                           color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Delivered' ?
+                                           '#35f135' : item.OrderStatus === 'In Warehouse' ? '#00ff72' : item.OrderStatus === 'Cancelled' ? 'red' : 'orange'
                                         }}>
                                             {item.OrderStatus}
                                         </td>

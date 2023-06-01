@@ -53,6 +53,7 @@ export default function EditItem() {
 
 
     //books
+    // eslint-disable-next-line no-unused-vars
     const setgenre = (e) => { setGenre(e.target.value); }
     const setsummary = (e) => { setSummary(e.target.value); }
     const setauthor = (e) => { setAuthor(e.target.value); }
@@ -262,10 +263,10 @@ export default function EditItem() {
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Size</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setsize} defaultValue={size} />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Material</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setmaterial} defaultValue={material} />
-                                </Form.Group>
+                                </Form.Group> */}
                             </>}
 
                             {books && <>
@@ -273,10 +274,10 @@ export default function EditItem() {
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Author</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setauthor} defaultValue={author} />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Genre</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setgenre} defaultValue={genre} />
-                                </Form.Group>
+                                </Form.Group> */}
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Summary</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setsummary} defaultValue={summary} />
@@ -292,20 +293,20 @@ export default function EditItem() {
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Type</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={settype1} defaultValue={Type} />
-                                </Form.Group>
+                                </Form.Group> */}
                             </>}
                             {electronics && <>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Brand</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setbrand} defaultValue={brand} />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Type</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={settype1} defaultValue={Type} />
-                                </Form.Group>
+                                </Form.Group> */}
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Specification</Form.Label>
                                     <Form.Control type="text" name='fname' onChange={setspecification} defaultValue={specification} />

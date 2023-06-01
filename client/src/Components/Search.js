@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 export default function Search() {
     var name = window.location.href.split('/').reverse()[0];
     var cat = window.location.href.split('/').reverse()[1];
-
+   
 
     const [seller, setSeller] = useState(false);
     const [admin, setAdmin] = useState(false);
@@ -32,7 +32,8 @@ export default function Search() {
     const getProducts = () => {
         var Cat = capitalizeFirstLetter(cat);
         if (cat === 'yourshop') {
-            console.log("Your Shop");
+            console.log(userID);
+           // console.log("Your Shop");
             Axios.get('http://localhost:3001/importProducts2/' + Cat + '/' + name + '/' + userID).then((response) => {              
                 console.log(response.data);
                 setAllProducts(response.data);
@@ -77,11 +78,12 @@ export default function Search() {
     useEffect(() => {
 
         Axios.get('http://localhost:3001/login').then((response) => {
-            //console.log(response.data);
+           // console.log(response.data);
             if (response.data.loggedIn === true) {
-               // setLoginStatus(true);
-                if (response.data.user[0].ID)
+               
+                if (response.data.user[0].ID){                    
                     setuserID(response.data.user[0].ID);
+                }
             }
             //console.log(loginStatus);
         });
@@ -89,8 +91,9 @@ export default function Search() {
         if (bool === false) {
           
                 getProducts();
+                if(userID !== '')   
                 setBool(true);
-            
+                
 
             Axios.get('http://localhost:3001/login').then((response) => {
                 //console.log(response.data.user[0].ID)

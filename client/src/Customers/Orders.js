@@ -28,8 +28,7 @@ export default function Orders() {
         const getOrders = () => {
 
             Axios.post('http://localhost:3001/getOrders', { CustomerID: customerID }).then((response) => {
-                console.log(response.data);
-                setOrders(response.data);
+               setOrders(response.data);
             }
             );
         };
@@ -43,10 +42,10 @@ export default function Orders() {
     return (
         customer && <div id='particles'>
             <Navbar />
-            <div className="container " style={{marginTop:'20px',}}>
+            <div className="container " style={{ marginTop: '20px', }}>
                 <div className="row">
                     <div className="col-12">
-                        <table className="table table-striped table-dark " style={{color:'rgb(227, 222, 222)'}}>
+                        <table className="table table-striped table-dark " style={{ color: 'rgb(227, 222, 222)' }}>
                             <thead thead-dark>
                                 <tr>
                                     <th scope="col"   >#</th>
@@ -67,12 +66,12 @@ export default function Orders() {
                                             {item.TotalAmount}
                                         </td>
                                         <td style={{
-                                            color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Confirmed' ?
-                                                '#35f135' : 'red'
+                                            color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Delivered' ?
+                                                '#35f135' : item.OrderStatus === 'In Warehouse' ? 'orange' : item.OrderStatus === 'Cancelled' ? 'red' : '#8aff99'
                                         }}>
-                                            {item.OrderStatus}
+                                            {item.OrderStatus === 'Delivery' ? 'Out For Delivery' : item.OrderStatus}
                                         </td>
-                                        <td>                                            
+                                        <td>
                                             <a href={`/checkOrder/${item.CartID}`} className="btn btn-primary">Check Order</a>
                                         </td>
 

@@ -28,6 +28,9 @@ import Search from './Components/Search';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
 import particlesOptions from './particleOptions';
+import WarehouseLogin from './Warehouse/WarehouseLogin';
+import WarehouseOrders from './Warehouse/WarehouseOrders';
+import AddFurnitures from './Sellers/AddFurnitures';
 
  
 function App() {
@@ -70,12 +73,14 @@ function App() {
           <Route exact path='/AdminLogin' element={<AdminLogin />} />
           <Route exact path='/CustomerLogin' element={<CustomerLogin />} />
           <Route exact path='/SellerLogin' element={<SellerLogin />} />
-
+          <Route exact path='/WarehouseLogin' element={<WarehouseLogin />} />
+          
 
           <Route exact path='/addBooks' element={<AddBooks />} />
           <Route exact path='/addElectronics' element={<AddElectronics />} />
           <Route exact path='/addCosmetics' element={<AddCosmetics />} />
           <Route exact path='/addClothes' element={<AddClothes />} />
+          <Route exact path='/addFurnitures' element={<AddFurnitures />} />
           <Route exact path='/yourshop' element={<Shop />} />
           <Route exact path='/editItem/:param1' element={<EditItem />} />
           <Route exact path='/userList' element={<UserList />} />
@@ -84,8 +89,10 @@ function App() {
           <Route exact path='/Orders' element={<Orders />} />
           <Route exact path='/Checkout/:param1' element={<Checkout />} />
           <Route exact path='/checkOrder/:param1' element={<CheckOrder />} />
-          <Route exact path='/category/:param1' element={<Category />} />
+          <Route exact path='/category/:param1/:param2' element={<Category />} />
           <Route exact path='/orderList' element={<OrderList />} />
+  
+          <Route exact path='/warehouse' element={<WarehouseOrders />} />
 
           <Route exact path='/yourDiscounts' element={<SellerDiscounts />} />
           <Route exact path='/reportList' element={<ReportList />} />

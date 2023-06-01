@@ -81,6 +81,8 @@ export default function Registration(props) {
             alert(res.data.message);
         }
         if (res.data.ok) {
+            alert("Registration Successful");
+
             window.location.reload(false);
         }
 

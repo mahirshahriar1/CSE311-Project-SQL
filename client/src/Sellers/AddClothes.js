@@ -115,8 +115,14 @@ export default function AddClothes() {
                         <Form.Control type="text" name='fname' onChange={setsize} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Material</Form.Label>
-                        <Form.Control type="text" name='fname' onChange={setmaterial} />
+                        <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Category</Form.Label>                     
+                        <Form.Select aria-label="Select region" name='address' value={material} onChange={setmaterial}>
+                            <option style={{ fontFamily: 'cursive' }} value="">Select Category</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Male">Male</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Female">Female</option>
+                            <option style={{ fontFamily: 'cursive' }} value="Children">Children</option>
+     
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label style={{ color: 'white', fontFamily: 'cursive' }}>Quantity</Form.Label>

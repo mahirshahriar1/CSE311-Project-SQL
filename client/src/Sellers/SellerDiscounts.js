@@ -75,6 +75,8 @@ export default function Orders() {
                                 {discounts.map((item, index) => (
                                 <tr key={index}>
                                     <th scope="row">{index + 1}</th>
+                                    <td>{item.Percentage}</td>
+                                    <td>{item.ExpirationDate.substring(0, 10)}</td>
                                     <td>{item.Percentage}</td>                                    
                                     <td>{item.ExpirationDate.substring(0,10)}</td>
                                     <td>{item.ProductID}</td>
