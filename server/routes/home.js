@@ -209,23 +209,26 @@ home.post('/specific', (req, res) => {
 
 
 
-    db.query(`SELECT p.*, c.*, cl.*, e.*, b.* ,
+    db.query(`SELECT p.*, c.*, cl.*, e.*, b.* , f.*,
               p.Type AS product_type,
               c.Type AS cosmetics_type,
               e.Type AS electronics_type,
               c.Brand AS cosmetics_brand,
               cl.Brand AS clothes_brand,
-              e.Brand AS electronics_brand
+              e.Brand AS electronics_brand,
+              f.Type AS furnitures_type
               FROM products p
               LEFT JOIN cosmetics c ON p.id = c.productid
               LEFT JOIN clothes cl ON p.id = cl.productid
               LEFT JOIN electronics e ON p.id = e.productid
               LEFT JOIN books b ON p.id = b.productid
+              LEFT JOIN furnitures f ON  p.id = f.productid
               WHERE p.id = ?`, [id], (err, result) => {
         if (err) {
             console.log(err);
         } else {
-            // console.log(result);
+            console.log(id);
+            console.log(result);
             res.send(result);
         }
     });

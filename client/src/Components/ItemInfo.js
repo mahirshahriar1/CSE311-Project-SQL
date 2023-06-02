@@ -64,6 +64,7 @@ export default function Main() {
     const getData = () => {
       Axios.post('http://localhost:3001/specific', { id: id }).then((response) => {
         console.log(response.data);
+        
         setName(response.data[0].Name);
         setPrice(response.data[0].Price);
         setImage(response.data[0].Image);

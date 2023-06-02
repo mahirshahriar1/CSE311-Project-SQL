@@ -59,6 +59,7 @@ customer.post('/addToCart', (req, res) => {
         if (err) {
             console.log(err);
         } else {
+           // console.log(result1);
             const Price = result1[0].Price;
             const DiscountedPrice = Price - (Price * Percentage / 100);
             const TotalPrice = Quantity * DiscountedPrice;

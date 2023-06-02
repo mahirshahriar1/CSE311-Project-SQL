@@ -16,12 +16,20 @@ const Item = (props) => {
     let { phone } = props;
     let Type = props.Type;
     // console.log(props);
-
-    //console.log(props);
+//console.log(props);
     // console.log("id", id);
     axios.defaults.withCredentials = true;
     const [prodQuantity2, setProdQuantity2] = useState(prodQuantity);
+    const category = window.location.href.split('/').reverse()[1]
+    const [catbool, setCatbool] = useState(false);
 
+    //console.log(category);
+    useEffect(() => {
+        if(category.length<14){
+            setCatbool(true);
+        }
+    }, [category])
+    
 
     const dltProduct = async (id, imglink) => {
         console.log(id);
@@ -134,7 +142,24 @@ const Item = (props) => {
         // console.log(id);
         // console.log(CartID);
         // console.log(quantity);       
+        if(catbool){
+            const res = await axios.post(`http://localhost:3001/addToCart`, {
+                ProductID: productID,
+                CartID: CartID,
+                quantity: quantity
+            });
+            // console.log(res);
+            if (res.status === 200) {
+                alert("Added to cart");
+                setProdQuantity2(prodQuantity - quantity);
+                handleClose();
+            }
+            else {
+                alert("Something went wrong");
+            }
+            return;
 
+        }
         const res = await axios.post(`http://localhost:3001/addToCart`, {
             ProductID: id,
             CartID: CartID,
@@ -208,7 +233,8 @@ const Item = (props) => {
                         }  </p> : null}
 
 
-                        {product ? <Link to={`/ItemInfo/${id}`} className="btn btn-primary">Check</Link> : null}
+                        {product&& !catbool&& <Link to={`/ItemInfo/${id}`} className="btn btn-primary">Check</Link> }
+                        {product&& catbool&& <Link to={`/ItemInfo/${productID}`} className="btn btn-primary">Check</Link> }
                         {!home && seller ? <Link to={`/EditItem/${id}`} style={{ marginLeft: '98px' }} className="btn btn-warning">Edit</Link> : null}
 
                         {!home && seller && product && <div style={{ marginTop: '5px' }}>

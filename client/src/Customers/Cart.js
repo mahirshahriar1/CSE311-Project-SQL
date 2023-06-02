@@ -61,7 +61,9 @@ export default function Cart() {
 
             }
         }
-        )
+        )      
+
+        
 
     }, [customer, CartID])
 
@@ -84,6 +86,14 @@ export default function Cart() {
 
     }
 
+    function getTotalBill(cartProducts) {
+        let total = 0;
+        cartProducts.map((item) => {
+            total = total + parseFloat(item.TotalPrice);
+            return total;
+        })
+        return total;
+    }
 
     return (
         customer && <div id='particles'>
@@ -125,6 +135,10 @@ export default function Cart() {
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div style={{marginLeft:'520px'}} className="row">
+                    <h1 style={{ color: 'black' }}>Total Bill: {getTotalBill(cartProducts)}</h1>
+
                 </div>
                 {cartProducts.length !== 0 &&
                     <div style={{ paddingBottom: '100px', paddingTop: '30px' }}>

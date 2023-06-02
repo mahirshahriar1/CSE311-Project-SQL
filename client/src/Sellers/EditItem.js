@@ -29,6 +29,7 @@ export default function EditItem() {
 
     //cosmetics
     const [description, setDescription] = useState('');
+    // eslint-disable-next-line no-unused-vars
     const [Type, setType1] = useState('');
 
     //electronics
@@ -49,6 +50,7 @@ export default function EditItem() {
     const setcolor = (e) => { setColor(e.target.value); }
     const setsize = (e) => { setSize(e.target.value); }
     const setbrand = (e) => { setBrand(e.target.value); }
+    // eslint-disable-next-line no-unused-vars
     const setmaterial = (e) => { setMaterial(e.target.value); }
 
 
@@ -60,6 +62,7 @@ export default function EditItem() {
 
     //cosmetics
     const setdescription = (e) => { setDescription(e.target.value); }
+    // eslint-disable-next-line no-unused-vars
     const settype1 = (e) => { setType1(e.target.value); }
 
     //electronics
