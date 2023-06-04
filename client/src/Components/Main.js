@@ -27,8 +27,9 @@ export default function Main() {
 
 
     const getProducts = () => {
-        Axios.get('http://localhost:3001/importProducts').then((response) => {
-            setAllProducts(response.data.slice(0, 100));    
+        Axios.get('http://localhost:3001/importProducts').then((response) => {         
+            response.data.sort(() => Math.random() - 0.5);
+            setAllProducts(response.data.slice(0, 50));    
             setProductList(response.data.slice(0, 6));
         });
     };
