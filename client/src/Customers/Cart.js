@@ -136,8 +136,9 @@ export default function Cart() {
                         </table>
                     </div>
                 </div>
-                <div style={{marginLeft:'520px'}} className="row">
-                    <h1 style={{ color: 'black' }}>Total Bill: {getTotalBill(cartProducts)}</h1>
+                <div style={{marginLeft:'520px',background:'#e9e9e9',width:'370px', height:'100px',borderRadius:'10px',padding:'20px' , display:'flex',justifyContent:'center',alignItems:'left'}}>
+
+                    <h1 style={{ color: 'black' }}>Total Bill: {getTotalBill(cartProducts)} BDT</h1>
 
                 </div>
                 {cartProducts.length !== 0 &&

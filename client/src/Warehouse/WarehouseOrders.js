@@ -53,27 +53,32 @@ export default function WarehouseOrders() {
             >
                 <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
                     <div style={{ marginTop: '20px' }}></div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <Button className='btn btn-primary'
                             onClick={() =>
                                 importOrders('In Warehouse')
                             }
                         >Pending</Button>
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <Button className='btn btn-success' onClick={() =>
                             importOrders('Delivered')
                         } >Delivered</Button>
+                    </div>
+                    <div className="col-2">
+                        <Button className='btn btn-danger' onClick={() =>
+                            importOrders('Cancelled')
+                        } >Cancelled</Button>
                     </div>
                     <div className="col-3">
                         <Button className='btn btn-warning' onClick={() =>
                             importOrders('Delivery')
                         } >Out For Delivery</Button>
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <Button className='btn btn-danger' onClick={() =>
-                            importOrders('Cancelled')
-                        } >Cancelled</Button>
+                            importOrders('Returned')
+                        } >Returned</Button>
                     </div>
                 </div>
 
@@ -108,7 +113,7 @@ export default function WarehouseOrders() {
                                             {item.TotalAmount}
                                         </td>
                                         <td style={{
-                                            color: item.OrderStatus === 'In Warehouse' ? 'yellow' : item.OrderStatus === 'Delivery' ? 'orange' : item.OrderStatus === 'Cancelled' ? 'red' : '#3fed3f'
+                                            color: item.OrderStatus === 'In Warehouse' ? 'yellow' : item.OrderStatus === 'Delivery' ? 'orange' : item.OrderStatus === 'Cancelled' ? 'red' : item.OrderStatus === 'Returned' ? 'red  ' : '#8aff99'
                                         }}>
                                             {item.OrderStatus}
                                         </td>

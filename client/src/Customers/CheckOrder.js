@@ -132,8 +132,10 @@ export default function CheckOrder() {
         }).then((response) => {
             if (response.data) {
                 //console.log(response.data);
-
-                alert('Order Received');
+                if(status==='Returned')
+                    alert('Order has been returned');
+                else
+                 alert('Order Received');
                 window.location.href = '/Orders';
             }
         }
@@ -193,6 +195,15 @@ export default function CheckOrder() {
                                 <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Phone : {phone}</h3>
                                 <h3 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive' }}>Total Amount : {TotalAmount}</h3>
                                 <br />
+                                {
+                                    status==='Pending' && <div>
+                                    <Fragment>
+                                        <h2 style={{ color: '#ece9e9', fontWeight: 'bold', fontFamily: 'cursive', textAlign: 'center', border: '5px solid white', padding: '5px' }} >
+                                            Order Status: <span style={{color:'yellow'}}>{status}</span>
+                                        </h2>
+                                    </Fragment>
+                                </div>
+                                }
                                 {status !== 'Pending'
                                     && <div>
                                         <Fragment>
@@ -239,6 +250,10 @@ export default function CheckOrder() {
                     status === 'Delivery' && customer && <div style={{ paddingBottom: '80px', paddingTop: '30px' }}>
                         <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'lightgreen' }} className='btnn' onClick={() => { customerFeedback('Delivered'); }}>
                             <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}>Received</span></i>
+                        </Button>
+                        <div style={{ padding: '20px' }}></div>
+                        <Button style={{ marginLeft: '560px', height: '50px', width: '200px', '--clr': 'lightgreen' }} className='btnn' onClick={() => { customerFeedback('Returned'); }}>
+                            <i><span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95%' }}>Returned</span></i>
                         </Button>
 
                     </div>

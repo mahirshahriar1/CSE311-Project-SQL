@@ -60,27 +60,32 @@ export default function Orders() {
             >
                 <div className='row' style={{ marginLeft: "200px", marginTop: '20px', marginBottom: '20px' }} >
                     <div style={{ marginTop: '20px' }}></div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <Button className='btn btn-primary'
                             onClick={() =>
                                 importOrders('Pending')
                             }
                         >Pending</Button>
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <Button className='btn btn-success' onClick={() =>
                             importOrders('Delivered')
                         } >Delivered</Button>
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
+                        <Button className='btn btn-danger' onClick={() =>
+                            importOrders('Cancelled')
+                        } >Cancelled</Button>
+                    </div>
+                    <div className="col-2">
                         <Button className='btn btn-warning' onClick={() =>
                             importOrders('In Warehouse')
                         } >Warehouse</Button>
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <Button className='btn btn-danger' onClick={() =>
-                            importOrders('Cancelled')
-                        } >Cancelled</Button>
+                            importOrders('Returned')
+                        } >Returned</Button>
                     </div>
                 </div>
 
@@ -116,7 +121,7 @@ export default function Orders() {
                                         </td>
                                         <td style={{
                                            color: item.OrderStatus === 'Pending' ? 'yellow' : item.OrderStatus === 'Delivered' ?
-                                           '#35f135' : item.OrderStatus === 'In Warehouse' ? '#00ff72' : item.OrderStatus === 'Cancelled' ? 'red' : 'orange'
+                                           '#35f135' : item.OrderStatus === 'In Warehouse' ? '#00ff72' : item.OrderStatus === 'Cancelled' ? 'red' : item.OrderStatus === 'Returned' ? '#ff7474  ' : 'orange'
                                         }}>
                                             {item.OrderStatus}
                                         </td>
