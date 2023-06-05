@@ -1,0 +1,7 @@
+Go to client-> package.json and install the necessary packages.
+Go to server-> package.json and install the necessary packages.
+
+install npm i -g nodemon in the server folder.
+
+Go to client and run command npm run start.
+Go to server and run command nodemon index.js
