@@ -5,3 +5,6 @@ install npm i -g nodemon in the server folder.
 
 Go to client and run command npm run start.
 Go to server and run command nodemon index.js
+
+
+Or just watch this video to see how the website looks -> https://www.youtube.com/watch?v=1FAukaPvmzY
